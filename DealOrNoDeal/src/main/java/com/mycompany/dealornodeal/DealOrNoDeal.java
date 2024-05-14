@@ -12,6 +12,8 @@ public class DealOrNoDeal {
 
     //main method creates a game controller and starts the game
     public static void main(String[] args) {
+        DBManager database = new DBManager();
+        database.createPlayersTable();
         GameController game = new GameController();
        
         game.displayMainMenu();

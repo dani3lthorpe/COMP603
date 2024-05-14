@@ -21,16 +21,21 @@ public class DBManager {
 
     private static final String USER_NAME = "group69";
     private static final String PASSWORD = "abcd";
-    private static final String URL = "jdbc:derby:DealOrNoDealDB_Ebd;create=true";
+    private static final String URL = "jdbc:derby://localhost:1527/DealOrNoDealDB;create=true";
 
-    private Statement statement;
-    private Connection conn;
+    private static Statement statement;
+    private static Connection conn;
 
     public DBManager() {
         establishConnection();
     }
 
-    private void establishConnection() {
+    public static void main(String[] args) {
+        establishConnection();
+        createPlayersTable();
+    }
+
+    private static void establishConnection() {
         try {
             conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
             System.out.println(URL + " connected...");
@@ -84,11 +89,11 @@ public class DBManager {
         }
     }
 
-    public void createPlayersTable() {
+    public static void createPlayersTable() {
         try {
             statement = conn.createStatement();
             String newTableName = "PLAYER";
-            this.checkExistedTable(newTableName);
+            checkExistedTable(newTableName);
             String sqlCreate = "create table " + newTableName + " (NAME VARCHAR(20), TOTALSCORE INT, HIGHSCORE INT)";
             statement.executeUpdate(sqlCreate);
 
@@ -123,10 +128,10 @@ public class DBManager {
 
     }
 
-    public void checkExistedTable(String name) {
+    public static void checkExistedTable(String name) {
         try {
             DatabaseMetaData dbmd;
-            dbmd = this.conn.getMetaData();
+            dbmd = conn.getMetaData();
             String[] types = {"TABLE"};
             statement = conn.createStatement();
             ResultSet rs = dbmd.getTables(null, null, null, types);
