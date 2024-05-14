@@ -24,7 +24,7 @@ public class Banker {
     }
     
     //creates an offer by finding the average of the total prizes in the pool and multiplying it by the prize multiplier
-    //takes prizes arraylist as a parameter and returns the offer
+    //takes prizes arraylist as a parameter and returns the offer             Testtestestseteetestsetsetste
     public int makeOffer(ArrayList<Integer> prizes) {
         int value = 0;
         
