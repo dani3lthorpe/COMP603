@@ -1,11 +1,11 @@
 ----------------------------------------------------------------
-Wed May 15 19:56:23 NZST 2024:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-018f-7b40-9d3c-00000ee84980 
-on database directory C:\Users\hidan\OneDrive\Documents\NetBeansProjects\JavaApplication3\DealOrNoDealDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@18ef96 
-Loaded from file:/C:/Users/hidan/OneDrive/Documents/NetBeansProjects/JavaApplication3/lib/derby.jar
+Wed May 15 20:39:57 NZST 2024:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-018f-7b68-8050-00000ee845e0 
+on database directory C:\Users\hidan\OneDrive\Documents\GitHub\COMP603\DealOrNoDeal\DealOrNoDealDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@18ef96 
+Loaded from file:/C:/Users/hidan/OneDrive/Documents/GitHub/COMP603/DealOrNoDeal/lib/derby.jar
 java.vendor=Oracle Corporation
 java.runtime.version=11.0.21+9-LTS-193
-user.dir=C:\Users\hidan\OneDrive\Documents\NetBeansProjects\JavaApplication3
+user.dir=C:\Users\hidan\OneDrive\Documents\GitHub\COMP603\DealOrNoDeal
 os.name=Windows 11
 os.arch=amd64
 os.version=10.0
