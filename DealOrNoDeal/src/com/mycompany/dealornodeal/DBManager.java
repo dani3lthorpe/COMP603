@@ -23,7 +23,6 @@ public class DBManager {
     private static final String PASSWORD = "abcd";
     private static final String URL = "jdbc:derby:DealOrNoDealDB;create=true";
 
-    private static Statement statement;
     private static Connection conn;
 
     public DBManager() {
@@ -32,8 +31,11 @@ public class DBManager {
 
     public static void main(String[] args) {
         establishConnection();
-        createPlayersTable();
-    } 
+        createPlayerTable();
+        createRecentPrizeTable();
+        createHighPrizeTable();
+        createTotalStatTable();
+    }
 
     private static void establishConnection() {
         try {
@@ -59,13 +61,10 @@ public class DBManager {
     }
 
     public ResultSet queryDB(String sql) {
-
-        Connection connection = this.conn;
-        statement = null;
         ResultSet resultSet = null;
 
         try {
-            statement = connection.createStatement();
+            Statement statement = conn.createStatement();
             resultSet = statement.executeQuery(sql);
 
         } catch (SQLException ex) {
@@ -76,12 +75,10 @@ public class DBManager {
 
     public void updateDB(String sql) {
 
-        Connection connection = this.conn;
-        statement = null;
         ResultSet resultSet = null;
 
         try {
-            statement = connection.createStatement();
+            Statement statement = conn.createStatement();
             statement.executeUpdate(sql);
 
         } catch (SQLException ex) {
@@ -89,26 +86,99 @@ public class DBManager {
         }
     }
 
-    public static void createPlayersTable() {
-        try {
-            statement = conn.createStatement();
-            String newTableName = "PLAYER";
-            checkExistedTable(newTableName);
-            String sqlCreate = "create table " + newTableName + " (NAME VARCHAR(20), TOTALSCORE INT, HIGHSCORE INT)";
-            statement.executeUpdate(sqlCreate);
-
-            String sqlInsert = "insert into " + newTableName + " values "
-                    + "('dan', 400709729, 200001189),"
-                    + "('ryan', 14198, 7099),"
-                    + "('luke', 20380, 10190),"
-                    + "('joe', 18132, 9066),"
-                    + "('lourdes', 234538, 77502),"
-                    + "('droun', 133106, 36525)";
-            statement.executeUpdate(sqlInsert);
+    public static void createPlayerTable() {
+        try ( Statement statement = conn.createStatement()) {
+            String createPlayer = "create table PLAYER ("
+                    + "NAME VARCHAR(20), "
+                    + "TOTALSCORE INT, "
+                    + "HIGHSCORE INT)";
+            statement.executeUpdate(createPlayer);
             statement.close();
-            System.out.println("Table created");
+            System.out.println("Player Table created");
 
-            String query = "SELECT NAME, TOTALSCORE, HIGHSCORE FROM " + newTableName;
+        } catch (SQLException ex) {
+            if (ex.getSQLState().equals("X0Y32")) {
+                System.out.println("Player Table already exists");
+            }
+        }
+
+    }
+
+    public static void createRecentPrizeTable() {
+        try ( Statement statement = conn.createStatement()) {
+            String createRecentPrize = "create table RECENTPRIZE ("
+                    + "NAME VARCHAR(20), "
+                    + "RECENTPRIZE_ONE INT, "
+                    + "RECENTPRIZE_TWO INT,"
+                    + "RECENTPRIZE_THREE INT,"
+                    + "RECENTPRIZE_FOUR INT,"
+                    + "RECENTPRIZE_FIVE INT)";
+            statement.executeUpdate(createRecentPrize);
+            System.out.println("RecentPrize Table created");
+
+        } catch (SQLException ex) {
+            if (ex.getSQLState().equals("X0Y32")) {
+                System.out.println("RecentPrize Table already exists");
+            } else {
+                Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }
+    
+    
+    public static void createHighPrizeTable() {
+        try ( Statement statement = conn.createStatement()) {
+            String createHighPrize = "create table HIGHPRIZE ("
+                    + "NAME VARCHAR(20), "
+                    + "HIGHPRIZE_ONE INT, "
+                    + "HIGHPRIZE_TWO INT,"
+                    + "HIGHPRIZE_THREE INT,"
+                    + "HIGHPRIZE_FOUR INT,"
+                    + "HIGHPRIZE_FIVE INT)";
+            statement.executeUpdate(createHighPrize);
+            
+            String sqlInsert = "insert into HIGHPRIZE values "
+                    + "('dan', 200001189, 50000, 35651, 35650, 30185),"
+                    + "('ryan', 7099, 0, 0, 0, 0),"
+                    + "('luke', 10190, 0, 0, 0, 0),"
+                    + "('joe', 9066, 0, 0, 0, 0),"
+                    + "('lourdes', 77502, 20680, 10166, 8915, 6),"
+                    + "('droun', 36525, 8845, 5880, 0, 0)";
+
+            statement.executeUpdate(sqlInsert);
+            System.out.println("HighPrize Table created");
+
+        } catch (SQLException ex) {
+            if (ex.getSQLState().equals("X0Y32")) {
+                System.out.println("HighPrize Table already exists");
+            } else {
+                Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+     public static void createTotalStatTable() {
+        try ( Statement statement = conn.createStatement()) {
+            String createTotalStat = "create table TOTALSTAT ("
+                    + "GAME_NAME VARCHAR(20),"
+                    + "TOTAL_GAMES INT, "
+                    + "TOTAL_PRIZES INT)";
+            statement.executeUpdate(createTotalStat);
+        } catch (SQLException ex) {
+            if (ex.getSQLState().equals("X0Y32")) {
+                System.out.println("TotalStat Table already exists");
+            } else {
+                Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public static void getPlayers() {
+        try {
+            Statement statement = conn.createStatement();
+
+            String query = "SELECT NAME, TOTALSCORE, HIGHSCORE FROM PLAYER";
 
             ResultSet resultSet = statement.executeQuery(query);
 
@@ -120,36 +190,10 @@ public class DBManager {
                 System.out.println("Total Score: ");
                 System.out.println("High Score: ");
             }
-
         } catch (SQLException ex) {
-            Logger.getLogger(DBManager.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }
-
-    public static void checkExistedTable(String name) {
-        try {
-            DatabaseMetaData dbmd;
-            dbmd = conn.getMetaData();
-            String[] types = {"TABLE"};
-            statement = conn.createStatement();
-            ResultSet rs = dbmd.getTables(null, null, null, types);
-            while (rs.next()) {
-                String table_name = rs.getString("TABLE_NAME");
-                System.out.println(table_name);
-                if (table_name.equalsIgnoreCase(name)) {
-                    statement.executeUpdate("Drop table " + name);
-                    System.out.println("Table " + name + " has been deleted.");
-                    break;
-                }
-            }
-            rs.close();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(DBManager.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
 }
