@@ -33,7 +33,7 @@ public class DBManager {
     public static void main(String[] args) {
         establishConnection();
         createPlayersTable();
-    }
+    } 
 
     private static void establishConnection() {
         try {
@@ -97,12 +97,12 @@ public class DBManager {
             String sqlCreate = "create table " + newTableName + " (NAME VARCHAR(20), TOTALSCORE INT, HIGHSCORE INT)";
             statement.executeUpdate(sqlCreate);
 
-            String sqlInsert = "insert into " + newTableName + " values("
-                    + "'dan', 400709729, 200001189),"
+            String sqlInsert = "insert into " + newTableName + " values "
+                    + "('dan', 400709729, 200001189),"
                     + "('ryan', 14198, 7099),"
-                    + "('luke', 20380, 10190)"
-                    + "('joe', 18132, 9066)"
-                    + "('lourdes', 234538, 77502)"
+                    + "('luke', 20380, 10190),"
+                    + "('joe', 18132, 9066),"
+                    + "('lourdes', 234538, 77502),"
                     + "('droun', 133106, 36525)";
             statement.executeUpdate(sqlInsert);
             statement.close();
