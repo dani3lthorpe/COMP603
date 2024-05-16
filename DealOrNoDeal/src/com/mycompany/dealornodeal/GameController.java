@@ -17,6 +17,7 @@ public class GameController {
 
     private HashMap<String, Player> players;
     private static Scanner scan;
+    private DBManager dataBase;
     private FileController files;
     private ScoreController scores;
 
@@ -24,9 +25,11 @@ public class GameController {
     //Also gets the players hash map from the files using the fileController
     public GameController() {
         scan = new Scanner(System.in);
+        dataBase = new DBManager();
         files = new FileController();
-        scores = new ScoreController(files);
+        scores = new ScoreController(dataBase);
         players = files.loadPlayers();
+        players = dataBase.loadPlayers();
     }
 
     //controlls main game by displaying main menu, starting the gamemode and saving the scores
@@ -35,12 +38,12 @@ public class GameController {
         System.out.println("Welcome to Deal or no Deal (Input x at any time to quit)");
         String name = checkNameInput();
         Player player = checkPlayers(name);
-        
+
         boolean playing = true;
         while (playing == true) {
             scores.showScoresMenu(player);
             GameMode gameMode = selectGameMode(player);
-            
+
             gameMode.setTotalGames(scores.getTotals()[0]);
             gameMode.setTotalPrizes(scores.getTotals()[1]);
             gameMode.startMode();
@@ -49,7 +52,7 @@ public class GameController {
             playAgainPrompt(player);
         }
     }
-    
+
     //checks if user is in the players hashmap and creates a new player object with their stats
     //if user is not in the hashmap creates a new player and saves them to the hashmap
     //returns player and takes the users name as a parameter
@@ -58,12 +61,12 @@ public class GameController {
         if (players.containsKey(name)) {
             player = players.get(name);
             String capitalizedName = player.getName().substring(0, 1).toUpperCase() + player.getName().substring(1);
-           
+
             System.out.println("-----------------------------------------------------------------------");
             System.out.println("Welcome back " + capitalizedName);
             System.out.println("your Total score is " + player.getTotalPrizes());
             System.out.println("your Highest prize is $" + player.getHighestPrize());
-           
+
             scores.checkRecentPrizes(player);
             scores.checkHighestPrizes(player);
         } else {
@@ -90,9 +93,9 @@ public class GameController {
             System.out.println("(2) Normal");
             System.out.println("(3) QuickPlay");
             System.out.println("(4) Random Mode");
-            
+
             String input = scan.nextLine().trim().toLowerCase();
-            
+
             if (input.equals("x")) {
                 quittingCheck();
             } else if (input.equals("1") || input.equals("tutorial") || input.equals("one") || input.equals("t")) {
@@ -119,9 +122,9 @@ public class GameController {
             System.out.println("Would you like to play again?");
             System.out.println("(1) Yes");
             System.out.println("(2) No");
-            
+
             String playAgainAnswer = scan.nextLine().trim().toLowerCase();
-            
+
             if (playAgainAnswer.equals("x")) {
                 quittingCheck();
             } else if (playAgainAnswer.equals("2") || playAgainAnswer.equals("two") || playAgainAnswer.equals("x") || playAgainAnswer.equals("no") || playAgainAnswer.equals("n")) {
@@ -138,7 +141,7 @@ public class GameController {
             }
         }
     }
-    
+
     //Saves all of the data to the files
     public void saveGameData(FileController files, ScoreController scores, GameMode gameMode, Player player) {
         gameMode.addTotalGame();
@@ -146,7 +149,7 @@ public class GameController {
         files.updateScore(players, player);
         files.updateRecentPrizes(scores.getRecentPrizes(), player);
         files.updateHighPrizes(scores.getHighestPrizes(), player);
-        scores.refreshScores(files);
+        scores.refreshScores(dataBase);
     }
 
     //checks if the user has input x to quit
@@ -155,9 +158,9 @@ public class GameController {
         System.out.println("Are you sure you would like to quit the game?");
         System.out.println("(1) Yes");
         System.out.println("(2) No");
-        
+
         boolean inputIsValid = false;
-        
+
         while (!inputIsValid) {
             String answer = scan.nextLine().trim().toLowerCase();
             if (answer.equals("1") || answer.equals("one") || answer.equals("x") || answer.equals("yes") || answer.equals("y") || answer.equals("ye")) {
@@ -176,17 +179,17 @@ public class GameController {
             }
         }
     }
-    
-     //checks if the name input is valid before returning the input
+
+    //checks if the name input is valid before returning the input
     public String checkNameInput() {
         boolean isValid = false;
         String input = "";
         while (!isValid) {
             System.out.println("-----------------------------------------------------------------------");
             System.out.println("Please input your name:");
-            
+
             input = scan.nextLine().trim().toLowerCase();
-            
+
             if (input.equals("x")) {
                 quittingCheck();
             } else if (input.contains("/")) {
