@@ -10,8 +10,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
- * Score controller class controls the logic for the score display
- * This involves 
+ * Score controller class controls the logic for the score display This involves
  *
  * @author group69
  */
@@ -24,23 +23,23 @@ public class ScoreController {
     private int[] totalStats;
 
     //ScoreController constructor takeing file controller as a parameter
-    public ScoreController(FileController files) {
-        this.recentPrizes = files.loadUserPrizes("./resources/recentPrizes.txt");
-        this.highestPrizes = files.loadUserPrizes("./resources/highPrizes.txt");
-        this.globalTotalPrizes = files.loadGlobalTotalPrizes();
-        this.globalHighPrizes = files.loadGlobalHighPrizes();
-        this.totalStats = files.loadTotalStats();
+    public ScoreController(DBManager dataBase) {
+        this.recentPrizes = dataBase.loadRecentPrizes();
+        this.highestPrizes = dataBase.loadHighPrizes();
+        this.globalTotalPrizes = dataBase.loadGlobalTotalPrizes();
+        this.globalHighPrizes = dataBase.loadGlobalHighPrizes();
+        this.totalStats = dataBase.loadTotalStats();
     }
-    
+
     //refreshs the scores saved in the score controller
-    public void refreshScores(FileController files) {
-        this.recentPrizes = files.loadUserPrizes("./resources/recentPrizes.txt");
-        this.highestPrizes = files.loadUserPrizes("./resources/highPrizes.txt");
-        this.globalTotalPrizes = files.loadGlobalTotalPrizes();
-        this.globalHighPrizes = files.loadGlobalHighPrizes();
-        this.totalStats = files.loadTotalStats();
+    public void refreshScores(DBManager dataBase) {
+        this.recentPrizes = dataBase.loadRecentPrizes();
+        this.highestPrizes = dataBase.loadHighPrizes();
+        this.globalTotalPrizes = dataBase.loadGlobalTotalPrizes();
+        this.globalHighPrizes = dataBase.loadGlobalHighPrizes();
+        this.totalStats = dataBase.loadTotalStats();
     }
-    
+
     //displays a score menu and displays which score a player wants to see based on two inputs,
     //takes player as a parameter
     public void showScoresMenu(Player player) {
@@ -82,10 +81,10 @@ public class ScoreController {
                     } else if (scoreInput.equals("3") || scoreInput.equals("your recent prizes") || scoreInput.equals("recent prizes") || scoreInput.equals("your scores") || scoreInput.equals("recent") || scoreInput.equals("your recent")) {
                         showRecentPrizes(player);
                         validScoreTypeInput = true;
-                    } else if (scoreInput.equals("4") || scoreInput.equals("your highest prizes")|| scoreInput.equals("your highest") || scoreInput.equals("your prizes")) {
+                    } else if (scoreInput.equals("4") || scoreInput.equals("your highest prizes") || scoreInput.equals("your highest") || scoreInput.equals("your prizes")) {
                         showHighestPrizes(player);
                         validScoreTypeInput = true;
-                    } else if (scoreInput.equals("5") || scoreInput.equals("total games and total prizes")|| scoreInput.equals("total games")|| scoreInput.equals("total games played and total prizes won by all players") || scoreInput.equals("total games played") || scoreInput.equals("total prizes won") || scoreInput.equals("total games played by all players") || scoreInput.equals("total prizes won by all players") || scoreInput.equals("all players")) {
+                    } else if (scoreInput.equals("5") || scoreInput.equals("total games and total prizes") || scoreInput.equals("total games") || scoreInput.equals("total games played and total prizes won by all players") || scoreInput.equals("total games played") || scoreInput.equals("total prizes won") || scoreInput.equals("total games played by all players") || scoreInput.equals("total prizes won by all players") || scoreInput.equals("all players")) {
                         System.out.println("-----------------------------------------------------------------------");
                         System.out.println("There have been " + totalStats[0] + " games of deal or no deal played");
                         System.out.println("The total of all the prizes won is $" + totalStats[1]);
@@ -95,7 +94,7 @@ public class ScoreController {
                         System.out.println("Invalid Input:");
                     }
                 }
-            } else if (seeScoresInput.equals("2") || seeScoresInput.equals("two")|| seeScoresInput.equals("no") || seeScoresInput.equals("n")) {
+            } else if (seeScoresInput.equals("2") || seeScoresInput.equals("two") || seeScoresInput.equals("no") || seeScoresInput.equals("n")) {
                 seeScores = false;
             } else {
                 System.out.println("-----------------------------------------------------------------------");
@@ -104,26 +103,27 @@ public class ScoreController {
 
         }
     }
+
     //displays the global total prizes
     public void showGlobalTotalPrizes() {
         int place = 1;
 
         System.out.println("-----------------------------------------------------------------------");
         System.out.println("Global Total Scores: ");
-        
+
         for (Map.Entry<String, Integer> entry : globalTotalPrizes.entrySet()) {
             System.out.println(place + ". " + entry.getKey().substring(0, 1).toUpperCase() + entry.getKey().substring(1) + ": " + entry.getValue());
             place++;
         }
     }
-    
+
     //displays the global highest prizes
     public void showGlobalHighestPrizes() {
         int place = 1;
 
         System.out.println("-----------------------------------------------------------------------");
         System.out.println("Global Highest Prizes: ");
-        
+
         for (Map.Entry<String, Integer> entry : globalHighPrizes.entrySet()) {
             System.out.println(place + ". " + entry.getKey().substring(0, 1).toUpperCase() + entry.getKey().substring(1) + ": " + entry.getValue());
             place++;
@@ -136,7 +136,7 @@ public class ScoreController {
 
         System.out.println("-----------------------------------------------------------------------");
         System.out.println("Your Recent Scores: ");
-        
+
         for (int i = 0; i < 5; i++) {
             System.out.println((i + 1) + ": " + recentPrizes[i]);
         }
@@ -148,13 +148,12 @@ public class ScoreController {
 
         System.out.println("-----------------------------------------------------------------------");
         System.out.println("Your Highest Prizes: ");
-       
+
         for (int i = 0; i < 5; i++) {
             System.out.println((i + 1) + ": " + highPrizes[i]);
         }
     }
 
-    
     //Checks to see if a player has any recent prizes saved before saving them in the player class
     //takes a player as a parameter
     public void checkRecentPrizes(Player player) {
@@ -162,7 +161,7 @@ public class ScoreController {
             player.setRecentPrizes(recentPrizes.get(player.getName()));
         }
     }
-    
+
     //Checks to see if a player has any Highest Prizes saved before saving them in the player class
     //takes a player as a parameter
     public void checkHighestPrizes(Player player) {
@@ -179,12 +178,12 @@ public class ScoreController {
     public int[] getTotals() {
         return totalStats;
     }
-    
+
     //returns recent scores hashmap
     public HashMap<String, int[]> getRecentPrizes() {
         return recentPrizes;
     }
-    
+
     //returns highestprizes hashmapp
     public HashMap<String, int[]> getHighestPrizes() {
         return highestPrizes;

@@ -4,12 +4,16 @@
  */
 package com.mycompany.dealornodeal;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,25 +27,26 @@ public class DBManager {
     private static final String PASSWORD = "abcd";
     private static final String URL = "jdbc:derby:DealOrNoDealDB;create=true";
 
-    private static Statement statement;
-    private static Connection conn;
+    private static Connection conn = null;
 
     public DBManager() {
-        establishConnection();
+        conn = getConnection();
+        this.createPlayerTable();
+        this.createRecentPrizeTable();
+        this.createHighPrizeTable();
+        this.createTotalStatTable();
     }
 
-    public static void main(String[] args) {
-        establishConnection();
-        createPlayersTable();
-    } 
-
-    private static void establishConnection() {
+    private static Connection getConnection() {
         try {
-            conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-            System.out.println(URL + " connected...");
+            if (conn == null) {
+                conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
+                System.out.println(URL + " connected...");
+            }
         } catch (SQLException ex) {
             System.err.println("SQLException: " + ex.getMessage());
         }
+        return conn;
     }
 
     public void closeConnections() {
@@ -59,13 +64,10 @@ public class DBManager {
     }
 
     public ResultSet queryDB(String sql) {
-
-        Connection connection = this.conn;
-        statement = null;
         ResultSet resultSet = null;
 
         try {
-            statement = connection.createStatement();
+            Statement statement = conn.createStatement();
             resultSet = statement.executeQuery(sql);
 
         } catch (SQLException ex) {
@@ -76,12 +78,10 @@ public class DBManager {
 
     public void updateDB(String sql) {
 
-        Connection connection = this.conn;
-        statement = null;
         ResultSet resultSet = null;
 
         try {
-            statement = connection.createStatement();
+            Statement statement = conn.createStatement();
             statement.executeUpdate(sql);
 
         } catch (SQLException ex) {
@@ -89,67 +89,323 @@ public class DBManager {
         }
     }
 
-    public static void createPlayersTable() {
-        try {
-            statement = conn.createStatement();
-            String newTableName = "PLAYER";
-            checkExistedTable(newTableName);
-            String sqlCreate = "create table " + newTableName + " (NAME VARCHAR(20), TOTALSCORE INT, HIGHSCORE INT)";
-            statement.executeUpdate(sqlCreate);
-
-            String sqlInsert = "insert into " + newTableName + " values "
-                    + "('dan', 400709729, 200001189),"
-                    + "('ryan', 14198, 7099),"
-                    + "('luke', 20380, 10190),"
-                    + "('joe', 18132, 9066),"
-                    + "('lourdes', 234538, 77502),"
-                    + "('droun', 133106, 36525)";
-            statement.executeUpdate(sqlInsert);
+    public void createPlayerTable() {
+        try (Statement statement = conn.createStatement()) {
+            String createPlayer = "create table PLAYER ("
+                    + "NAME VARCHAR(20), "
+                    + "TOTALSCORE INT, "
+                    + "HIGHSCORE INT)";
+            statement.executeUpdate(createPlayer);
             statement.close();
-            System.out.println("Table created");
+            System.out.println("Player Table created");
 
-            String query = "SELECT NAME, TOTALSCORE, HIGHSCORE FROM " + newTableName;
+        } catch (SQLException ex) {
+            if (ex.getSQLState().equals("X0Y32")) {
+                System.out.println("Player Table already exists");
+            }
+        }
 
+    }
+
+    public void createRecentPrizeTable() {
+        try ( Statement statement = conn.createStatement()) {
+            String createRecentPrize = "create table RECENTPRIZE ("
+                    + "NAME VARCHAR(20), "
+                    + "RECENTPRIZE_ONE INT, "
+                    + "RECENTPRIZE_TWO INT,"
+                    + "RECENTPRIZE_THREE INT,"
+                    + "RECENTPRIZE_FOUR INT,"
+                    + "RECENTPRIZE_FIVE INT)";
+            statement.executeUpdate(createRecentPrize);
+            System.out.println("RecentPrize Table created");
+
+        } catch (SQLException ex) {
+            if (ex.getSQLState().equals("X0Y32")) {
+                System.out.println("RecentPrize Table already exists");
+            } else {
+                Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }
+
+    public void createHighPrizeTable() {
+        try ( Statement statement = conn.createStatement()) {
+            String createHighPrize = "create table HIGHPRIZE ("
+                    + "NAME VARCHAR(20), "
+                    + "HIGHPRIZE_ONE INT, "
+                    + "HIGHPRIZE_TWO INT,"
+                    + "HIGHPRIZE_THREE INT,"
+                    + "HIGHPRIZE_FOUR INT,"
+                    + "HIGHPRIZE_FIVE INT)";
+            statement.executeUpdate(createHighPrize);
+            System.out.println("HighPrize Table created");
+
+        } catch (SQLException ex) {
+            if (ex.getSQLState().equals("X0Y32")) {
+                System.out.println("HighPrize Table already exists");
+            } else {
+                Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public void createTotalStatTable() {
+        try ( Statement statement = conn.createStatement()) {
+            String createTotalStat = "create table TOTALSTAT ("
+                    + "GAME_NAME VARCHAR(20),"
+                    + "TOTAL_GAMES INT, "
+                    + "TOTAL_PRIZES INT)";
+            statement.executeUpdate(createTotalStat);
+        } catch (SQLException ex) {
+            if (ex.getSQLState().equals("X0Y32")) {
+                System.out.println("TotalStat Table already exists");
+            } else {
+                Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public HashMap<String, Player> loadPlayers() {
+        HashMap<String, Player> players = new HashMap<>();
+
+        try {
+            Statement statement = conn.createStatement();
+            String query = "SELECT NAME, TOTALSCORE, HIGHSCORE FROM PLAYER";
             ResultSet resultSet = statement.executeQuery(query);
 
             while (resultSet.next()) {
                 String name = resultSet.getString("NAME");
-                int totalScore = resultSet.getInt("TOTALSCORE");
-                int highScore = resultSet.getInt("HIGHSCORE");
-                System.out.println(name + ": ");
-                System.out.println("Total Score: ");
-                System.out.println("High Score: ");
+                int totalPrize = resultSet.getInt("TOTALSCORE");
+                int highPrize = resultSet.getInt("HIGHSCORE");
+                players.put(name, new Player(name, totalPrize, highPrize));
             }
-
         } catch (SQLException ex) {
-            Logger.getLogger(DBManager.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        return players;
     }
 
-    public static void checkExistedTable(String name) {
+    public HashMap<String, int[]> loadRecentPrizes() {
+        HashMap<String, int[]> recentPrizes = new HashMap<>();
+
         try {
-            DatabaseMetaData dbmd;
-            dbmd = conn.getMetaData();
-            String[] types = {"TABLE"};
-            statement = conn.createStatement();
-            ResultSet rs = dbmd.getTables(null, null, null, types);
-            while (rs.next()) {
-                String table_name = rs.getString("TABLE_NAME");
-                System.out.println(table_name);
-                if (table_name.equalsIgnoreCase(name)) {
-                    statement.executeUpdate("Drop table " + name);
-                    System.out.println("Table " + name + " has been deleted.");
-                    break;
+            Statement statement = conn.createStatement();
+            String query = "SELECT NAME, RECENTPRIZE_ONE, RECENTPRIZE_TWO, "
+                    + "RECENTPRIZE_THREE, RECENTPRIZE_FOUR,"
+                    + "RECENTPRIZE_FIVE FROM RECENTPRIZE";
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                int[] prizes = new int[5];
+                String name = resultSet.getString("NAME");
+                prizes[0] = resultSet.getInt("RECENTPRIZE_ONE");
+                prizes[1] = resultSet.getInt("RECENTPRIZE_TWO");
+                prizes[2] = resultSet.getInt("RECENTPRIZE_THREE");
+                prizes[3] = resultSet.getInt("RECENTPRIZE_FOUR");
+                prizes[4] = resultSet.getInt("RECENTPRIZE_FIVE");
+                recentPrizes.put(name, prizes);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return recentPrizes;
+    }
+
+    public HashMap<String, int[]> loadHighPrizes() {
+        HashMap<String, int[]> highPrizes = new HashMap<>();
+
+        try {
+            Statement statement = conn.createStatement();
+            String query = "SELECT NAME, HIGHPRIZE_ONE, HIGHPRIZE_TWO, "
+                    + "HIGHPRIZE_THREE, HIGHPRIZE_FOUR,"
+                    + "HIGHPRIZE_FIVE FROM HIGHPRIZE";
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                int[] prizes = new int[5];
+                String name = resultSet.getString("NAME");
+                prizes[0] = resultSet.getInt("HIGHPRIZE_ONE");
+                prizes[1] = resultSet.getInt("HIGHPRIZE_TWO");
+                prizes[2] = resultSet.getInt("HIGHPRIZE_THREE");
+                prizes[3] = resultSet.getInt("HIGHPRIZE_FOUR");
+                prizes[4] = resultSet.getInt("HIGHPRIZE_FIVE");
+                highPrizes.put(name, prizes);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return highPrizes;
+    }
+
+    public HashMap<String, Integer> loadGlobalTotalPrizes() {
+        HashMap<String, Integer> globalTotalPrizes = new HashMap<>();
+
+        try {
+            Statement statement = conn.createStatement();
+            String query = "SELECT NAME, TOTALSCORE FROM PLAYER"
+                    + " ORDER BY TOTALSCORE DESC";
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                globalTotalPrizes.put(resultSet.getString("NAME"), resultSet.getInt("TOTALSCORE"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return globalTotalPrizes;
+    }
+
+    public HashMap<String, Integer> loadGlobalHighPrizes() {
+        HashMap<String, Integer> globalHighPrizes = new HashMap<>();
+
+        try {
+            Statement statement = conn.createStatement();
+            String query = "SELECT NAME, HIGHSCORE FROM PLAYER"
+                    + " ORDER BY HIGHSCORE DESC";
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                globalHighPrizes.put(resultSet.getString("NAME"), resultSet.getInt("HIGHSCORE"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return globalHighPrizes;
+    }
+
+    public int[] loadTotalStats() {
+        int[] totalStats = new int[2];
+
+        try {
+            Statement statement = conn.createStatement();
+            String query = "SELECT GAME_NAME, TOTAL_GAMES, "
+                    + "TOTAL_PRIZES FROM TOTALSTAT";
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                if (resultSet.getString("GAME_NAME").equals("DealOrNoDeal")) {
+                    totalStats[0] = resultSet.getInt("TOTAL_GAMES");
+                    totalStats[1] = resultSet.getInt("TOTAL_PRIZES");
                 }
             }
-            rs.close();
-
         } catch (SQLException ex) {
-            Logger.getLogger(DBManager.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return totalStats;
+    }
+
+    public void updateScore(HashMap<String, Player> players, Player player) {
+        players.put(player.getName(), player);
+        try {
+            Statement statement = conn.createStatement();
+            String query = "SELECT * FROM PLAYER WHERE NAME = '" + player.getName() + "'";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            if (resultSet.next()) {
+                query = "UPDATE PLAYER SET TOTALSCORE = " + player.getTotalPrizes()
+                        + ", HIGHSCORE = " + player.getHighestPrize()
+                        + "WHERE NAME =  '" + player.getName() + "'";
+                statement.executeUpdate(query);
+                System.out.println("player updated.");
+            } else {
+                query = "INSERT INTO PLAYER (NAME, TOTALSCORE, HIGHSCORE) VALUES ('" + player.getName() + "', " + player.getTotalPrizes() + ", " + player.getHighestPrize() + ")";
+                statement.executeUpdate(query);
+                System.out.println("player created");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    public void updateRecentPrizes(HashMap<String, int[]> recentPrizes, Player player) {
+        recentPrizes.put(player.getName(), player.getRecentPrizes());
+        try {
+            Statement statement = conn.createStatement();
+            String query = "SELECT * FROM RECENTPRIZE WHERE NAME = '" + player.getName() + "'";
+            ResultSet resultSet = statement.executeQuery(query);
+            int[] prizes = player.getRecentPrizes();
+
+            if (resultSet.next()) {
+                query = "UPDATE RECENTPRIZE SET RECENTPRIZE_ONE = " + prizes[0]
+                        + ", RECENTPRIZE_TWO = " + prizes[1]
+                        + ", RECENTPRIZE_THREE = " + prizes[2]
+                        + ", RECENTPRIZE_FOUR = " + prizes[3]
+                        + ", RECENTPRIZE_FIVE = " + prizes[4]
+                        + "WHERE NAME =  '" + player.getName() + "'";
+                statement.executeUpdate(query);
+                System.out.println("RecentPrize updated.");
+            } else {
+                query = "INSERT INTO RECENTPRIZE (NAME, RECENTPRIZE_ONE, RECENTPRIZE_TWO, RECENTPRIZE_THREE, RECENTPRIZE_FOUR, "
+                        + "RECENTPRIZE_FIVE) VALUES ('"
+                        + player.getName() + "', "
+                        + prizes[0] + ", "
+                        + prizes[1] + ", "
+                        + prizes[2] + ", "
+                        + prizes[3] + ", "
+                        + prizes[4] + ")";
+                statement.executeUpdate(query);
+                System.out.println("Player's RecentPrizes created");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    //adds the players highest prizes to the highprizes hashmap before updating the highPrizes file
+    //seperates name and scores with /, takes highPrizes hashmap and player as parameters
+
+    public void updateHighPrizes(HashMap<String, int[]> highPrizes, Player player) {
+        highPrizes.put(player.getName(), player.getHighPrizes());
+        try {
+            Statement statement = conn.createStatement();
+            String query = "SELECT * FROM HIGHPRIZE WHERE NAME = '" + player.getName() + "'";
+            ResultSet resultSet = statement.executeQuery(query);
+            int[] prizes = player.getHighPrizes();
+
+            if (resultSet.next()) {
+                query = "UPDATE HIGHPRIZE SET HIGHPRIZE_ONE = " + prizes[0]
+                        + ", HIGHPRIZE_TWO = " + prizes[1]
+                        + ", HIGHPRIZE_THREE = " + prizes[2]
+                        + ", HIGHPRIZE_FOUR = " + prizes[3]
+                        + ", HIGHPRIZE_FIVE = " + prizes[4]
+                        + "WHERE NAME =  '" + player.getName() + "'";
+                statement.executeUpdate(query);
+                System.out.println("HighPrize updated.");
+            } else {
+                query = "INSERT INTO HIGHPRIZE (NAME, HIGHPRIZE_ONE, HIGHPRIZE_TWO, HIGHPRIZE_THREE, HIGHPRIZE_FOUR, "
+                        + "HIGHPRIZE_FIVE) VALUES ('"
+                        + player.getName() + "', "
+                        + prizes[0] + ", "
+                        + prizes[1] + ", "
+                        + prizes[2] + ", "
+                        + prizes[3] + ", "
+                        + prizes[4] + ")";
+                statement.executeUpdate(query);
+                System.out.println("Player's HighPrizes created");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //updates the total stats files with the new totals games played and total prizes from the GameMode
+    //takes totalStats int array and gamemode object as parameters 
+    public void updateTotalStats(int[] totalStats, GameMode game) {
+        totalStats[0] = game.getTotalGames();
+        totalStats[1] = game.getTotalPrizes();
+
+        try {
+            Statement statement = conn.createStatement();
+            String gameName = "DealOrNoDeal";
+            String query = "SELECT * FROM TOTALSTAT WHERE GAME_NAME = '" + gameName + "'";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            if (resultSet.next()) {
+                query = "UPDATE TOTALSTAT SET TOTAL_GAMES = " + totalStats[0] + ", TOTAL_PRIZES = " + totalStats[1] + "WHERE GAME_NAME =  '" + gameName + "'";
+                statement.executeUpdate(query);
+                System.out.println("GameStats updated.");
+            } else {
+                query = "INSERT INTO TOTALSTAT (GAME_NAME, TOTAL_GAMES, TOTAL_PRIZES) VALUES ('" + gameName + ", " + totalStats[0] + ", " + totalStats[1] + ")";
+                statement.executeUpdate(query);
+                System.out.println("GameStats created");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
