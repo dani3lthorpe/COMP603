@@ -18,7 +18,6 @@ public class GameController {
     private HashMap<String, Player> players;
     private static Scanner scan;
     private DBManager dataBase;
-    private FileController files;
     private ScoreController scores;
 
     //Gamecontroller constructer creates a new scanner, filecontroller, scorecontroller.
@@ -26,9 +25,7 @@ public class GameController {
     public GameController() {
         scan = new Scanner(System.in);
         dataBase = new DBManager();
-        files = new FileController();
         scores = new ScoreController(dataBase);
-        players = files.loadPlayers();
         players = dataBase.loadPlayers();
     }
 
@@ -48,7 +45,7 @@ public class GameController {
             gameMode.setTotalPrizes(scores.getTotals()[1]);
             gameMode.startMode();
 
-            saveGameData(files, scores, gameMode, player);
+            saveGameData(gameMode, player);
             playAgainPrompt(player);
         }
     }
@@ -143,12 +140,12 @@ public class GameController {
     }
 
     //Saves all of the data to the files
-    public void saveGameData(FileController files, ScoreController scores, GameMode gameMode, Player player) {
+    public void saveGameData(GameMode gameMode, Player player) {
         gameMode.addTotalGame();
-        files.updateTotalStats(scores.getTotals(), gameMode);
-        files.updateScore(players, player);
-        files.updateRecentPrizes(scores.getRecentPrizes(), player);
-        files.updateHighPrizes(scores.getHighestPrizes(), player);
+        dataBase.updateTotalStats(scores.getTotals(), gameMode);
+        dataBase.updateScore(players, player);
+        dataBase.updateRecentPrizes(scores.getRecentPrizes(), player);
+        dataBase.updateHighPrizes(scores.getHighestPrizes(), player);
         scores.refreshScores(dataBase);
     }
 
