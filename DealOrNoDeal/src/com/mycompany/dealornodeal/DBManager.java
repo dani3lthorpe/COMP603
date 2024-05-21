@@ -90,7 +90,7 @@ public class DBManager {
     }
 
     public void createPlayerTable() {
-        try (Statement statement = conn.createStatement()) {
+        try ( Statement statement = conn.createStatement()) {
             String createPlayer = "create table PLAYER ("
                     + "NAME VARCHAR(20), "
                     + "TOTALSCORE INT, "
@@ -120,6 +120,7 @@ public class DBManager {
             System.out.println("RecentPrize Table created");
 
         } catch (SQLException ex) {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
             if (ex.getSQLState().equals("X0Y32")) {
                 System.out.println("RecentPrize Table already exists");
             } else {
@@ -157,6 +158,7 @@ public class DBManager {
                     + "TOTAL_GAMES INT, "
                     + "TOTAL_PRIZES INT)";
             statement.executeUpdate(createTotalStat);
+            System.out.println("HighPrize Table created");
         } catch (SQLException ex) {
             if (ex.getSQLState().equals("X0Y32")) {
                 System.out.println("TotalStat Table already exists");
