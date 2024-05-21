@@ -88,7 +88,7 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="136" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                               <Component id="case1" linkSize="2" alignment="3" min="-2" pref="67" max="-2" attributes="0"/>
@@ -173,21 +173,24 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="prize14" min="-2" pref="152" max="-2" attributes="0"/>
-                      <Component id="prize15" min="-2" pref="152" max="-2" attributes="0"/>
-                      <Component id="prize16" min="-2" pref="152" max="-2" attributes="0"/>
-                      <Component id="prize17" min="-2" pref="152" max="-2" attributes="0"/>
-                      <Component id="prize18" min="-2" pref="152" max="-2" attributes="0"/>
-                      <Component id="prize19" min="-2" pref="152" max="-2" attributes="0"/>
-                      <Component id="prize20" alignment="0" min="-2" pref="152" max="-2" attributes="0"/>
-                      <Component id="prize21" alignment="0" min="-2" pref="152" max="-2" attributes="0"/>
-                      <Component id="prize22" alignment="0" min="-2" pref="152" max="-2" attributes="0"/>
-                      <Component id="prize23" alignment="0" min="-2" pref="152" max="-2" attributes="0"/>
-                      <Component id="prize24" alignment="0" min="-2" pref="152" max="-2" attributes="0"/>
-                      <Component id="prize25" alignment="0" min="-2" pref="152" max="-2" attributes="0"/>
-                      <Component id="prize26" min="-2" pref="152" max="-2" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="exitButton" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="prize14" min="-2" pref="152" max="-2" attributes="0"/>
+                          <Component id="prize15" min="-2" pref="152" max="-2" attributes="0"/>
+                          <Component id="prize16" min="-2" pref="152" max="-2" attributes="0"/>
+                          <Component id="prize17" min="-2" pref="152" max="-2" attributes="0"/>
+                          <Component id="prize18" min="-2" pref="152" max="-2" attributes="0"/>
+                          <Component id="prize19" min="-2" pref="152" max="-2" attributes="0"/>
+                          <Component id="prize20" alignment="0" min="-2" pref="152" max="-2" attributes="0"/>
+                          <Component id="prize21" alignment="0" min="-2" pref="152" max="-2" attributes="0"/>
+                          <Component id="prize22" alignment="0" min="-2" pref="152" max="-2" attributes="0"/>
+                          <Component id="prize23" alignment="0" min="-2" pref="152" max="-2" attributes="0"/>
+                          <Component id="prize24" alignment="0" min="-2" pref="152" max="-2" attributes="0"/>
+                          <Component id="prize25" alignment="0" min="-2" pref="152" max="-2" attributes="0"/>
+                          <Component id="prize26" min="-2" pref="152" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
@@ -196,7 +199,8 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="0" pref="166" max="32767" attributes="0"/>
+                  <Component id="exitButton" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="prize14" min="-2" pref="27" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="prize15" min="-2" pref="27" max="-2" attributes="0"/>
@@ -343,6 +347,14 @@
             <Property name="text" type="java.lang.String" value="prize26"/>
             <Property name="opaque" type="boolean" value="true"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="exitButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Exit"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exitButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
