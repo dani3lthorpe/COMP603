@@ -4,6 +4,8 @@
  */
 package com.mycompany.dealornodeal;
 
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author droun
@@ -626,4 +628,33 @@ public class NormalGUI extends javax.swing.JFrame {
     private javax.swing.JLabel prize8;
     private javax.swing.JLabel prize9;
     // End of variables declaration//GEN-END:variables
+    public void addActionListener(ActionListener listener) {
+        this.case1.addActionListener(listener);
+        this.case2.addActionListener(listener);
+        this.case1.addActionListener(listener);
+        this.case2.addActionListener(listener);
+        this.case1.addActionListener(listener);
+        this.case2.addActionListener(listener);
+        this.case1.addActionListener(listener);
+        this.case2.addActionListener(listener);
+        this.case1.addActionListener(listener);
+        this.case2.addActionListener(listener);
+        this.case1.addActionListener(listener);
+        this.case2.addActionListener(listener);
+        this.case1.addActionListener(listener);
+        this.case2.addActionListener(listener);
+        this.case1.addActionListener(listener);
+        this.case2.addActionListener(listener);
+        this.case1.addActionListener(listener);
+        this.case2.addActionListener(listener);
+        this.case1.addActionListener(listener);
+        this.case2.addActionListener(listener);
+        this.case1.addActionListener(listener);
+        this.case2.addActionListener(listener);
+        this.case1.addActionListener(listener);
+        this.case2.addActionListener(listener);
+        this.case1.addActionListener(listener);
+        this.case2.addActionListener(listener);
+        this.exitButton.addActionListener(listener);
+    }
 }

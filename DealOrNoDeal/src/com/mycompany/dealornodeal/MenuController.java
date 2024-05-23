@@ -11,24 +11,18 @@ import java.awt.event.ActionListener;
  *
  * @author rny5546
  */
-class Controller implements ActionListener {
+class MenuController implements ActionListener {
 
     private LoginView login;
     private ModeSelect mode;
     private GameModeSelect gameMode;
-    private NormalGUI normal;
-    private QuickplayGUI quickplay;
-    private TutorialGUI tutorial;
     private ScoresGUI scores;
     private GameController model;
 
-    public Controller(LoginView view, GameController model) {
+    public MenuController(LoginView view, GameController model) {
         this.login = view;
         this.mode = new ModeSelect();
         this.gameMode = new GameModeSelect();
-        this.normal = new NormalGUI();
-        this.quickplay = new QuickplayGUI();
-        this.tutorial = new TutorialGUI();
         this.scores = new ScoresGUI();
         this.model = model;
         this.login.addActionListener(this);
@@ -64,29 +58,13 @@ class Controller implements ActionListener {
                 scores.setScores(model.getGlobalTotalPrizes());
                 scores.setVisible(true);
                 break;
-            case "Normal":
-                mode.setVisible(false);
-                model.selectGameMode("Normal");
-                normal.setVisible(true);
-                break;
-            case "Tutorial":
-                mode.setVisible(false);
-                model.selectGameMode("Tutorial");
-                tutorial.setVisible(true);
-                break;
-            case "QuickPlay":
-                mode.setVisible(false);
-                model.selectGameMode("QuickPlay");
-                quickplay.setVisible(true);
-                break;
-            case "Random Mode":
-                mode.setVisible(false);
-                model.selectGameMode("Random");
-                normal.setVisible(true);
-                break;
             default:
                 break;
-
+        }
+        if (command.equals("Normal") || command.equals("Tutorial") || command.equals("QUickPlay") || command.equals("Random Mode")) {
+            mode.setVisible(false);
+            model.selectGameMode(command);
+            GameModeController gameModeController = new GameModeController(command);
         }
 
     }
