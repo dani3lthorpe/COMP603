@@ -31,8 +31,14 @@ public class DBManager {
 
     public DBManager() {
         conn = getConnection();
-        createTables();
-        this.closeConnection();
+        if (conn != null) {
+            createTables();
+            this.closeConnection();
+        } 
+        else
+        {
+            System.err.println("Failed to connect to database");
+        }
     }
 
     public static Connection getConnection() {
@@ -80,22 +86,22 @@ public class DBManager {
                 }
             }
 
-            if (players = false) {
+            if (!players) {
                 createPlayerTable();
             } else {
                 System.out.println("Player Table already exists");
             }
-            if (recentPrizes = false) {
+            if (!recentPrizes) {
                 createRecentPrizeTable();
             } else {
                 System.out.println("RecentPrize Table already exists");
             }
-            if (highestPrizes = false) {
+            if (!highestPrizes) {
                 createHighPrizeTable();
             } else {
                 System.out.println("HighPrize Table already exists");
             }
-            if (totalGameStats = false) {
+            if (!totalGameStats) {
                 createTotalStatTable();
             } else {
                 System.out.println("TotalStat Table already exists");
