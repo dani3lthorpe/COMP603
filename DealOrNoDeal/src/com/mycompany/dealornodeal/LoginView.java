@@ -4,6 +4,9 @@
  */
 package com.mycompany.dealornodeal;
 
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author droun
@@ -140,4 +143,20 @@ public class LoginView extends javax.swing.JFrame {
     private javax.swing.JLabel title;
     private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
+
+    public void addActionListener(ActionListener listener) {
+        this.exitButton.addActionListener(listener);
+        this.confirmButton.addActionListener(listener);
+    }
+
+    public javax.swing.JTextField getUsernameField() {
+        return usernameField;
+    }
+
+    public void exit() {
+        if (JOptionPane.showConfirmDialog(this, "Do you want to quit?", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }
+
 }

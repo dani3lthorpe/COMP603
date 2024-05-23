@@ -19,6 +19,7 @@ public class GameController {
     private static Scanner scan;
     private DBManager dataBase;
     private ScoreController scores;
+    private Player player;
 
     //Gamecontroller constructer creates a new scanner, filecontroller, scorecontroller.
     //Also gets the players hash map from the files using the fileController
@@ -26,15 +27,15 @@ public class GameController {
         scan = new Scanner(System.in);
         dataBase = new DBManager();
         scores = new ScoreController(dataBase);
+        dataBase.getConnection();
         players = dataBase.loadPlayers();
+        dataBase.closeConnection();
     }
 
     //controlls main game by displaying main menu, starting the gamemode and saving the scores
     //then asks if player would like to play again
     public void displayMainMenu() {
         System.out.println("Welcome to Deal or no Deal (Input x at any time to quit)");
-        String name = checkNameInput();
-        Player player = checkPlayers(name);
 
         boolean playing = true;
         while (playing == true) {
@@ -142,11 +143,13 @@ public class GameController {
     //Saves all of the data to the files
     public void saveGameData(GameMode gameMode, Player player) {
         gameMode.addTotalGame();
+        dataBase.getConnection();
         dataBase.updateTotalStats(scores.getTotals(), gameMode);
         dataBase.updateScore(players, player);
         dataBase.updateRecentPrizes(scores.getRecentPrizes(), player);
         dataBase.updateHighPrizes(scores.getHighestPrizes(), player);
         scores.refreshScores(dataBase);
+        dataBase.closeConnection();
     }
 
     //checks if the user has input x to quit
@@ -200,5 +203,9 @@ public class GameController {
             }
         }
         return input;
+    }
+
+    void setPlayer(String username) {
+        player = checkPlayers(username);
     }
 }

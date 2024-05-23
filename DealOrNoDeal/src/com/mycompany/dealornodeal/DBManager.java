@@ -31,13 +31,11 @@ public class DBManager {
 
     public DBManager() {
         conn = getConnection();
-        this.createPlayerTable();
-        this.createRecentPrizeTable();
-        this.createHighPrizeTable();
-        this.createTotalStatTable();
+        createTables();
+        this.closeConnection();
     }
 
-    private static Connection getConnection() {
+    public static Connection getConnection() {
         try {
             if (conn == null) {
                 conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
@@ -49,43 +47,61 @@ public class DBManager {
         return conn;
     }
 
-    public void closeConnections() {
+    public static void closeConnection() {
         if (conn != null) {
             try {
                 conn.close();
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
+            conn = null;
         }
     }
 
-    public Connection getConn() {
-        return conn;
-    }
-
-    public ResultSet queryDB(String sql) {
-        ResultSet resultSet = null;
-
+    public void createTables() {
         try {
-            Statement statement = conn.createStatement();
-            resultSet = statement.executeQuery(sql);
+            boolean players = false;
+            boolean recentPrizes = false;
+            boolean highestPrizes = false;
+            boolean totalGameStats = false;
+            DatabaseMetaData metaData = conn.getMetaData();
+            ResultSet resultSet = metaData.getTables(null, null, null, new String[]{"TABLE"});
 
+            while (resultSet.next()) {
+                String name = resultSet.getString("TABLE_NAME");
+                if (name.equals("PLAYER")) {
+                    players = true;
+                } else if (name.equals("RECENTPRIZE")) {
+                    recentPrizes = true;
+                } else if (name.equals("HIGHPRIZE")) {
+                    highestPrizes = true;
+                } else if (name.equals("TOTALSTAT")) {
+                    totalGameStats = true;
+                }
+            }
+
+            if (players = false) {
+                createPlayerTable();
+            } else {
+                System.out.println("Player Table already exists");
+            }
+            if (recentPrizes = false) {
+                createRecentPrizeTable();
+            } else {
+                System.out.println("RecentPrize Table already exists");
+            }
+            if (highestPrizes = false) {
+                createHighPrizeTable();
+            } else {
+                System.out.println("HighPrize Table already exists");
+            }
+            if (totalGameStats = false) {
+                createTotalStatTable();
+            } else {
+                System.out.println("TotalStat Table already exists");
+            }
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        return resultSet;
-    }
-
-    public void updateDB(String sql) {
-
-        ResultSet resultSet = null;
-
-        try {
-            Statement statement = conn.createStatement();
-            statement.executeUpdate(sql);
-
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -117,15 +133,11 @@ public class DBManager {
                     + "RECENTPRIZE_FOUR INT,"
                     + "RECENTPRIZE_FIVE INT)";
             statement.executeUpdate(createRecentPrize);
+            statement.close();
             System.out.println("RecentPrize Table created");
 
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
-            if (ex.getSQLState().equals("X0Y32")) {
-                System.out.println("RecentPrize Table already exists");
-            } else {
-                Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
 
     }
@@ -140,14 +152,11 @@ public class DBManager {
                     + "HIGHPRIZE_FOUR INT,"
                     + "HIGHPRIZE_FIVE INT)";
             statement.executeUpdate(createHighPrize);
+            statement.close();
             System.out.println("HighPrize Table created");
 
         } catch (SQLException ex) {
-            if (ex.getSQLState().equals("X0Y32")) {
-                System.out.println("HighPrize Table already exists");
-            } else {
-                Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -158,13 +167,10 @@ public class DBManager {
                     + "TOTAL_GAMES INT, "
                     + "TOTAL_PRIZES INT)";
             statement.executeUpdate(createTotalStat);
+            statement.close();
             System.out.println("HighPrize Table created");
         } catch (SQLException ex) {
-            if (ex.getSQLState().equals("X0Y32")) {
-                System.out.println("TotalStat Table already exists");
-            } else {
-                Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -182,6 +188,8 @@ public class DBManager {
                 int highPrize = resultSet.getInt("HIGHSCORE");
                 players.put(name, new Player(name, totalPrize, highPrize));
             }
+            resultSet.close();
+            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -207,6 +215,8 @@ public class DBManager {
                 prizes[4] = resultSet.getInt("RECENTPRIZE_FIVE");
                 recentPrizes.put(name, prizes);
             }
+            resultSet.close();
+            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -232,6 +242,8 @@ public class DBManager {
                 prizes[4] = resultSet.getInt("HIGHPRIZE_FIVE");
                 highPrizes.put(name, prizes);
             }
+            resultSet.close();
+            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -249,6 +261,8 @@ public class DBManager {
             while (resultSet.next()) {
                 globalTotalPrizes.put(resultSet.getString("NAME"), resultSet.getInt("TOTALSCORE"));
             }
+            resultSet.close();
+            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -266,6 +280,8 @@ public class DBManager {
             while (resultSet.next()) {
                 globalHighPrizes.put(resultSet.getString("NAME"), resultSet.getInt("HIGHSCORE"));
             }
+            resultSet.close();
+            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -286,6 +302,8 @@ public class DBManager {
                     totalStats[1] = resultSet.getInt("TOTAL_PRIZES");
                 }
             }
+            resultSet.close();
+            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -302,7 +320,7 @@ public class DBManager {
             if (resultSet.next()) {
                 query = "UPDATE PLAYER SET TOTALSCORE = " + player.getTotalPrizes()
                         + ", HIGHSCORE = " + player.getHighestPrize()
-                        + "WHERE NAME =  '" + player.getName() + "'";
+                        + " WHERE NAME =  '" + player.getName() + "'";
                 statement.executeUpdate(query);
                 System.out.println("player updated.");
             } else {
@@ -310,6 +328,8 @@ public class DBManager {
                 statement.executeUpdate(query);
                 System.out.println("player created");
             }
+            resultSet.close();
+            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -329,7 +349,7 @@ public class DBManager {
                         + ", RECENTPRIZE_THREE = " + prizes[2]
                         + ", RECENTPRIZE_FOUR = " + prizes[3]
                         + ", RECENTPRIZE_FIVE = " + prizes[4]
-                        + "WHERE NAME =  '" + player.getName() + "'";
+                        + " WHERE NAME =  '" + player.getName() + "'";
                 statement.executeUpdate(query);
                 System.out.println("RecentPrize updated.");
             } else {
@@ -344,6 +364,8 @@ public class DBManager {
                 statement.executeUpdate(query);
                 System.out.println("Player's RecentPrizes created");
             }
+            resultSet.close();
+            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -365,7 +387,7 @@ public class DBManager {
                         + ", HIGHPRIZE_THREE = " + prizes[2]
                         + ", HIGHPRIZE_FOUR = " + prizes[3]
                         + ", HIGHPRIZE_FIVE = " + prizes[4]
-                        + "WHERE NAME =  '" + player.getName() + "'";
+                        + " WHERE NAME =  '" + player.getName() + "'";
                 statement.executeUpdate(query);
                 System.out.println("HighPrize updated.");
             } else {
@@ -380,6 +402,8 @@ public class DBManager {
                 statement.executeUpdate(query);
                 System.out.println("Player's HighPrizes created");
             }
+            resultSet.close();
+            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -398,14 +422,16 @@ public class DBManager {
             ResultSet resultSet = statement.executeQuery(query);
 
             if (resultSet.next()) {
-                query = "UPDATE TOTALSTAT SET TOTAL_GAMES = " + totalStats[0] + ", TOTAL_PRIZES = " + totalStats[1] + "WHERE GAME_NAME =  '" + gameName + "'";
+                query = "UPDATE TOTALSTAT SET TOTAL_GAMES = " + totalStats[0] + ", TOTAL_PRIZES = " + totalStats[1] + " WHERE GAME_NAME =  '" + gameName + "'";
                 statement.executeUpdate(query);
                 System.out.println("GameStats updated.");
             } else {
-                query = "INSERT INTO TOTALSTAT (GAME_NAME, TOTAL_GAMES, TOTAL_PRIZES) VALUES ('" + gameName + ", " + totalStats[0] + ", " + totalStats[1] + ")";
+                query = "INSERT INTO TOTALSTAT (GAME_NAME, TOTAL_GAMES, TOTAL_PRIZES) VALUES ('" + gameName + "', " + totalStats[0] + ", " + totalStats[1] + ")";
                 statement.executeUpdate(query);
                 System.out.println("GameStats created");
             }
+            resultSet.close();
+            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
