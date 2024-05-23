@@ -33,7 +33,6 @@ public class DBManager {
         conn = getConnection();
         if (conn != null) {
             createTables();
-            this.closeConnection();
         } 
         else
         {
@@ -61,6 +60,7 @@ public class DBManager {
                 System.out.println(ex.getMessage());
             }
             conn = null;
+            System.out.println("Connection Closed");
         }
     }
 

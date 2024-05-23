@@ -27,7 +27,6 @@ public class GameController {
         scan = new Scanner(System.in);
         dataBase = new DBManager();
         scores = new ScoreController(dataBase);
-        dataBase.getConnection();
         players = dataBase.loadPlayers();
         dataBase.closeConnection();
     }

@@ -29,17 +29,17 @@ public class LoginView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        exitButton = new javax.swing.JButton();
+        loginExitButton = new javax.swing.JButton();
         usernameField = new javax.swing.JTextField();
         confirmButton = new javax.swing.JButton();
         title = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        exitButton.setText("Exit");
-        exitButton.addActionListener(new java.awt.event.ActionListener() {
+        loginExitButton.setText("Exit");
+        loginExitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitButtonActionPerformed(evt);
+                loginExitButtonActionPerformed(evt);
             }
         });
 
@@ -63,7 +63,7 @@ public class LoginView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(exitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(loginExitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -81,7 +81,7 @@ public class LoginView extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(exitButton)
+                .addComponent(loginExitButton)
                 .addGap(35, 35, 35)
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
@@ -94,9 +94,9 @@ public class LoginView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
+    private void loginExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginExitButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_exitButtonActionPerformed
+    }//GEN-LAST:event_loginExitButtonActionPerformed
 
     private void usernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameFieldActionPerformed
         // TODO add your handling code here:
@@ -139,13 +139,13 @@ public class LoginView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton confirmButton;
-    private javax.swing.JButton exitButton;
+    private javax.swing.JButton loginExitButton;
     private javax.swing.JLabel title;
     private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
 
     public void addActionListener(ActionListener listener) {
-        this.exitButton.addActionListener(listener);
+        this.loginExitButton.addActionListener(listener);
         this.confirmButton.addActionListener(listener);
     }
 

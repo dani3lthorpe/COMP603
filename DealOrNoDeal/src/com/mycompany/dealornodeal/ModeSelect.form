@@ -24,11 +24,6 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="title" min="-2" pref="264" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="305" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               <Component id="exitButton" min="-2" max="-2" attributes="0"/>
           </Group>
@@ -39,15 +34,25 @@
               <Component id="playbutton" min="-2" pref="184" max="-2" attributes="0"/>
               <EmptySpace pref="221" max="32767" attributes="0"/>
           </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="title" min="-2" pref="264" max="-2" attributes="0"/>
+                  <Component id="welcome" min="-2" pref="264" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="294" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="exitButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+              <Component id="welcome" min="-2" pref="52" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="title" min="-2" pref="52" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="scoresButton" alignment="3" min="-2" pref="125" max="-2" attributes="0"/>
                   <Component id="playbutton" alignment="3" min="-2" pref="125" max="-2" attributes="0"/>
@@ -61,7 +66,7 @@
     <Component class="javax.swing.JLabel" name="title">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Title"/>
+        <Property name="text" type="java.lang.String" value="What would you like to do:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="exitButton">
@@ -71,7 +76,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="scoresButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ScoreBoards"/>
+        <Property name="text" type="java.lang.String" value="See Scores"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="scoresButtonActionPerformed"/>
@@ -79,7 +84,16 @@
     </Component>
     <Component class="javax.swing.JButton" name="playbutton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Play"/>
+        <Property name="text" type="java.lang.String" value="Play Deal Or No Deal"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="playbuttonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="welcome">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="Welcome "/>
       </Properties>
     </Component>
   </SubComponents>

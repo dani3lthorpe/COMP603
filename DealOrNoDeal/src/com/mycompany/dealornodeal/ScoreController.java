@@ -24,13 +24,11 @@ public class ScoreController {
 
     //ScoreController constructor takeing file controller as a parameter
     public ScoreController(DBManager dataBase) {
-        dataBase.getConnection();
         this.recentPrizes = dataBase.loadRecentPrizes();
         this.highestPrizes = dataBase.loadHighPrizes();
         this.globalTotalPrizes = dataBase.loadGlobalTotalPrizes();
         this.globalHighPrizes = dataBase.loadGlobalHighPrizes();
         this.totalStats = dataBase.loadTotalStats();
-        dataBase.closeConnection();
     }
 
     //refreshs the scores saved in the score controller

@@ -4,6 +4,9 @@
  */
 package com.mycompany.dealornodeal;
 
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author droun
@@ -30,31 +33,36 @@ public class ModeSelect extends javax.swing.JFrame {
         exitButton = new javax.swing.JButton();
         scoresButton = new javax.swing.JButton();
         playbutton = new javax.swing.JButton();
+        welcome = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title.setText("Title");
+        title.setText("What would you like to do:");
 
         exitButton.setText("Exit");
 
-        scoresButton.setText("ScoreBoards");
+        scoresButton.setText("See Scores");
         scoresButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 scoresButtonActionPerformed(evt);
             }
         });
 
-        playbutton.setText("Play");
+        playbutton.setText("Play Deal Or No Deal");
+        playbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playbuttonActionPerformed(evt);
+            }
+        });
+
+        welcome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        welcome.setText("Welcome ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(305, 305, 305))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(exitButton))
@@ -64,14 +72,22 @@ public class ModeSelect extends javax.swing.JFrame {
                 .addGap(65, 65, 65)
                 .addComponent(playbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(221, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(welcome, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(294, 294, 294))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(exitButton)
-                .addGap(47, 47, 47)
+                .addGap(68, 68, 68)
+                .addComponent(welcome, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(99, 99, 99)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(scoresButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(playbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -84,6 +100,10 @@ public class ModeSelect extends javax.swing.JFrame {
     private void scoresButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_scoresButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_scoresButtonActionPerformed
+
+    private void playbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playbuttonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_playbuttonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -125,5 +145,22 @@ public class ModeSelect extends javax.swing.JFrame {
     private javax.swing.JButton playbutton;
     private javax.swing.JButton scoresButton;
     private javax.swing.JLabel title;
+    private javax.swing.JLabel welcome;
     // End of variables declaration//GEN-END:variables
+    public void setText(String username) {
+        welcome.setText("Welcome " + username + "!");
+    }
+
+    public void addActionListener(ActionListener listener) {
+        this.exitButton.addActionListener(listener);
+        this.playbutton.addActionListener(listener);
+        this.scoresButton.addActionListener(listener);
+    }
+
+    public void exit() {
+        if (JOptionPane.showConfirmDialog(this, "Do you want to quit?", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }
+
 }

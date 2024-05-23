@@ -13,13 +13,25 @@ import java.awt.event.ActionListener;
  */
 class Controller implements ActionListener {
 
-    public LoginView login;
-    public GameController model;
+    private LoginView login;
+    private ModeSelect mode;
+    private NormalGUI normal;
+    private QuickplayGUI quickplay;
+    private TutorialGUI tutorial;
+    private ScoresGUI scores;
+    private GameController model;
 
-    public Controller(LoginView view, GameController model) {
+    public Controller(LoginView view, ModeSelect modeSelect, NormalGUI normalGui, QuickplayGUI quickPlay, TutorialGUI tutorial, ScoresGUI scores, GameController model) {
         this.login = view;
+        this.mode = modeSelect;
+        this.normal = normalGui;
+        this.quickplay = quickPlay;
+        this.tutorial = tutorial;
+        this.scores = scores;
         this.model = model;
         this.login.addActionListener(this);
+        this.mode.addActionListener(this);
+
     }
 
     @Override
@@ -30,9 +42,18 @@ class Controller implements ActionListener {
                 String username = this.login.getUsernameField().getText();
                 this.model.setPlayer(username);
                 login.setVisible(false);
+                mode.setVisible(true);
+                mode.setText(username);
                 break;
             case "Exit":
-                login.exit();
+                if (login.isVisible()) {
+                    login.exit();
+                } else if (mode.isVisible()) {
+                    mode.exit();
+                }
+                break;
+            case " ":
+                
             default:
                 break;
 
