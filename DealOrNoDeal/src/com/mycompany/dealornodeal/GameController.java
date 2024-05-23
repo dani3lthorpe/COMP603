@@ -193,4 +193,10 @@ public class GameController {
         String score = scores.showGlobalTotalPrizes();
         return score;
     }
+
+    public GameMode getGameMode() {
+        return gameMode;
+    }
+    
+    
 }

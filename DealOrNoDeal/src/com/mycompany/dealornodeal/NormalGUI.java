@@ -5,6 +5,7 @@
 package com.mycompany.dealornodeal;
 
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -656,5 +657,9 @@ public class NormalGUI extends javax.swing.JFrame {
         this.case1.addActionListener(listener);
         this.case2.addActionListener(listener);
         this.exitButton.addActionListener(listener);
+    }
+
+    public void caseOpened(String displayCasePicking) {
+        JOptionPane.showMessageDialog(this, displayCasePicking);
     }
 }

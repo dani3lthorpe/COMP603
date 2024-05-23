@@ -26,13 +26,12 @@ public class Case {
     }
 
     //sets case open to true and displays the amount the case contained
-    public void open() {
+    public String open() {
         if (!this.playerCase) {
-            System.out.println("-----------------------------------------------------------------------");
-            System.out.println("Case " + getNumber() + " contained: $" + prize);
             open = true;
+            return ("Case " + getNumber() + " contained: $" + prize);
         } else {
-            System.out.println("Your case " + getNumber() + " contained: $" + prize);
+            return ("Your case " + getNumber() + " contained: $" + prize);
         }
     }
 

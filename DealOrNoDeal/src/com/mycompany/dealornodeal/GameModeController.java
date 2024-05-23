@@ -16,8 +16,10 @@ public class GameModeController implements ActionListener{
     private NormalGUI normal;
     private QuickplayGUI quickplay;
     private TutorialGUI tutorial;
+    private GameController model;
 
-    GameModeController(String command) {
+    GameModeController(String command, GameController model) {
+        this.model = model;
         if (command.equals("Normal") || command.equals("Random Mode")) {
             this.normal = new NormalGUI();
             this.normal.addActionListener(this);
@@ -37,6 +39,15 @@ public class GameModeController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
+        for(int i = 1; i <= 26; i++)
+        {
+            if(command.equals(i))
+            {
+                if(normal.isVisible()){
+               normal.caseOpened(model.getGameMode().displayCasePicking(i));
+                }
+            }
+        }
 
     }
 }

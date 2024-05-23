@@ -76,40 +76,19 @@ public abstract class GameMode implements Game {
 
     //displays the casePicking screen, getting the user to select a case to open
     //takes a scanner, the number of cases to pick and the total cases as a parameter
-    public void displayCasePicking(Scanner scan, int casesToPick, int total) {
-        int caseNum;
-        
-        System.out.println("Pick " +casesToPick + " cases to open");
-        displayCases();
-        displayPrizes();
-
-        while (casesToPick != 0) {
-            boolean isValid = false;
-            System.out.println("Please Pick a Case to open (" + casesToPick + " left to pick)");
-            while (!isValid) {
-                caseNum = checkCaseInput(scan, total);
-
-                for (Case c : cases) {
-                    if (c.getNumber() == caseNum) {
-                        if (c.isOpen() == true) {
-                            System.out.println("-----------------------------------------------------------------------");
-                            System.out.println("Please select a case that has not been opened");
-                        } else if (c.isPlayerCase() == true) {
-                            System.out.println("-----------------------------------------------------------------------");
-                            System.out.println("Please select a case that is not your own");
-                        } else {
-                            c.open();
-                            displayCases();
-                            this.prizes.removeIf(prize -> prize.equals(c.getPrize()));
-                            displayPrizes();
-                            System.out.println("-----------------------------------------------------------------------");
-                            casesToPick--;
-                            isValid = true;
-                        }
-                    }
+    public String displayCasePicking(int caseNum) {
+        for (Case c : cases) {
+            if (c.getNumber() == caseNum) {
+                if (c.isOpen() == true) {
+                    return "Case is Already Open";
+                } else if (c.isPlayerCase() == true) {
+                    return "You can not open your own case";
+                } else {
+                    return c.open();
                 }
             }
         }
+        return null;
     }
 
     //displays an offer from a banker for the user to choose to accept or decline

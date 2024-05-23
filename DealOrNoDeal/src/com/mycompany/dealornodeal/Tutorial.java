@@ -54,7 +54,7 @@ public class Tutorial extends GameMode {
         System.out.println("Each round you will have a set number of cases to open");
         System.out.println("Once you pick a case to open you will see how much money that case contained and it will be removed from the pool, therefore, this amount is not in your selected case");
         System.out.println("Your aim is to select the cases with the smallest amount as you want to keep as much money as you can until the end");
-        displayCasePicking(scan, 3, 6);
+        //displayCasePicking(scan, 3, 6);
 
         System.out.println("Once all the cases have been picked for the round the banker will offer you a amount of money depending on the money that could still be in the case you kept");
         System.out.println("You can choose to either accept the money and leave with the offered amount as your prize (deal)");
@@ -62,7 +62,7 @@ public class Tutorial extends GameMode {
         displayOffer(banker, scan);
         
         if (!isDealAccepted()) {
-            displayCasePicking(scan, 1, 6);
+            //displayCasePicking(scan, 1, 6);
             System.out.println("This is the final offer as once there is only one case left on the board it will be time to open your case and see how much you won");
             displayOffer(banker, scan);
         }
