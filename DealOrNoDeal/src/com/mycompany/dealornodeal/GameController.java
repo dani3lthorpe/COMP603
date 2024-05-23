@@ -20,6 +20,7 @@ public class GameController {
     private DBManager dataBase;
     private ScoreController scores;
     private Player player;
+    private GameMode gameMode;
 
     //Gamecontroller constructer creates a new scanner, filecontroller, scorecontroller.
     //Also gets the players hash map from the files using the fileController
@@ -39,8 +40,6 @@ public class GameController {
         boolean playing = true;
         while (playing == true) {
             scores.showScoresMenu(player);
-            GameMode gameMode = selectGameMode(player);
-
             gameMode.setTotalGames(scores.getTotals()[0]);
             gameMode.setTotalPrizes(scores.getTotals()[1]);
             gameMode.startMode();
@@ -81,34 +80,16 @@ public class GameController {
 
     //Prompts user to select a gameMode and gets user input
     //returns GameMode and take player as a parameter
-    public GameMode selectGameMode(Player player) {
-        boolean validInput = false;
-        while (!validInput) {
-            System.out.println("-----------------------------------------------------------------------");
-            System.out.println("Which Gamemode would you like to play?");
-            System.out.println("(1) Tutorial (Reccomended for new players)");
-            System.out.println("(2) Normal");
-            System.out.println("(3) QuickPlay");
-            System.out.println("(4) Random Mode");
-
-            String input = scan.nextLine().trim().toLowerCase();
-
-            if (input.equals("x")) {
-                quittingCheck();
-            } else if (input.equals("1") || input.equals("tutorial") || input.equals("one") || input.equals("t")) {
-                return new Tutorial(player);
-            } else if (input.equals("2") || input.equals("normal") || input.equals("two") || input.equals("n")) {
-                return new NormalMode(player);
-            } else if (input.equals("3") || input.equals("quickplay") || input.equals("three") || input.equals("q")) {
-                return new QuickPlay(player);
-            } else if (input.equals("4") || input.equals("random mode") || input.equals("random") || input.equals("randommode") || input.equals("four") || input.equals("r")) {
-                return new RandomMode(player);
-            } else {
-                System.out.println("-----------------------------------------------------------------------");
-                System.out.println("Invalid Input");
-            }
+    public void selectGameMode(String modeName) {
+        if (modeName.equals("Tutorial")) {
+            gameMode = new Tutorial(player);
+        } else if (modeName.equals("Normal")) {
+            gameMode = new NormalMode(player);
+        } else if (modeName.equals("QuickPlay")) {
+            gameMode = new QuickPlay(player);
+        } else if (modeName.equals("Random")) {
+            gameMode = new RandomMode(player);
         }
-        return null;
     }
 
     //prompts user to see if they would like to play again

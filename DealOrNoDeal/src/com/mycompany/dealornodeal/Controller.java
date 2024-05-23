@@ -22,14 +22,14 @@ class Controller implements ActionListener {
     private ScoresGUI scores;
     private GameController model;
 
-    public Controller(LoginView view, ModeSelect modeSelect, GameModeSelect gameMode, NormalGUI normalGui, QuickplayGUI quickPlay, TutorialGUI tutorial, ScoresGUI scores, GameController model) {
+    public Controller(LoginView view, GameController model) {
         this.login = view;
-        this.mode = modeSelect;
-        this.gameMode = gameMode;
-        this.normal = normalGui;
-        this.quickplay = quickPlay;
-        this.tutorial = tutorial;
-        this.scores = scores;
+        this.mode = new ModeSelect();
+        this.gameMode = new GameModeSelect();
+        this.normal = new NormalGUI();
+        this.quickplay = new QuickplayGUI();
+        this.tutorial = new TutorialGUI();
+        this.scores = new ScoresGUI();
         this.model = model;
         this.login.addActionListener(this);
         this.mode.addActionListener(this);
@@ -63,6 +63,27 @@ class Controller implements ActionListener {
                 mode.setVisible(false);
                 scores.setScores(model.getGlobalTotalPrizes());
                 scores.setVisible(true);
+                break;
+            case "Normal":
+                mode.setVisible(false);
+                model.selectGameMode("Normal");
+                normal.setVisible(true);
+                break;
+            case "Tutorial":
+                mode.setVisible(false);
+                model.selectGameMode("Tutorial");
+                tutorial.setVisible(true);
+                break;
+            case "QuickPlay":
+                mode.setVisible(false);
+                model.selectGameMode("QuickPlay");
+                quickplay.setVisible(true);
+                break;
+            case "Random Mode":
+                mode.setVisible(false);
+                model.selectGameMode("Random");
+                normal.setVisible(true);
+                break;
             default:
                 break;
 
