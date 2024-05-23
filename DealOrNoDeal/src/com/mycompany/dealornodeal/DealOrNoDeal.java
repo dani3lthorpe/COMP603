@@ -15,11 +15,12 @@ public class DealOrNoDeal {
         GameController game = new GameController();
         LoginView login = new LoginView();
         ModeSelect modeSelect = new ModeSelect();
+        GameModeSelect gameModeSelect = new GameModeSelect();
         NormalGUI normalGui = new NormalGUI();
         QuickplayGUI quickPlay = new QuickplayGUI();
         TutorialGUI tutorial = new TutorialGUI();
         ScoresGUI scores = new ScoresGUI();
-        Controller controller = new Controller(login, modeSelect, normalGui, quickPlay, tutorial, scores, game);
+        Controller controller = new Controller(login, modeSelect, gameModeSelect, normalGui, quickPlay, tutorial, scores, game);
         login.setVisible(true);
         game.displayMainMenu();
     }

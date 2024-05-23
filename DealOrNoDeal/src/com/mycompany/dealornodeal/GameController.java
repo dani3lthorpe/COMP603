@@ -204,7 +204,12 @@ public class GameController {
         return input;
     }
 
-    void setPlayer(String username) {
+    public void setPlayer(String username) {
         player = checkPlayers(username);
+    }
+
+    public String getGlobalTotalPrizes() {
+        String score = scores.showGlobalTotalPrizes();
+        return score;
     }
 }

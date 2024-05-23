@@ -75,7 +75,6 @@ public class ScoreController {
                     if (scoreInput.equals("x")) {
                         quittingCheck();
                     } else if (scoreInput.equals("1") || scoreInput.equals("global total prizes") || scoreInput.equals("global total")) {
-                        showGlobalTotalPrizes();
                         validScoreTypeInput = true;
                     } else if (scoreInput.equals("2") || scoreInput.equals("global highest prizes") || scoreInput.equals("global highest") || scoreInput.equals("global high")) {
                         showGlobalHighestPrizes();
@@ -107,16 +106,17 @@ public class ScoreController {
     }
 
     //displays the global total prizes
-    public void showGlobalTotalPrizes() {
+    public String showGlobalTotalPrizes() {
         int place = 1;
-
+        String scores = "";
         System.out.println("-----------------------------------------------------------------------");
         System.out.println("Global Total Scores: ");
 
         for (Map.Entry<String, Integer> entry : globalTotalPrizes.entrySet()) {
-            System.out.println(place + ". " + entry.getKey().substring(0, 1).toUpperCase() + entry.getKey().substring(1) + ": " + entry.getValue());
+            scores += place + ". " + entry.getKey().substring(0, 1).toUpperCase() + entry.getKey().substring(1) + ": " + entry.getValue() + "\n";
             place++;
         }
+        return scores;
     }
 
     //displays the global highest prizes

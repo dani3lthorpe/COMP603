@@ -15,15 +15,17 @@ class Controller implements ActionListener {
 
     private LoginView login;
     private ModeSelect mode;
+    private GameModeSelect gameMode;
     private NormalGUI normal;
     private QuickplayGUI quickplay;
     private TutorialGUI tutorial;
     private ScoresGUI scores;
     private GameController model;
 
-    public Controller(LoginView view, ModeSelect modeSelect, NormalGUI normalGui, QuickplayGUI quickPlay, TutorialGUI tutorial, ScoresGUI scores, GameController model) {
+    public Controller(LoginView view, ModeSelect modeSelect, GameModeSelect gameMode, NormalGUI normalGui, QuickplayGUI quickPlay, TutorialGUI tutorial, ScoresGUI scores, GameController model) {
         this.login = view;
         this.mode = modeSelect;
+        this.gameMode = gameMode;
         this.normal = normalGui;
         this.quickplay = quickPlay;
         this.tutorial = tutorial;
@@ -31,6 +33,7 @@ class Controller implements ActionListener {
         this.model = model;
         this.login.addActionListener(this);
         this.mode.addActionListener(this);
+        this.gameMode.addActionListener(this);
 
     }
 
@@ -52,8 +55,14 @@ class Controller implements ActionListener {
                     mode.exit();
                 }
                 break;
-            case " ":
-                
+            case "Play Deal Or No Deal":
+                mode.setVisible(false);
+                gameMode.setVisible(true);
+                break;
+            case "See Scores":
+                mode.setVisible(false);
+                scores.setScores(model.getGlobalTotalPrizes());
+                scores.setVisible(true);
             default:
                 break;
 

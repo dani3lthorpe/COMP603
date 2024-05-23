@@ -147,4 +147,8 @@ public class ScoresGUI extends javax.swing.JFrame {
     private javax.swing.JLabel personalScores;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
+
+    void setScores(String scores) {
+        globalScores.setText(scores);
+    }
 }

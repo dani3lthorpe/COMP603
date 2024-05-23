@@ -4,6 +4,8 @@
  */
 package com.mycompany.dealornodeal;
 
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author droun
@@ -129,4 +131,11 @@ public class GameModeSelect extends javax.swing.JFrame {
     private javax.swing.JLabel title;
     private javax.swing.JButton tutorial;
     // End of variables declaration//GEN-END:variables
+
+    void addActionListener(ActionListener listener) {
+        this.normal.addActionListener(listener);
+        this.quickPlay.addActionListener(listener);
+        this.random.addActionListener(listener);
+        this.tutorial.addActionListener(listener);
+    }
 }
