@@ -19,7 +19,7 @@ public class Tutorial extends GameMode {
 
     //tutorial constructor supers the prizes int array as well as the inputed player parameter
     public Tutorial(Player player) {
-        super(player, prizes);
+        super(player, prizes, 3);
     }
 
     //overrides abstract method displayCases so that it correctly displays all the cases

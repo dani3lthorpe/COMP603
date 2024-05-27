@@ -6,12 +6,13 @@ package com.mycompany.dealornodeal;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
 
 /**
  *
  * @author hidan
  */
-public class GameModeController implements ActionListener{
+public class GameModeController implements ActionListener {
 
     private NormalGUI normal;
     private QuickplayGUI quickplay;
@@ -39,15 +40,11 @@ public class GameModeController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
-        for(int i = 1; i <= 26; i++)
-        {
-            if(command.equals(i))
-            {
-                if(normal.isVisible()){
-               normal.caseOpened(model.getGameMode().displayCasePicking(i));
-                }
+        if (command.compareTo("0") > 0 && command.compareTo("27") < 0) {
+            if (normal.isVisible()) {
+                model.openCase(Integer.parseInt(command));
+                normal.caseOpened((JButton) e.getSource());
             }
         }
-
     }
 }

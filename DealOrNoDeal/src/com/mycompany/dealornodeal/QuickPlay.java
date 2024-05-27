@@ -18,7 +18,7 @@ public class QuickPlay extends GameMode {
 
     //Quickplay constructor supers the prizes int array as well as the inputed player parameter
     public QuickPlay(Player player) {
-        super(player, money);
+        super(player, money, 5);
     }
 
     //overrides abstract method displayCases so that it correctly displays all the cases

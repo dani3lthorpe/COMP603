@@ -6,6 +6,7 @@ package com.mycompany.dealornodeal;
 
 import java.util.ArrayList;
 import static java.util.Collections.shuffle;
+import java.util.Observable;
 import java.util.Scanner;
 
 /**
@@ -22,14 +23,16 @@ public abstract class GameMode implements Game {
     private boolean dealAccepted;
     private int totalGames;
     private int totalPrizes;
+    private GameInfo gameData;
 
     //GameMode constructor creates the prizes and cases arraylist
     // adds the value from the prizes array to the prizes arraylist and sets the player to the player parameter
-    public GameMode(Player player, int[] prizes) {
+    public GameMode(Player player, int[] prizes, int casesToPick) {
         this.player = player;
         this.prizes = new ArrayList<>();
         this.cases = new ArrayList<>();
         this.dealAccepted = false;
+        this.gameData = new GameInfo(casesToPick);
         for (int m : prizes) {
             this.prizes.add(m);
         }
@@ -76,15 +79,15 @@ public abstract class GameMode implements Game {
 
     //displays the casePicking screen, getting the user to select a case to open
     //takes a scanner, the number of cases to pick and the total cases as a parameter
-    public String displayCasePicking(int caseNum) {
+    public Case displayCasePicking(int caseNum) {
         for (Case c : cases) {
             if (c.getNumber() == caseNum) {
                 if (c.isOpen() == true) {
-                    return "Case is Already Open";
+                    return c;
                 } else if (c.isPlayerCase() == true) {
-                    return "You can not open your own case";
+                    return c;
                 } else {
-                    return c.open();
+                    return c;
                 }
             }
         }
@@ -282,6 +285,11 @@ public abstract class GameMode implements Game {
     public void addTotalGame() {
         this.totalGames++;
     }
+
+    public GameInfo getGameData() {
+        return gameData;
+    }
+    
 
     //abstract methods for subclasses to override
     @Override

@@ -18,7 +18,7 @@ public class NormalMode extends GameMode {
 
     //normal constructor supers the prizes int array as well as the inputed player parameter
     public NormalMode(Player player) {
-        super(player, prizes);
+        super(player, prizes, 6);
     }
 
     //overrides abstract method displayCases so that it correctly displays all the cases

@@ -19,7 +19,7 @@ public class RandomMode extends GameMode {
     //Random constructor supers the prizes int array created by the create prizes method
     //as well as the inputed player parameter
     public RandomMode(Player player) {
-        super(player, createPrizes());
+        super(player, createPrizes(), 6);
     }
 
     //sets the 26 prizes to random numbers between 1 and 500000
