@@ -1,6 +1,8 @@
 package com.mycompany.dealornodeal;
 
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -10,7 +12,7 @@ import java.awt.event.ActionListener;
  *
  * @author droun
  */
-public class BankOfferGUI extends javax.swing.JFrame {
+public class BankOfferGUI extends javax.swing.JFrame implements Observer {
 
     /**
      * Creates new form BankOfferGUI
@@ -212,6 +214,12 @@ public class BankOfferGUI extends javax.swing.JFrame {
         this.dealButton.addActionListener(listener);
         this.exitButton.addActionListener(listener);
         this.noDealButton.addActionListener(listener);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+                GameInfo gameData = (GameInfo) arg;
+                offerAmount.setText("$" + gameData.getCurrentOffer());
     }
 
 }

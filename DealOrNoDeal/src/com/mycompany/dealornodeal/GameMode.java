@@ -97,21 +97,12 @@ public abstract class GameMode implements Game {
 
     //displays an offer from a banker for the user to choose to accept or decline
     //takes a banker and scanner as parameter
-    public void displayOffer(Banker banker, Scanner scan) {
-        System.out.println("The banker has a new offer for you");
-        displayPastOffers(banker);
-        int offer = banker.makeOffer(prizes);
+    public void displayOffer() {
+        Banker banker = new Banker(gameData.getRound());
+        gameData.setCurrentOffer(banker.makeOffer(prizes));
 
-        System.out.println("The banker has given you an offer of: $" + offer);
-        System.out.println("(1) Deal");
-        System.out.println("(2) No Deal");
-        int answer = checkOfferInput(scan);
 
-        if (answer == 1) {
-            System.out.println("-----------------------------------------------------------------------");
-            System.out.println("You have accepted the offer");
-            System.out.println("Well done you won: $" + offer);
-            this.player.addTotalPrizes(offer);
+        /*this.player.addTotalPrizes(offer);
             this.totalPrizes += offer;
             if (offer > this.player.getHighestPrize()) {
                 this.player.setHighestPrize(offer);
@@ -119,12 +110,7 @@ public abstract class GameMode implements Game {
             this.player.addTotalPrizes(offer);
             this.player.addNewRecentPrizes(offer);
             this.player.addNewHighPrizes(offer);
-            this.dealAccepted = true;
-        } else {
-            System.out.println("-----------------------------------------------------------------------");
-            System.out.println("No Deal, the game shall continue");
-        }
-        System.out.println("-----------------------------------------------------------------------");
+            this.dealAccepted = true;*/
     }
 
     //displays the past offers
@@ -294,8 +280,6 @@ public abstract class GameMode implements Game {
     public int[] getPrize() {
         return prize;
     }
-    
-    
 
     //abstract methods for subclasses to override
     @Override

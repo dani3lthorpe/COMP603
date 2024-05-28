@@ -82,26 +82,26 @@ public class RandomMode extends GameMode {
         System.out.println("Your case is " + caseNum);
         
         System.out.println("-----------------------------------------------------------------------");
-        displayOffer(banker, scan);
+        //displayOffer(banker, scan);
         
         if (!isDealAccepted()) {
-            displayOffer(banker, scan);
+            //displayOffer(banker, scan);
         }
         
         if (!isDealAccepted()) {
-            displayOffer(banker, scan);
+            //displayOffer(banker, scan);
         }
         
         if (!isDealAccepted()) {
-            displayOffer(banker, scan);
+            //displayOffer(banker, scan);
         }
         
         if (!isDealAccepted()) {
-            displayOffer(banker, scan);
+            //displayOffer(banker, scan);
         }
         
         if (!isDealAccepted()) {
-            displayOffer(banker, scan);
+            //displayOffer(banker, scan);
         }
         
         for (Case c : getCases()) {

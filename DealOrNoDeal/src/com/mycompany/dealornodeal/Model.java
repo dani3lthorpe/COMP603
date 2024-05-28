@@ -87,7 +87,7 @@ public class Model extends Observable {
             gameMode = new NormalMode(player);
         } else if (modeName.equals("QuickPlay")) {
             gameMode = new QuickPlay(player);
-        } else if (modeName.equals("Random")) {
+        } else if (modeName.equals("Random Mode")) {
             gameMode = new RandomMode(player);
         }
         this.setChanged();
@@ -200,13 +200,18 @@ public class Model extends Observable {
         return gameMode;
     }
 
+    public void getOffer() {
+        gameMode.displayOffer();
+        this.setChanged();
+        this.notifyObservers(this.gameMode.getGameData());
+    }
+
     public void openCase(int caseNum) {
         ArrayList<Case> cases = gameMode.getCases();
         if (this.gameMode.getGameData().getPlayerCase() != null) {
             this.gameMode.getGameData().casePicked(cases.get(caseNum - 1));
-        } else
-        {
-            this.gameMode.getGameData().setPlayerCase(cases.get(caseNum-1));
+        } else {
+            this.gameMode.getGameData().setPlayerCase(cases.get(caseNum - 1));
         }
         this.setChanged();
         this.notifyObservers(this.gameMode.getGameData());

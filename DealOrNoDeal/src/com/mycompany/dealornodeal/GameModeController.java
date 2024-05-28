@@ -23,6 +23,7 @@ public class GameModeController implements ActionListener {
     GameModeController(String command, Model model) {
         this.model = model;
         this.bankOffer = new BankOfferGUI();
+        this.model.addObserver(bankOffer);
         bankOffer.addActionListener(this);
         if (command.equals("Normal") || command.equals("Random Mode")) {
             this.normal = new NormalGUI(bankOffer);
@@ -52,12 +53,22 @@ public class GameModeController implements ActionListener {
                     model.openCase(caseNumber);
                     normal.caseOpened((JButton) e.getSource(), model.getGameMode().getGameData());
                 }
+                if (this.model.getGameMode().getGameData().getCasesToPick() == 0) {
+                    this.model.deleteObserver(normal);
+                    this.normal.setVisible(false);
+                    this.model.getOffer();
+                    this.bankOffer.setVisible(true);
+                }
             }
         } catch (NumberFormatException ex) {
             if (command.equals("Exit")) {
                 if (normal.isVisible()) {
                     normal.exit();
                 }
+            } else if (command.equals("No Deal!")) {
+                this.bankOffer.setVisible(false);
+                this.model.addObserver(normal);
+                this.normal.setVisible(true);
             }
         }
     }

@@ -12,6 +12,7 @@ public class GameInfo {
 
     private int casesToPick;
     private int round;
+    private int currentOffer;
     private boolean userCasePicked;
     private Case currentCase;
     private Case playerCase;
@@ -65,7 +66,13 @@ public class GameInfo {
         this.currentCase = playerCase;
     }
 
-    
+    public int getCurrentOffer() {
+        return currentOffer;
+    }
+
+    public void setCurrentOffer(int currentOffer) {
+        this.currentOffer = currentOffer;
+    }
     
     
 }

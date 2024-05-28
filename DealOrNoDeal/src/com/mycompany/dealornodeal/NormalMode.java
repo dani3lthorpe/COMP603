@@ -69,31 +69,31 @@ public class NormalMode extends GameMode {
         
         System.out.println("-----------------------------------------------------------------------");
        // displayCasePicking(scan, 6, 26);
-        displayOffer(banker, scan);
+        //displayOffer(banker, scan);
         
         if (!isDealAccepted()) {
             //displayCasePicking(scan, 6, 26);
-            displayOffer(banker, scan);
+            //displayOffer(banker, scan);
         }
         
         if (!isDealAccepted()) {
             //displayCasePicking(scan, 5, 26);
-            displayOffer(banker, scan);
+            //displayOffer(banker, scan);
         }
         
         if (!isDealAccepted()) {
             //displayCasePicking(scan, 4, 26);
-            displayOffer(banker, scan);
+            //displayOffer(banker, scan);
         }
         
         if (!isDealAccepted()) {
            // displayCasePicking(scan, 2, 26);
-            displayOffer(banker, scan);
+            //displayOffer(banker, scan);
         }
         
         if (!isDealAccepted()) {
            // displayCasePicking(scan, 1, 26);
-            displayOffer(banker, scan);
+            //displayOffer(banker, scan);
         }
         
         for (Case c : getCases()) {

@@ -53,15 +53,15 @@ public class QuickPlay extends GameMode {
         
         System.out.println("-----------------------------------------------------------------------");
         //displayCasePicking(scan, 5, 13);
-        displayOffer(banker, scan);
+        //displayOffer(banker, scan);
         
         if (!isDealAccepted()) {
             //displayCasePicking(scan , 4, 13);
-            displayOffer(banker, scan);
+            //displayOffer(banker, scan);
         }
         if (!isDealAccepted()) {
             //displayCasePicking(scan, 2, 13);
-            displayOffer(banker, scan);
+            //displayOffer(banker, scan);
         }
         
         for (Case c : getCases()) {

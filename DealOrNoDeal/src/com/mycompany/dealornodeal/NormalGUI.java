@@ -746,14 +746,10 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
                 int caseNum = gameData.getCurrentCase().getNumber();
                 JOptionPane.showMessageDialog(this, "Case " + caseNum + " contained: $" + gameData.getCurrentCase().getPrize());
                 for (int i = 0; i < prizeArray.length; i++) {
-                    if (prizeArray[i].getText().equals(gameData.getCurrentCase().getPrize())) {
+                    if (prizeArray[i].getText().equals("$" + gameData.getCurrentCase().getPrize())) {
                         prizeArray[i].setText("");
                     }
                 }
-            }
-            if (gameData.getCasesToPick() <= 0) {
-                this.setVisible(false);
-                bankOffer.setVisible(true);
             }
         }
     }

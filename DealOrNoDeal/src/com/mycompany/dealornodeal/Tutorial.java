@@ -59,12 +59,12 @@ public class Tutorial extends GameMode {
         System.out.println("Once all the cases have been picked for the round the banker will offer you a amount of money depending on the money that could still be in the case you kept");
         System.out.println("You can choose to either accept the money and leave with the offered amount as your prize (deal)");
         System.out.println("Or you can continue playing if you believe your case has more money in it than the offer (no deal)");
-        displayOffer(banker, scan);
+        //displayOffer(banker, scan);
         
         if (!isDealAccepted()) {
             //displayCasePicking(scan, 1, 6);
             System.out.println("This is the final offer as once there is only one case left on the board it will be time to open your case and see how much you won");
-            displayOffer(banker, scan);
+            //displayOffer(banker, scan);
         }
 
         for (Case c : getCases()) {
