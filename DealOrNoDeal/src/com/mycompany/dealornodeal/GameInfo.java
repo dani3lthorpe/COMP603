@@ -14,11 +14,13 @@ public class GameInfo {
     private int round;
     private boolean userCasePicked;
     private Case currentCase;
+    private Case playerCase;
 
     public GameInfo(int casesToPick) {
         this.round = 1;
         this.casesToPick = casesToPick;
         this.userCasePicked = false;
+        this.playerCase = null;
     }
 
     public int getCasesToPick() {
@@ -52,6 +54,15 @@ public class GameInfo {
 
     public Case getCurrentCase() {
         return currentCase;
+    }
+
+    public Case getPlayerCase() {
+        return playerCase;
+    }
+
+    public void setPlayerCase(Case playerCase) {
+        this.playerCase = playerCase;
+        this.currentCase = playerCase;
     }
 
     

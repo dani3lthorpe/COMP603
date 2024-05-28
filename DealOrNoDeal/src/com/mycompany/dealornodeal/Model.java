@@ -15,7 +15,7 @@ import java.util.Scanner;
  *
  * @author group69
  */
-public class Model extends Observable{
+public class Model extends Observable {
 
     private HashMap<String, Player> players;
     private static Scanner scan;
@@ -91,7 +91,7 @@ public class Model extends Observable{
             gameMode = new RandomMode(player);
         }
         this.setChanged();
-        this.notifyObservers(this.gameMode.getGameData());   
+        this.notifyObservers(this.gameMode.getGameData());
     }
 
     //prompts user to see if they would like to play again
@@ -199,14 +199,17 @@ public class Model extends Observable{
     public GameMode getGameMode() {
         return gameMode;
     }
-    
-    public void openCase(int caseNum)
-    {
+
+    public void openCase(int caseNum) {
         ArrayList<Case> cases = gameMode.getCases();
-        this.gameMode.getGameData().casePicked(cases.get(caseNum - 1));
+        if (this.gameMode.getGameData().getPlayerCase() != null) {
+            this.gameMode.getGameData().casePicked(cases.get(caseNum - 1));
+        } else
+        {
+            this.gameMode.getGameData().setPlayerCase(cases.get(caseNum-1));
+        }
         this.setChanged();
-        this.notifyObservers(this.gameMode.getGameData());        
+        this.notifyObservers(this.gameMode.getGameData());
     }
-    
-    
+
 }

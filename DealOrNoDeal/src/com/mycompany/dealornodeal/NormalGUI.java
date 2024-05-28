@@ -4,6 +4,7 @@
  */
 package com.mycompany.dealornodeal;
 
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -26,10 +27,11 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
         initComponents();
     }
 
-    public NormalGUI(BankOfferGUI bankOffer)
-    {
+    public NormalGUI(BankOfferGUI bankOffer) {
         this.bankOffer = bankOffer;
+        initComponents();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -403,7 +405,8 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
 
         case26.setText("26");
 
-        caseToPickLabel.setText("Cases to pick");
+        caseToPickLabel.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        caseToPickLabel.setText("Pick Your Case");
         caseToPickLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -417,7 +420,7 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(case1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(case1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(case16, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(case11, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(case6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -425,10 +428,10 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(case2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(case7, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(case12, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(case17, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(case22))
+                            .addComponent(case7, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(case12, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(case17, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(case22, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -443,21 +446,21 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
                                 .addComponent(case18, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(case23, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(case4, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(case9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(case4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(case9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
                             .addComponent(case14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(case19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(case24, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(case19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(case24, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(case5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(case5, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
                             .addComponent(case10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(case15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(case20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(case25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(34, 34, 34))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(302, 302, 302)
+                        .addGap(216, 216, 216)
                         .addComponent(caseToPickLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -476,9 +479,9 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 47, Short.MAX_VALUE)
+                        .addGap(0, 50, Short.MAX_VALUE)
                         .addComponent(caseToPickLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45)
+                        .addGap(42, 42, 42)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(case1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -711,40 +714,21 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
         prizeArray[24] = this.prize25;
         prizeArray[25] = this.prize26;
 
-        for (int i = 0; i < prizes.length; i++) {
+        for (int i = 0; i < prizes.length && i < prizeArray.length; i++) {
             prizeArray[i].setText("$" + prizes[i]);
         }
-        /*this.prize1.setText("$" + prizes[0]);
-        this.prize2.setText("$" + prizes[1]);
-        this.prize3.setText("$" + prizes[2]);
-        this.prize4.setText("$" + prizes[3]);
-        this.prize5.setText("$" + prizes[4]);
-        this.prize6.setText("$" + prizes[5]);
-        this.prize7.setText("$" + prizes[6]);
-        this.prize8.setText("$" + prizes[7]);
-        this.prize9.setText("$" + prizes[8]);
-        this.prize10.setText("$" + prizes[9]);
-        this.prize11.setText("$" + prizes[10]);
-        this.prize12.setText("$" + prizes[11]);
-        this.prize13.setText("$" + prizes[12]);
-        this.prize14.setText("$" + prizes[13]);
-        this.prize15.setText("$" + prizes[14]);
-        this.prize16.setText("$" + prizes[15]);
-        this.prize17.setText("$" + prizes[16]);
-        this.prize18.setText("$" + prizes[17]);
-        this.prize19.setText("$" + prizes[18]);
-        this.prize20.setText("$" + prizes[19]);
-        this.prize21.setText("$" + prizes[20]);
-        this.prize22.setText("$" + prizes[21]);
-        this.prize23.setText("$" + prizes[22]);
-        this.prize24.setText("$" + prizes[23]);
-        this.prize25.setText("$" + prizes[24]);
-        this.prize26.setText("$" + prizes[25]);*/
     }
 
-    public void caseOpened(javax.swing.JButton source) {
-        source.setEnabled(false);
-        source.setText("");
+    public void caseOpened(javax.swing.JButton source, GameInfo gameData) {
+        if (gameData.getPlayerCase() != gameData.getCurrentCase()) {
+            source.setEnabled(false);
+            source.setText("");
+        } else {
+            source.setText("Your Case");
+             Font font = new Font("Segoe UI", 0, 10);
+            source.setFont(font);
+            source.setBackground(new java.awt.Color(204,255,204));
+        }
     }
 
     public void exit() {
@@ -758,11 +742,13 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
         GameInfo gameData = (GameInfo) arg;
         caseToPickLabel.setText(gameData.getCasesToPick() + " Cases To Pick");
         if (gameData.getCurrentCase() != null) {
-            int caseNum = gameData.getCurrentCase().getNumber();
-            JOptionPane.showMessageDialog(this, "Case " + caseNum + " contained: $" + gameData.getCurrentCase().getPrize());
-            for (int i = 0; i < prizeArray.length; i++) {
-                if (prizeArray[i].getText().equals(caseNum)) {
-                    prizeArray[i].setText("");
+            if (gameData.getPlayerCase() != gameData.getCurrentCase()) {
+                int caseNum = gameData.getCurrentCase().getNumber();
+                JOptionPane.showMessageDialog(this, "Case " + caseNum + " contained: $" + gameData.getCurrentCase().getPrize());
+                for (int i = 0; i < prizeArray.length; i++) {
+                    if (prizeArray[i].getText().equals(gameData.getCurrentCase().getPrize())) {
+                        prizeArray[i].setText("");
+                    }
                 }
             }
             if (gameData.getCasesToPick() <= 0) {

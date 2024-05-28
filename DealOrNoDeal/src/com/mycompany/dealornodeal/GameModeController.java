@@ -50,7 +50,7 @@ public class GameModeController implements ActionListener {
             if (caseNumber > 0 && caseNumber < 27) {
                 if (normal.isVisible()) {
                     model.openCase(caseNumber);
-                    normal.caseOpened((JButton) e.getSource());
+                    normal.caseOpened((JButton) e.getSource(), model.getGameMode().getGameData());
                 }
             }
         } catch (NumberFormatException ex) {
