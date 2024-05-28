@@ -51,14 +51,11 @@ public class GameModeController implements ActionListener {
                 }
             }
         } catch (NumberFormatException ex) {
-            
-        }
-        
-            if (command.compareTo("0") > 0 && command.compareTo("27") < 0) {
+            if (command.equals("Exit")) {
                 if (normal.isVisible()) {
-                    model.openCase(Integer.parseInt(command));
-                    normal.caseOpened((JButton) e.getSource());
+                    normal.exit();
                 }
             }
         }
     }
+}

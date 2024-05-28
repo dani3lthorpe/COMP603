@@ -61,8 +61,8 @@ class MenuController implements ActionListener {
             default:
                 break;
         }
-        if (command.equals("Normal") || command.equals("Tutorial") || command.equals("QUickPlay") || command.equals("Random Mode")) {
-            mode.setVisible(false);
+        if (command.equals("Normal") || command.equals("Tutorial") || command.equals("QuickPlay") || command.equals("Random Mode")) {
+            gameMode.setVisible(false);
             model.selectGameMode(command);
             GameModeController gameModeController = new GameModeController(command, model);
         }

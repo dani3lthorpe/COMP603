@@ -743,13 +743,29 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
         source.setText("");
     }
 
+        public void exit() {
+        if (JOptionPane.showConfirmDialog(this, "Do you want to quit?", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }
+        
     @Override
     public void update(Observable o, Object arg) {
         GameInfo gameData = (GameInfo) arg;
         caseToPickLabel.setText(gameData.getCasesToPick() + " Cases To Pick");
         if (gameData.getCurrentCase() != null) {
-            JOptionPane.showMessageDialog(this, "Case " + gameData.getCurrentCase().getNumber() + " contained: $" + gameData.getCurrentCase().getPrize());
+            int caseNum = gameData.getCurrentCase().getNumber();
+            JOptionPane.showMessageDialog(this, "Case " + caseNum + 
+                    " contained: $" + gameData.getCurrentCase().getPrize());
+            for(int i = 0; i < prizeArray.length; i++)
+            {
+                if(prizeArray[i].getText().equals(caseNum))
+                {
+                    prizeArray[i].setText("");
+                }
+            }
         }
     }
+        
 
 }
