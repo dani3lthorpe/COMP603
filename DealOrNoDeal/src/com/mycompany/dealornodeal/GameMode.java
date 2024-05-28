@@ -6,7 +6,6 @@ package com.mycompany.dealornodeal;
 
 import java.util.ArrayList;
 import static java.util.Collections.shuffle;
-import java.util.Observable;
 import java.util.Scanner;
 
 /**
@@ -24,6 +23,7 @@ public abstract class GameMode implements Game {
     private int totalGames;
     private int totalPrizes;
     private GameInfo gameData;
+    private int[] prize;
 
     //GameMode constructor creates the prizes and cases arraylist
     // adds the value from the prizes array to the prizes arraylist and sets the player to the player parameter
@@ -31,6 +31,7 @@ public abstract class GameMode implements Game {
         this.player = player;
         this.prizes = new ArrayList<>();
         this.cases = new ArrayList<>();
+        this.prize = prizes;
         this.dealAccepted = false;
         this.gameData = new GameInfo(casesToPick);
         for (int m : prizes) {

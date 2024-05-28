@@ -93,7 +93,7 @@ public class GameController extends Observable{
             gameMode = new RandomMode(player);
         }
         this.setChanged();
-        this.notifyObservers(this.gameMode.getGameData());  
+        this.notifyObservers(this.gameMode.getGameData());   
     }
 
     //prompts user to see if they would like to play again
@@ -205,7 +205,7 @@ public class GameController extends Observable{
     public void openCase(int caseNum)
     {
         ArrayList<Case> cases = gameMode.getCases();
-        this.gameMode.getGameData().casePicked(cases.get(caseNum + 1));
+        this.gameMode.getGameData().casePicked(cases.get(caseNum - 1));
         this.setChanged();
         this.notifyObservers(this.gameMode.getGameData());        
     }

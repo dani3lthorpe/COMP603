@@ -5,6 +5,7 @@
 package com.mycompany.dealornodeal;
 
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JOptionPane;
@@ -14,6 +15,8 @@ import javax.swing.JOptionPane;
  * @author droun
  */
 public class NormalGUI extends javax.swing.JFrame implements Observer {
+
+    javax.swing.JLabel[] prizeArray;
 
     /**
      * Creates new form NormalGUI
@@ -421,7 +424,7 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
                             .addComponent(case12, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(case17, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(case22))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(case26, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -449,8 +452,8 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
                             .addComponent(case25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(34, 34, 34))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(caseToPickLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(302, 302, 302)
+                        .addComponent(caseToPickLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -468,9 +471,9 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 43, Short.MAX_VALUE)
+                        .addGap(0, 47, Short.MAX_VALUE)
                         .addComponent(caseToPickLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49)
+                        .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(case1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -647,35 +650,97 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
     public void addActionListener(ActionListener listener) {
         this.case1.addActionListener(listener);
         this.case2.addActionListener(listener);
-        /*  this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener); */
+        this.case3.addActionListener(listener);
+        this.case4.addActionListener(listener);
+        this.case5.addActionListener(listener);
+        this.case6.addActionListener(listener);
+        this.case7.addActionListener(listener);
+        this.case8.addActionListener(listener);
+        this.case9.addActionListener(listener);
+        this.case10.addActionListener(listener);
+        this.case11.addActionListener(listener);
+        this.case12.addActionListener(listener);
+        this.case13.addActionListener(listener);
+        this.case14.addActionListener(listener);
+        this.case15.addActionListener(listener);
+        this.case16.addActionListener(listener);
+        this.case17.addActionListener(listener);
+        this.case18.addActionListener(listener);
+        this.case19.addActionListener(listener);
+        this.case20.addActionListener(listener);
+        this.case21.addActionListener(listener);
+        this.case22.addActionListener(listener);
+        this.case23.addActionListener(listener);
+        this.case24.addActionListener(listener);
+        this.case25.addActionListener(listener);
+        this.case26.addActionListener(listener);
         this.exitButton.addActionListener(listener);
     }
 
+    public void setPrizes(int[] prizes) {
+        this.prizeArray = new javax.swing.JLabel[26];
+        prizeArray[0] = this.prize1;
+        prizeArray[1] = this.prize2;
+        prizeArray[2] = this.prize3;
+        prizeArray[3] = this.prize4;
+        prizeArray[4] = this.prize5;
+        prizeArray[5] = this.prize6;
+        prizeArray[6] = this.prize7;
+        prizeArray[7] = this.prize8;
+        prizeArray[8] = this.prize9;
+        prizeArray[9] = this.prize10;
+        prizeArray[10] = this.prize11;
+        prizeArray[11] = this.prize12;
+        prizeArray[12] = this.prize13;
+        prizeArray[13] = this.prize14;
+        prizeArray[14] = this.prize15;
+        prizeArray[15] = this.prize16;
+        prizeArray[16] = this.prize17;
+        prizeArray[17] = this.prize18;
+        prizeArray[18] = this.prize19;
+        prizeArray[19] = this.prize20;
+        prizeArray[20] = this.prize21;
+        prizeArray[21] = this.prize22;
+        prizeArray[22] = this.prize23;
+        prizeArray[23] = this.prize24;
+        prizeArray[24] = this.prize25;
+        prizeArray[25] = this.prize26;
+
+        for(int i = 0; i < prizes.length; i++)
+        {
+            prizeArray[i].setText("$" + prizes[i]);
+        }
+        /*this.prize1.setText("$" + prizes[0]);
+        this.prize2.setText("$" + prizes[1]);
+        this.prize3.setText("$" + prizes[2]);
+        this.prize4.setText("$" + prizes[3]);
+        this.prize5.setText("$" + prizes[4]);
+        this.prize6.setText("$" + prizes[5]);
+        this.prize7.setText("$" + prizes[6]);
+        this.prize8.setText("$" + prizes[7]);
+        this.prize9.setText("$" + prizes[8]);
+        this.prize10.setText("$" + prizes[9]);
+        this.prize11.setText("$" + prizes[10]);
+        this.prize12.setText("$" + prizes[11]);
+        this.prize13.setText("$" + prizes[12]);
+        this.prize14.setText("$" + prizes[13]);
+        this.prize15.setText("$" + prizes[14]);
+        this.prize16.setText("$" + prizes[15]);
+        this.prize17.setText("$" + prizes[16]);
+        this.prize18.setText("$" + prizes[17]);
+        this.prize19.setText("$" + prizes[18]);
+        this.prize20.setText("$" + prizes[19]);
+        this.prize21.setText("$" + prizes[20]);
+        this.prize22.setText("$" + prizes[21]);
+        this.prize23.setText("$" + prizes[22]);
+        this.prize24.setText("$" + prizes[23]);
+        this.prize25.setText("$" + prizes[24]);
+        this.prize26.setText("$" + prizes[25]);*/
+    }
+
     public void caseOpened(javax.swing.JButton source) {
-        source.setVisible(false);
+        source.setEnabled(false);
+        source.setText("");
     }
 
     @Override

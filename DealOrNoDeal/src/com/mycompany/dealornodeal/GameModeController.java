@@ -23,6 +23,8 @@ public class GameModeController implements ActionListener {
         this.model = model;
         if (command.equals("Normal") || command.equals("Random Mode")) {
             this.normal = new NormalGUI();
+            //normal.setPrizes(model.getGameMode().getPrizes());
+            this.model.addObserver(normal);
             this.normal.addActionListener(this);
             normal.setVisible(true);
         } else if (command.equals("QuickPlay")) {
@@ -40,11 +42,23 @@ public class GameModeController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
-        if (command.compareTo("0") > 0 && command.compareTo("27") < 0) {
-            if (normal.isVisible()) {
-                model.openCase(Integer.parseInt(command));
-                normal.caseOpened((JButton) e.getSource());
+        try {
+            int caseNumber = Integer.parseInt(command);
+            if (caseNumber > 0 && caseNumber < 27) {
+                if (normal.isVisible()) {
+                    model.openCase(caseNumber);
+                    normal.caseOpened((JButton) e.getSource());
+                }
+            }
+        } catch (NumberFormatException ex) {
+            
+        }
+        
+            if (command.compareTo("0") > 0 && command.compareTo("27") < 0) {
+                if (normal.isVisible()) {
+                    model.openCase(Integer.parseInt(command));
+                    normal.caseOpened((JButton) e.getSource());
+                }
             }
         }
     }
-}
