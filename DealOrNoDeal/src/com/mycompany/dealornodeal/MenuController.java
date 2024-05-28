@@ -17,9 +17,9 @@ class MenuController implements ActionListener {
     private ModeSelect mode;
     private GameModeSelect gameMode;
     private ScoresGUI scores;
-    private GameController model;
+    private Model model;
 
-    public MenuController(LoginView view, GameController model) {
+    public MenuController(LoginView view, Model model) {
         this.login = view;
         this.mode = new ModeSelect();
         this.gameMode = new GameModeSelect();

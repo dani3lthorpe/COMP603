@@ -4,7 +4,7 @@
  */
 package com.mycompany.dealornodeal;
 
-import static com.mycompany.dealornodeal.GameController.quittingCheck;
+import static com.mycompany.dealornodeal.Model.quittingCheck;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;

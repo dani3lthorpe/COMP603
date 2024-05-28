@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 public class NormalGUI extends javax.swing.JFrame implements Observer {
 
     javax.swing.JLabel[] prizeArray;
+    BankOfferGUI bankOffer;
 
     /**
      * Creates new form NormalGUI
@@ -25,6 +26,10 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
         initComponents();
     }
 
+    public NormalGUI(BankOfferGUI bankOffer)
+    {
+        this.bankOffer = bankOffer;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -706,8 +711,7 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
         prizeArray[24] = this.prize25;
         prizeArray[25] = this.prize26;
 
-        for(int i = 0; i < prizes.length; i++)
-        {
+        for (int i = 0; i < prizes.length; i++) {
             prizeArray[i].setText("$" + prizes[i]);
         }
         /*this.prize1.setText("$" + prizes[0]);
@@ -743,29 +747,29 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
         source.setText("");
     }
 
-        public void exit() {
+    public void exit() {
         if (JOptionPane.showConfirmDialog(this, "Do you want to quit?", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
     }
-        
+
     @Override
     public void update(Observable o, Object arg) {
         GameInfo gameData = (GameInfo) arg;
         caseToPickLabel.setText(gameData.getCasesToPick() + " Cases To Pick");
         if (gameData.getCurrentCase() != null) {
             int caseNum = gameData.getCurrentCase().getNumber();
-            JOptionPane.showMessageDialog(this, "Case " + caseNum + 
-                    " contained: $" + gameData.getCurrentCase().getPrize());
-            for(int i = 0; i < prizeArray.length; i++)
-            {
-                if(prizeArray[i].getText().equals(caseNum))
-                {
+            JOptionPane.showMessageDialog(this, "Case " + caseNum + " contained: $" + gameData.getCurrentCase().getPrize());
+            for (int i = 0; i < prizeArray.length; i++) {
+                if (prizeArray[i].getText().equals(caseNum)) {
                     prizeArray[i].setText("");
                 }
             }
+            if (gameData.getCasesToPick() <= 0) {
+                this.setVisible(false);
+                bankOffer.setVisible(true);
+            }
         }
     }
-        
 
 }

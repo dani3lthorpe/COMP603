@@ -17,13 +17,16 @@ public class GameModeController implements ActionListener {
     private NormalGUI normal;
     private QuickplayGUI quickplay;
     private TutorialGUI tutorial;
-    private GameController model;
+    private Model model;
+    private BankOfferGUI bankOffer;
 
-    GameModeController(String command, GameController model) {
+    GameModeController(String command, Model model) {
         this.model = model;
+        this.bankOffer = new BankOfferGUI();
+        bankOffer.addActionListener(this);
         if (command.equals("Normal") || command.equals("Random Mode")) {
-            this.normal = new NormalGUI();
-            //normal.setPrizes(model.getGameMode().getPrizes());
+            this.normal = new NormalGUI(bankOffer);
+            normal.setPrizes(model.getGameMode().getPrize());
             this.model.addObserver(normal);
             this.normal.addActionListener(this);
             normal.setVisible(true);

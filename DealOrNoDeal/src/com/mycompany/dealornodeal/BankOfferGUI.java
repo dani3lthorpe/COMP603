@@ -1,10 +1,11 @@
 package com.mycompany.dealornodeal;
 
+import java.awt.event.ActionListener;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author droun
@@ -207,4 +208,10 @@ public class BankOfferGUI extends javax.swing.JFrame {
     private javax.swing.JLabel offerAmount;
     private javax.swing.JLabel previousOfferLabel;
     // End of variables declaration//GEN-END:variables
+ public void addActionListener(ActionListener listener) {
+        this.dealButton.addActionListener(listener);
+        this.exitButton.addActionListener(listener);
+        this.noDealButton.addActionListener(listener);
+    }
+
 }

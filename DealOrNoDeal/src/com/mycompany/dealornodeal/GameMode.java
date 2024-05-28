@@ -290,6 +290,11 @@ public abstract class GameMode implements Game {
     public GameInfo getGameData() {
         return gameData;
     }
+
+    public int[] getPrize() {
+        return prize;
+    }
+    
     
 
     //abstract methods for subclasses to override
