@@ -84,7 +84,7 @@ public class RandomMode extends GameMode {
         System.out.println("Your case is " + caseNum);
 
         System.out.println("-----------------------------------------------------------------------");
-        //displayOffer(banker, scan);
+        /*displayOffer(banker, scan);
 
         if (!isDealAccepted()) {
             //displayOffer(banker, scan);
@@ -104,11 +104,11 @@ public class RandomMode extends GameMode {
 
         if (!isDealAccepted()) {
             //displayOffer(banker, scan);
-        }
+        }*/
 
         for (Case c : getCases()) {
             if (c.getNumber() == caseNum) {
-                if (!isDealAccepted()) {
+                if (!getGameData().isDealAccepted()) {
                     System.out.println("Now to open your case");
                     int currentScore = c.getPrize();
                     if (currentScore > getPlayer().getHighestPrize()) {

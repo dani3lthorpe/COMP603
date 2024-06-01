@@ -61,15 +61,14 @@ public class Tutorial extends GameMode {
         System.out.println("Or you can continue playing if you believe your case has more money in it than the offer (no deal)");
         //displayOffer(banker, scan);
 
-        if (!isDealAccepted()) {
+       
             //displayCasePicking(scan, 1, 6);
             System.out.println("This is the final offer as once there is only one case left on the board it will be time to open your case and see how much you won");
-            //displayOffer(banker, scan);
-        }
+            //displayOffer(banker, scan)
 
         for (Case c : getCases()) {
             if (c.getNumber() == caseNum) {
-                if (!isDealAccepted()) {
+                if (!!getGameData().isDealAccepted()) {
                     System.out.println("Now to open your case");
                     int currentScore = c.getPrize();
 

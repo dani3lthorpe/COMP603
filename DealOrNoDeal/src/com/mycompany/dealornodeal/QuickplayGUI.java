@@ -5,12 +5,15 @@
 package com.mycompany.dealornodeal;
 
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author droun
  */
-public class QuickplayGUI extends javax.swing.JFrame {
+public class QuickplayGUI extends javax.swing.JFrame implements Observer {
 
     /**
      * Creates new form QuickplayGUI
@@ -55,7 +58,7 @@ public class QuickplayGUI extends javax.swing.JFrame {
         case11 = new javax.swing.JButton();
         case12 = new javax.swing.JButton();
         case13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
+        exit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -206,7 +209,7 @@ public class QuickplayGUI extends javax.swing.JFrame {
             }
         });
 
-        jButton14.setText("Exit");
+        exit.setText("Exit");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -272,7 +275,7 @@ public class QuickplayGUI extends javax.swing.JFrame {
                 .addGap(204, 204, 204)
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton14))
+                .addComponent(exit))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,7 +286,7 @@ public class QuickplayGUI extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton14))
+                                    .addComponent(exit))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(prize1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -444,7 +447,7 @@ public class QuickplayGUI extends javax.swing.JFrame {
     private javax.swing.JButton case7;
     private javax.swing.JButton case8;
     private javax.swing.JButton case9;
-    private javax.swing.JButton jButton14;
+    private javax.swing.JButton exit;
     private javax.swing.JLabel prize1;
     private javax.swing.JLabel prize10;
     private javax.swing.JLabel prize11;
@@ -463,30 +466,25 @@ public class QuickplayGUI extends javax.swing.JFrame {
     public void addActionListener(ActionListener listener) {
         this.case1.addActionListener(listener);
         this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
-        this.jButton14.addActionListener(listener);
+        this.case3.addActionListener(listener);
+        this.case4.addActionListener(listener);
+        this.case5.addActionListener(listener);
+        this.case6.addActionListener(listener);
+        this.case7.addActionListener(listener);
+        this.case8.addActionListener(listener);
+        this.case9.addActionListener(listener);
+        this.case10.addActionListener(listener);
+        this.exit.addActionListener(listener);
+    }
+
+    public void exit() {
+        if (JOptionPane.showConfirmDialog(this, "Do you want to quit?", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

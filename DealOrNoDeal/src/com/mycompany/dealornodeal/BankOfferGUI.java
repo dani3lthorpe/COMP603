@@ -3,6 +3,7 @@ package com.mycompany.dealornodeal;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -227,8 +228,13 @@ public class BankOfferGUI extends javax.swing.JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-                GameInfo gameData = (GameInfo) arg;
-                offerAmount.setText("$" + gameData.getCurrentOffer());
+        GameInfo gameData = (GameInfo) arg;
+        offerAmount.setText("$" + gameData.getCurrentOffer());
     }
 
+    public void exit() {
+        if (JOptionPane.showConfirmDialog(this, "Do you want to quit?", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }
 }

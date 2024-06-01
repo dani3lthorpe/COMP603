@@ -4,11 +4,16 @@
  */
 package com.mycompany.dealornodeal;
 
+import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author droun
  */
-public class endGameGUI extends javax.swing.JFrame {
+public class endGameGUI extends javax.swing.JFrame implements Observer {
 
     /**
      * Creates new form endGameGUI
@@ -96,8 +101,8 @@ public class endGameGUI extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(322, 322, 322)
-                    .addComponent(winningsLabel)
-                    .addContainerGap(453, Short.MAX_VALUE)))
+                    .addComponent(winningsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(269, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,4 +186,26 @@ public class endGameGUI extends javax.swing.JFrame {
     private javax.swing.JLabel title;
     private javax.swing.JLabel winningsLabel;
     // End of variables declaration//GEN-END:variables
+
+     public void addActionListener(ActionListener listener) {
+        this.exit.addActionListener(listener);
+        this.exit2.addActionListener(listener);
+        this.playButton.addActionListener(listener);
+    }
+    
+    public void exit() {
+        if (JOptionPane.showConfirmDialog(this, "Are you sure you want to quit?", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        GameInfo gameData = (GameInfo) arg;
+        if (gameData.isDealAccepted()) {
+            winningsLabel.setText("You won: $" + gameData.getCurrentOffer());
+        } else {
+            winningsLabel.setText("You won: $" + gameData.getCurrentCase().getPrize());
+        }
+    }
 }

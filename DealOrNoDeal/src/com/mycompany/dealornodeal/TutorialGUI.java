@@ -5,12 +5,15 @@
 package com.mycompany.dealornodeal;
 
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author droun
  */
-public class TutorialGUI extends javax.swing.JFrame {
+public class TutorialGUI extends javax.swing.JFrame implements Observer{
 
     /**
      * Creates new form TutorialGUI
@@ -278,10 +281,21 @@ public class TutorialGUI extends javax.swing.JFrame {
   public void addActionListener(ActionListener listener) {
         this.case1.addActionListener(listener);
         this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
-        this.case1.addActionListener(listener);
-        this.case2.addActionListener(listener);
+        this.case3.addActionListener(listener);
+        this.case4.addActionListener(listener);
+        this.case5.addActionListener(listener);
+        this.case6.addActionListener(listener);
         this.exitButton.addActionListener(listener);
+    }
+
+    public void exit() {
+        if (JOptionPane.showConfirmDialog(this, "Do you want to quit?", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

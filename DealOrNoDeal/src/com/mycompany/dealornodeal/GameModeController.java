@@ -20,8 +20,9 @@ public class GameModeController implements ActionListener {
     private Model model;
     private BankOfferGUI bankOffer;
     private endGameGUI endGame;
+    private String gameType;
 
-    GameModeController(String command, Model model) {
+    GameModeController(String command, Model model, endGameGUI endGame) {
         this.model = model;
         this.bankOffer = new BankOfferGUI();
         this.model.addObserver(bankOffer);
@@ -41,7 +42,8 @@ public class GameModeController implements ActionListener {
             this.tutorial.addActionListener(this);
             tutorial.setVisible(true);
         }
-
+        this.gameType = command;
+        this.endGame = endGame;
     }
 
     @Override
@@ -63,6 +65,7 @@ public class GameModeController implements ActionListener {
                     if (model.getGameMode().getGameData().getRound() != -1) {
                         this.bankOffer.setVisible(true);
                     } else {
+                        this.model.addObserver(endGame);
                         this.model.endGame();
                         this.endGame.setVisible(true);
                     }
@@ -72,18 +75,35 @@ public class GameModeController implements ActionListener {
             if (command.equals("Exit")) {
                 if (normal.isVisible()) {
                     normal.exit();
+                } else if (quickplay.isVisible()) {
+                    quickplay.exit();
+                } else if (tutorial.isVisible()) {
+                    tutorial.exit();
+                } else if (bankOffer.isVisible()) {
+                    bankOffer.exit();
+                } else if (endGame.isVisible()) {
+                    endGame.exit();
                 }
             } else if (command.equals("No Deal!")) {
                 this.bankOffer.setVisible(false);
-                this.model.addObserver(normal);
-                this.normal.setVisible(true);
+                if (gameType.equals("Normal") || gameType.equals("Random Mode")) {
+                    this.model.addObserver(normal);
+                    this.normal.setVisible(true);
+                } else if (gameType.equals("QuickPlay")) {
+                    this.model.addObserver(quickplay);
+                    this.quickplay.setVisible(true);
+                } else if (gameType.equals("Tutorial")) {
+                    this.model.addObserver(tutorial);
+                    this.tutorial.setVisible(true);
+                }
             } else if (command.equals("Deal")) {
-                
-                this.model.gameMode.acceptOffer();
+
+                this.model.getGameMode().acceptOffer();
                 this.bankOffer.setVisible(false);
+                this.model.addObserver(endGame);
                 this.endGame.setVisible(true);
 
-            }
+            } 
         }
     }
 }

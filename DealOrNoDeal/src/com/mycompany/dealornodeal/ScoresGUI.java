@@ -4,6 +4,8 @@
  */
 package com.mycompany.dealornodeal;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author droun
@@ -150,5 +152,11 @@ public class ScoresGUI extends javax.swing.JFrame {
 
     void setScores(String scores) {
         globalScores.setText(scores);
+    }
+
+    public void exit() {
+        if (JOptionPane.showConfirmDialog(this, "Do you want to quit?", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
     }
 }

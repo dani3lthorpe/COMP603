@@ -5,6 +5,7 @@
 package com.mycompany.dealornodeal;
 
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -154,6 +155,13 @@ public class GameModeSelect extends javax.swing.JFrame {
         this.quickPlay.addActionListener(listener);
         this.random.addActionListener(listener);
         this.tutorial.addActionListener(listener);
+        this.exitButton.addActionListener(listener);
+
     }
-    
+
+    public void exit() {
+        if (JOptionPane.showConfirmDialog(this, "Do you want to quit?", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }
 }

@@ -19,7 +19,6 @@ public abstract class GameMode implements Game {
     private ArrayList<Integer> prizes;
     private Player player;
     private ArrayList<Case> cases;
-    private boolean dealAccepted;
     private int totalGames;
     private int totalPrizes;
     private GameInfo gameData;
@@ -32,7 +31,6 @@ public abstract class GameMode implements Game {
         this.prizes = new ArrayList<>();
         this.cases = new ArrayList<>();
         this.prize = prizes;
-        this.dealAccepted = false;
         this.gameData = gameData;
         for (int m : prizes) {
             this.prizes.add(m);
@@ -112,7 +110,8 @@ public abstract class GameMode implements Game {
         this.player.addTotalPrizes(offer);
         this.player.addNewRecentPrizes(offer);
         this.player.addNewHighPrizes(offer);
-        this.dealAccepted = true;
+        this.gameData.setDealAccepted(true);
+        this.player.setCurrentPrize(offer);
     }
 
     //displays the past offers
@@ -199,7 +198,7 @@ public abstract class GameMode implements Game {
     //confirms the user wants to quit before stopping the game
     public void stopMode() {
         Case c = gameData.getPlayerCase();
-        if (!dealAccepted) {
+        if (!gameData.isDealAccepted()) {
             System.out.println("Now to open your case: ");
             int currentScore = c.getPrize();
             if (currentScore > player.getHighestPrize()) {
@@ -241,10 +240,6 @@ public abstract class GameMode implements Game {
         return prizes;
     }
 
-    //returns the dealAccepted value
-    public boolean isDealAccepted() {
-        return dealAccepted;
-    }
 
     //adds a prize to the totalprizes
     //takes a prize parameter

@@ -19,6 +19,7 @@ public class Player {
     private int highestPrize = 0;
     private int[] recentPrizes;
     private int[] highPrizes;
+    private int currentPrize;
 
     //player constructer creates a recentPrizes and HighPrizes int array
     //sets name, totalPrizes and highestPrizes to the input parameters
@@ -111,8 +112,12 @@ public class Player {
         this.highestPrize = highestPrize;
     }
 
-    void setCurrentPrize(int offer) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void setCurrentPrize(int offer) {
+        this.currentPrize = offer;
+    }
+
+    public int getCurrentPrize() {
+        return currentPrize;
     }
 
 }

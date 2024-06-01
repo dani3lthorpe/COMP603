@@ -53,7 +53,7 @@ public class QuickPlay extends GameMode {
         System.out.println("Your case is " + caseNum);
 
         System.out.println("-----------------------------------------------------------------------");
-        //displayCasePicking(scan, 5, 13);
+        /*displayCasePicking(scan, 5, 13);
         //displayOffer(banker, scan);
 
         if (!isDealAccepted()) {
@@ -63,11 +63,11 @@ public class QuickPlay extends GameMode {
         if (!isDealAccepted()) {
             //displayCasePicking(scan, 2, 13);
             //displayOffer(banker, scan);
-        }
+        }*/
 
         for (Case c : getCases()) {
             if (c.getNumber() == caseNum) {
-                if (!isDealAccepted()) {
+                if (!getGameData().isDealAccepted()) {
                     System.out.println("Now to open your case");
                     int currentScore = c.getPrize();
                     if (currentScore > getPlayer().getHighestPrize()) {

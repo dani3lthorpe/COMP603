@@ -16,12 +16,14 @@ public class GameInfo {
     private boolean userCasePicked;
     private Case currentCase;
     private Case playerCase;
+    private boolean dealAccepted;
 
     public GameInfo(int casesToPick) {
         this.round = 1;
         this.casesToPick = casesToPick;
         this.userCasePicked = false;
         this.playerCase = null;
+        this.dealAccepted = false;
     }
 
     public int getCasesToPick() {
@@ -80,6 +82,14 @@ public class GameInfo {
 
     public void openedCase() {
         this.currentCase = null;
+    }
+
+    public boolean isDealAccepted() {
+        return dealAccepted;
+    }
+
+    public void setDealAccepted(boolean dealAccepted) {
+        this.dealAccepted = dealAccepted;
     }
     
     

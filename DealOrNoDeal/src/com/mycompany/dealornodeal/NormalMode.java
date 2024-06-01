@@ -69,7 +69,7 @@ public class NormalMode extends GameMode {
         System.out.println("Your case is " + caseNum);
 
         System.out.println("-----------------------------------------------------------------------");
-        // displayCasePicking(scan, 6, 26);
+        /* displayCasePicking(scan, 6, 26);
         //displayOffer(banker, scan);
 
         if (!isDealAccepted()) {
@@ -96,10 +96,10 @@ public class NormalMode extends GameMode {
             // displayCasePicking(scan, 1, 26);
             //displayOffer(banker, scan);
         }
-
+*/
         for (Case c : getCases()) {
             if (c.getNumber() == caseNum) {
-                if (!isDealAccepted()) {
+                if (!getGameData().isDealAccepted()) {
                     System.out.println("Now to open your case: ");
                     int currentScore = c.getPrize();
                     if (currentScore > getPlayer().getHighestPrize()) {
