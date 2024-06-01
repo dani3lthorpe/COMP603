@@ -4,6 +4,7 @@
  */
 package com.mycompany.dealornodeal;
 
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
@@ -13,7 +14,9 @@ import javax.swing.JOptionPane;
  *
  * @author droun
  */
-public class TutorialGUI extends javax.swing.JFrame implements Observer{
+public class TutorialGUI extends javax.swing.JFrame implements Observer {
+
+    javax.swing.JLabel[] prizeArray;
 
     /**
      * Creates new form TutorialGUI
@@ -121,7 +124,7 @@ public class TutorialGUI extends javax.swing.JFrame implements Observer{
             }
         });
 
-        title.setText("Title");
+        title.setText("Pick Your Case");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -288,14 +291,71 @@ public class TutorialGUI extends javax.swing.JFrame implements Observer{
         this.exitButton.addActionListener(listener);
     }
 
+    public void setPrizes(int[] prizes) {
+        this.prizeArray = new javax.swing.JLabel[6];
+        prizeArray[0] = this.prize1;
+        prizeArray[1] = this.prize2;
+        prizeArray[2] = this.prize3;
+        prizeArray[3] = this.prize4;
+        prizeArray[4] = this.prize5;
+        prizeArray[5] = this.prize6;
+
+        for (int i = 0; i < prizes.length && i < prizeArray.length; i++) {
+            prizeArray[i].setText("$" + prizes[i]);
+        }
+    }
+
     public void exit() {
         if (JOptionPane.showConfirmDialog(this, "Do you want to quit?", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
     }
 
+    public void caseOpened(javax.swing.JButton source, GameInfo gameData) {
+        if (gameData.getPlayerCase() != gameData.getCurrentCase()) {
+            source.setEnabled(false);
+            source.setText("");
+        } else {
+            source.setText("Your Case");
+            Font font = new Font("Segoe UI", 0, 10);
+            source.setFont(font);
+            source.setBackground(new java.awt.Color(204, 255, 204));
+            JOptionPane.showMessageDialog(this, "Each round you will have a set number of cases to open");
+            JOptionPane.showMessageDialog(this, "Once you pick a case to open you will see how much money that case contained and it will be removed from the pool, therefore, this amount is not in your selected case");
+            JOptionPane.showMessageDialog(this, "Your aim is to select the cases with the smallest amount as you want to keep as much money as you can until the end");
+        }
+    }
+
+    public void start() {
+        JOptionPane.showMessageDialog(this, "Welcome to the tutorial for Deal or No Deal");
+        JOptionPane.showMessageDialog(this, "Deal or no deal is a gameshow where players try and win as much money as possible");
+        JOptionPane.showMessageDialog(this, "The first step of deal or no deal is to select a case to keep until the end");
+    }
+
+    public void bankOfferExplanation() {
+        JOptionPane.showMessageDialog(this, "Once all the cases have been picked for the round the banker will offer you a amount of money depending on the money that could still be in the case you kept");
+        JOptionPane.showMessageDialog(this, "You can choose to either accept the money and leave with the offered amount as your prize (deal)");
+        JOptionPane.showMessageDialog(this, "Or you can continue playing if you believe your case has more money in it than the offer (no deal)");
+    }
+
+    public void finalOfferExplanation() {
+        JOptionPane.showMessageDialog(this, "This is the final offer as once there is only one case left on the board it will be time to open your case and see how much you won");
+    }
+
     @Override
     public void update(Observable o, Object arg) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        GameInfo gameData = (GameInfo) arg;
+        title.setText(gameData.getCasesToPick() + " Cases To Pick");
+        if (gameData.getCurrentCase() != null) {
+            if (gameData.getPlayerCase() != gameData.getCurrentCase()) {
+                int caseNum = gameData.getCurrentCase().getNumber();
+                JOptionPane.showMessageDialog(this, "Case " + caseNum + " contained: $" + gameData.getCurrentCase().getPrize());
+                for (int i = 0; i < prizeArray.length; i++) {
+                    if (prizeArray[i].getText().equals("$" + gameData.getCurrentCase().getPrize())) {
+                        prizeArray[i].setText("");
+                    }
+                }
+            }
+        }
     }
 }

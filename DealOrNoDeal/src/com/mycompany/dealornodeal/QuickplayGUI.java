@@ -4,6 +4,7 @@
  */
 package com.mycompany.dealornodeal;
 
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
@@ -14,6 +15,8 @@ import javax.swing.JOptionPane;
  * @author droun
  */
 public class QuickplayGUI extends javax.swing.JFrame implements Observer {
+
+    javax.swing.JLabel[] prizeArray;
 
     /**
      * Creates new form QuickplayGUI
@@ -62,8 +65,9 @@ public class QuickplayGUI extends javax.swing.JFrame implements Observer {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        title.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        title.setText("Title");
+        title.setText("Pick Your Case");
 
         prize1.setBackground(new java.awt.Color(204, 153, 0));
         prize1.setText("prize1");
@@ -474,7 +478,31 @@ public class QuickplayGUI extends javax.swing.JFrame implements Observer {
         this.case8.addActionListener(listener);
         this.case9.addActionListener(listener);
         this.case10.addActionListener(listener);
+        this.case11.addActionListener(listener);
+        this.case12.addActionListener(listener);
+        this.case13.addActionListener(listener);
         this.exit.addActionListener(listener);
+    }
+
+    public void setPrizes(int[] prizes) {
+        this.prizeArray = new javax.swing.JLabel[13];
+        prizeArray[0] = this.prize1;
+        prizeArray[1] = this.prize2;
+        prizeArray[2] = this.prize3;
+        prizeArray[3] = this.prize4;
+        prizeArray[4] = this.prize5;
+        prizeArray[5] = this.prize6;
+        prizeArray[6] = this.prize7;
+        prizeArray[7] = this.prize8;
+        prizeArray[8] = this.prize9;
+        prizeArray[9] = this.prize10;
+        prizeArray[10] = this.prize11;
+        prizeArray[11] = this.prize12;
+        prizeArray[12] = this.prize13;
+
+        for (int i = 0; i < prizes.length && i < prizeArray.length; i++) {
+            prizeArray[i].setText("$" + prizes[i]);
+        }
     }
 
     public void exit() {
@@ -483,8 +511,32 @@ public class QuickplayGUI extends javax.swing.JFrame implements Observer {
         }
     }
 
+    public void caseOpened(javax.swing.JButton source, GameInfo gameData) {
+        if (gameData.getPlayerCase() != gameData.getCurrentCase()) {
+            source.setEnabled(false);
+            source.setText("");
+        } else {
+            source.setText("Your Case");
+            Font font = new Font("Segoe UI", 0, 10);
+            source.setFont(font);
+            source.setBackground(new java.awt.Color(204, 255, 204));
+        }
+    }
+
     @Override
     public void update(Observable o, Object arg) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        GameInfo gameData = (GameInfo) arg;
+        title.setText(gameData.getCasesToPick() + " Cases To Pick");
+        if (gameData.getCurrentCase() != null) {
+            if (gameData.getPlayerCase() != gameData.getCurrentCase()) {
+                int caseNum = gameData.getCurrentCase().getNumber();
+                JOptionPane.showMessageDialog(this, "Case " + caseNum + " contained: $" + gameData.getCurrentCase().getPrize());
+                for (int i = 0; i < prizeArray.length; i++) {
+                    if (prizeArray[i].getText().equals("$" + gameData.getCurrentCase().getPrize())) {
+                        prizeArray[i].setText("");
+                    }
+                }
+            }
+        }
     }
 }

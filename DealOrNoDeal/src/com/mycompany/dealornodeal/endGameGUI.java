@@ -205,7 +205,7 @@ public class endGameGUI extends javax.swing.JFrame implements Observer {
         if (gameData.isDealAccepted()) {
             winningsLabel.setText("You won: $" + gameData.getCurrentOffer());
         } else {
-            winningsLabel.setText("You won: $" + gameData.getCurrentCase().getPrize());
+            winningsLabel.setText("You won: $" + gameData.getPlayerCase().getPrize());
         }
     }
 }

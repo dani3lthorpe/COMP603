@@ -138,7 +138,7 @@ public class NormalMode extends GameMode {
                 break;
             case 6:
                 gameData.setCasesToPick(1);
-                break;                
+                break;  
             default:
                 gameData.setRound(-1);
                 break;

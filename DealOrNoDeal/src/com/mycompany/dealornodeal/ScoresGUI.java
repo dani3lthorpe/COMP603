@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
  *
  * @author droun
  */
-public class ScoresGUI extends javax.swing.JFrame {
+public class ScoresGUI extends javax.swing.JFrame{
 
     /**
      * Creates new form Scores
@@ -150,7 +150,7 @@ public class ScoresGUI extends javax.swing.JFrame {
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 
-    void setScores(String scores) {
+    public void setScores(String scores) {
         globalScores.setText(scores);
     }
 

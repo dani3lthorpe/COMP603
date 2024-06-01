@@ -31,6 +31,7 @@ class MenuController implements ActionListener {
         this.mode.addActionListener(this);
         this.gameMode.addActionListener(this);
         this.endGame.addActionListener(this);
+        this.model.addObserver(endGame);
     }
 
     @Override
@@ -65,6 +66,9 @@ class MenuController implements ActionListener {
                 scores.setVisible(true);
                 break;
             case "Yes":
+                endGame.setVisible(false);
+                mode.setVisible(true);
+                model.getGameMode().getGameData().setDealAccepted(false);
                 break;
             case "No":
                 endGame.exit();

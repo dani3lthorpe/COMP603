@@ -90,8 +90,6 @@ public class Model extends Observable {
         } else if (modeName.equals("Random Mode")) {
             gameMode = new RandomMode(player);
         }
-        this.setChanged();
-        this.notifyObservers(this.gameMode.getGameData());
     }
 
     //prompts user to see if they would like to play again
@@ -202,8 +200,7 @@ public class Model extends Observable {
 
     public void getOffer() {
         gameMode.displayOffer();
-        this.setChanged();
-        this.notifyObservers(this.gameMode.getGameData());
+        this.notifyView();
     }
 
     public void openCase(int caseNum) {
@@ -213,20 +210,22 @@ public class Model extends Observable {
         } else {
             this.gameMode.getGameData().setPlayerCase(cases.get(caseNum - 1));
         }
-        this.setChanged();
-        this.notifyObservers(this.gameMode.getGameData());
+        this.notifyView();
     }
 
     public void newRound() {
         gameMode.newRound();
+        this.notifyView();
+    }
+
+    public void notifyView() {
         this.setChanged();
         this.notifyObservers(this.gameMode.getGameData());
     }
 
     public void endGame() {
         saveGameData(gameMode, player);
-        this.setChanged();
-        this.notifyObservers(this.gameMode.getGameData());
+        this.notifyView();
     }
 
 }

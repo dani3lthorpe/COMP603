@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;
 public class NormalGUI extends javax.swing.JFrame implements Observer {
 
     javax.swing.JLabel[] prizeArray;
-    BankOfferGUI bankOffer;
 
     /**
      * Creates new form NormalGUI
@@ -27,10 +26,6 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
         initComponents();
     }
 
-    public NormalGUI(BankOfferGUI bankOffer) {
-        this.bankOffer = bankOffer;
-        initComponents();
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -725,9 +720,9 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
             source.setText("");
         } else {
             source.setText("Your Case");
-             Font font = new Font("Segoe UI", 0, 10);
+            Font font = new Font("Segoe UI", 0, 10);
             source.setFont(font);
-            source.setBackground(new java.awt.Color(204,255,204));
+            source.setBackground(new java.awt.Color(204, 255, 204));
         }
     }
 
