@@ -211,6 +211,7 @@ public class Model extends Observable {
             this.gameMode.getGameData().setPlayerCase(cases.get(caseNum - 1));
         }
         this.notifyView();
+        this.gameMode.removePrize(caseNum - 1);
     }
 
     public void newRound() {

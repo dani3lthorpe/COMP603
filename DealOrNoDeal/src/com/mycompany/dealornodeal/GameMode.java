@@ -23,6 +23,7 @@ public abstract class GameMode implements Game {
     private int totalPrizes;
     private GameInfo gameData;
     private int[] prize;
+    private Banker banker;
 
     //GameMode constructor creates the prizes and cases arraylist
     // adds the value from the prizes array to the prizes arraylist and sets the player to the player parameter
@@ -32,6 +33,7 @@ public abstract class GameMode implements Game {
         this.cases = new ArrayList<>();
         this.prize = prizes;
         this.gameData = gameData;
+        this.banker = new Banker(gameData.getRound());
         for (int m : prizes) {
             this.prizes.add(m);
         }
@@ -75,6 +77,11 @@ public abstract class GameMode implements Game {
         }
         return caseNum;
     }
+    
+    public void removePrize(int caseNum)
+    {
+     this.prizes.removeIf(prize -> prize.equals(cases.get(caseNum).getPrize()));
+    }
 
     //displays the casePicking screen, getting the user to select a case to open
     //takes a scanner, the number of cases to pick and the total cases as a parameter
@@ -86,6 +93,7 @@ public abstract class GameMode implements Game {
                 } else if (c.isPlayerCase() == true) {
                     return c;
                 } else {
+                    this.prizes.removeIf(prize -> prize.equals(c.getPrize()));
                     return c;
                 }
             }
@@ -96,7 +104,6 @@ public abstract class GameMode implements Game {
     //displays an offer from a banker for the user to choose to accept or decline
     //takes a banker and scanner as parameter
     public void displayOffer() {
-        Banker banker = new Banker(gameData.getRound());
         gameData.setCurrentOffer(banker.makeOffer(prizes));
         gameData.setPastOffers(banker.getPastOffers());
     }
@@ -117,15 +124,14 @@ public abstract class GameMode implements Game {
 
     //displays the past offers
     //takes a banker as a parameter
-    public void displayPastOffers(Banker banker) {
+    /*public void displayPastOffers(Banker banker) {
         if (!banker.getPastOffers().isEmpty()) {
             System.out.println("Past Offers:");
             for (int p : banker.getPastOffers()) {
                 System.out.println("$" + p);
             }
         }
-    }
-
+    }*/
     //checks if the case input is valid
     //takes a scanner and the total number of cases as a parameter
     public int checkCaseInput(Scanner scan, int total) {
@@ -240,7 +246,6 @@ public abstract class GameMode implements Game {
     public ArrayList<Integer> getPrizes() {
         return prizes;
     }
-
 
     //adds a prize to the totalprizes
     //takes a prize parameter

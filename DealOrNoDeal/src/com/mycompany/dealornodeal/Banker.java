@@ -13,13 +13,15 @@ import java.util.ArrayList;
 public class Banker {
 
     private int prizeMultiplier;
-    private ArrayList<Integer> pastOffers;
+    private int[] pastOffers;
+    private int totalOffers;
 
     //Banker constructor sets the prizeMultiplier to the roundNum and creates an pastOffers arraylist
     //takes a roundnum as a parameter
     public Banker(int roundNum) {
         this.prizeMultiplier = roundNum;
-        this.pastOffers = new ArrayList<>();
+        this.pastOffers = new int[7];
+        this.totalOffers = 0;
 
     }
     
@@ -34,12 +36,13 @@ public class Banker {
         int offer = (value / prizes.size()) * this.prizeMultiplier/5;
         
         this.prizeMultiplier++;
-        this.pastOffers.add(offer);
+        this.pastOffers[totalOffers] = offer;
+        this.totalOffers++;
         return offer;
     }
 
     //returns the list of past offers
-    public ArrayList<Integer> getPastOffers() {
+    public  int[] getPastOffers() {
         return pastOffers;
     }
     

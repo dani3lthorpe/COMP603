@@ -230,6 +230,24 @@ public class BankOfferGUI extends javax.swing.JFrame implements Observer {
     public void update(Observable o, Object arg) {
         GameInfo gameData = (GameInfo) arg;
         offerAmount.setText("$" + gameData.getCurrentOffer());
+        if (gameData.getPastOffers() != null) {
+            int[] pastOffers = gameData.getPastOffers();
+            if (pastOffers[1] != 0) {
+                offer1.setText("$" + pastOffers[0]);
+            }
+            if (pastOffers[2] != 0) {
+                offer2.setText("$" + pastOffers[1]);
+            }
+            if (pastOffers[3] != 0) {
+                offer3.setText("$" + pastOffers[2]);
+            }
+            if (pastOffers[4] != 0) {
+                offer4.setText("$" + pastOffers[3]);
+            }
+            if (pastOffers[5] != 0) {
+                offer5.setText("$" + pastOffers[4]);
+            }
+        }
     }
 
     public void exit() {

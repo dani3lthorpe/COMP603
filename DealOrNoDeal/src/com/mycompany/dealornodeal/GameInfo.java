@@ -19,7 +19,7 @@ public class GameInfo {
     private Case currentCase;
     private Case playerCase;
     private boolean dealAccepted;
-    private ArrayList<Integer> pastOffers;
+    private int[] pastOffers;
 
     public GameInfo(int casesToPick) {
         this.round = 1;
@@ -95,8 +95,12 @@ public class GameInfo {
         this.dealAccepted = dealAccepted;
     }
 
-    public void setPastOffers(ArrayList<Integer> pastOffers) {
+    public void setPastOffers(int[] pastOffers) {
         this.pastOffers = pastOffers;
+    }
+
+    public int[] getPastOffers() {
+        return pastOffers;
     }
    
 }
