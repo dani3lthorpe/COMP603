@@ -27,13 +27,13 @@ public abstract class GameMode implements Game {
 
     //GameMode constructor creates the prizes and cases arraylist
     // adds the value from the prizes array to the prizes arraylist and sets the player to the player parameter
-    public GameMode(Player player, int[] prizes, int casesToPick) {
+    public GameMode(Player player, int[] prizes, GameInfo gameData) {
         this.player = player;
         this.prizes = new ArrayList<>();
         this.cases = new ArrayList<>();
         this.prize = prizes;
         this.dealAccepted = false;
-        this.gameData = new GameInfo(casesToPick);
+        this.gameData = gameData;
         for (int m : prizes) {
             this.prizes.add(m);
         }
@@ -100,17 +100,19 @@ public abstract class GameMode implements Game {
     public void displayOffer() {
         Banker banker = new Banker(gameData.getRound());
         gameData.setCurrentOffer(banker.makeOffer(prizes));
+    }
 
-
-        /*this.player.addTotalPrizes(offer);
-            this.totalPrizes += offer;
-            if (offer > this.player.getHighestPrize()) {
-                this.player.setHighestPrize(offer);
-            }
-            this.player.addTotalPrizes(offer);
-            this.player.addNewRecentPrizes(offer);
-            this.player.addNewHighPrizes(offer);
-            this.dealAccepted = true;*/
+    public void acceptOffer() {
+        int offer = gameData.getCurrentOffer();
+        this.player.addTotalPrizes(offer);
+        this.totalPrizes += offer;
+        if (offer > this.player.getHighestPrize()) {
+            this.player.setHighestPrize(offer);
+        }
+        this.player.addTotalPrizes(offer);
+        this.player.addNewRecentPrizes(offer);
+        this.player.addNewHighPrizes(offer);
+        this.dealAccepted = true;
     }
 
     //displays the past offers
@@ -195,34 +197,26 @@ public abstract class GameMode implements Game {
     }
 
     //confirms the user wants to quit before stopping the game
-    @Override
     public void stopMode() {
-        Scanner scan = new Scanner(System.in);
-
-        System.out.println("Are you sure you would like to quit the game?");
-        System.out.println("(1) Yes");
-        System.out.println("(2) No");
-
-        boolean inputIsValid = false;
-        while (!inputIsValid) {
-            String answer = scan.nextLine().trim().toLowerCase();
-            if (answer.equals("1") || answer.equals("yes") || answer.equals("y") || answer.equals("x") || answer.equals("ye") || answer.equals("one")) {
-                System.out.println("-----------------------------------------------------------------------");
-                System.out.println("Thanks for playing");
-                System.out.println("Game Exiting");
-                System.exit(0);
-            } else if (answer.equals("2") || answer.equals("no") || answer.equals("n") || answer.equals("two")) {
-                inputIsValid = true;
-            } else {
-                System.out.println("-----------------------------------------------------------------------");
-                System.out.println("Invalid Answer, please select either: ");
-                System.out.println("(1) Yes");
-                System.out.println("(2) No");
+        Case c = gameData.getPlayerCase();
+        if (!dealAccepted) {
+            System.out.println("Now to open your case: ");
+            int currentScore = c.getPrize();
+            if (currentScore > player.getHighestPrize()) {
+                player.setHighestPrize(currentScore);
             }
+            addTotalPrizes(currentScore);
+            player.addTotalPrizes(currentScore);
+            player.addNewRecentPrizes(currentScore);
+            player.addNewHighPrizes(currentScore);
+            c.open();
+        } else {
+            System.out.println("Now to see what was in your case: ");
+            c.open();
         }
     }
-
     //returns the player
+
     public Player getPlayer() {
         return player;
     }
@@ -286,5 +280,7 @@ public abstract class GameMode implements Game {
     public abstract void startMode();
 
     public abstract void displayCases();
+
+    public abstract void newRound();
 
 }

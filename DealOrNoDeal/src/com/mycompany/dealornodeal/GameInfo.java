@@ -41,8 +41,8 @@ public class GameInfo {
         return round;
     }
 
-    public void setRound(int round) {
-        this.round = round;
+    public void increaseRound() {
+        this.round = round + 1;
     }
 
     public boolean isUserCasePicked() {
@@ -72,6 +72,14 @@ public class GameInfo {
 
     public void setCurrentOffer(int currentOffer) {
         this.currentOffer = currentOffer;
+    }
+
+    public void setRound(int round) {
+        this.round = round;
+    }
+
+    public void openedCase() {
+        this.currentCase = null;
     }
     
     

@@ -19,6 +19,7 @@ public class GameModeController implements ActionListener {
     private TutorialGUI tutorial;
     private Model model;
     private BankOfferGUI bankOffer;
+    private endGameGUI endGame;
 
     GameModeController(String command, Model model) {
         this.model = model;
@@ -52,12 +53,19 @@ public class GameModeController implements ActionListener {
                 if (normal.isVisible()) {
                     model.openCase(caseNumber);
                     normal.caseOpened((JButton) e.getSource(), model.getGameMode().getGameData());
+                    model.getGameMode().getGameData().openedCase();
                 }
                 if (this.model.getGameMode().getGameData().getCasesToPick() == 0) {
                     this.model.deleteObserver(normal);
                     this.normal.setVisible(false);
                     this.model.getOffer();
-                    this.bankOffer.setVisible(true);
+                    this.model.newRound();
+                    if (model.getGameMode().getGameData().getRound() != -1) {
+                        this.bankOffer.setVisible(true);
+                    } else {
+                        this.model.endGame();
+                        this.endGame.setVisible(true);
+                    }
                 }
             }
         } catch (NumberFormatException ex) {
@@ -69,6 +77,12 @@ public class GameModeController implements ActionListener {
                 this.bankOffer.setVisible(false);
                 this.model.addObserver(normal);
                 this.normal.setVisible(true);
+            } else if (command.equals("Deal")) {
+                
+                this.model.gameMode.acceptOffer();
+                this.bankOffer.setVisible(false);
+                this.endGame.setVisible(true);
+
             }
         }
     }

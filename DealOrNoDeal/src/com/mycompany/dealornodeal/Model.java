@@ -217,4 +217,14 @@ public class Model extends Observable {
         this.notifyObservers(this.gameMode.getGameData());
     }
 
+    public void newRound() {
+        gameMode.newRound();
+        this.setChanged();
+        this.notifyObservers(this.gameMode.getGameData());
+    }
+
+    void endGame() {
+        saveGameData(gameMode, player);
+    }
+
 }
