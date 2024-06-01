@@ -98,6 +98,7 @@ public abstract class GameMode implements Game {
     public void displayOffer() {
         Banker banker = new Banker(gameData.getRound());
         gameData.setCurrentOffer(banker.makeOffer(prizes));
+        gameData.setPastOffers(banker.getPastOffers());
     }
 
     public void acceptOffer() {

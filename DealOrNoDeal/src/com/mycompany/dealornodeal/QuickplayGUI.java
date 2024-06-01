@@ -526,17 +526,24 @@ public class QuickplayGUI extends javax.swing.JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         GameInfo gameData = (GameInfo) arg;
-        title.setText(gameData.getCasesToPick() + " Cases To Pick");
-        if (gameData.getCurrentCase() != null) {
-            if (gameData.getPlayerCase() != gameData.getCurrentCase()) {
-                int caseNum = gameData.getCurrentCase().getNumber();
-                JOptionPane.showMessageDialog(this, "Case " + caseNum + " contained: $" + gameData.getCurrentCase().getPrize());
-                for (int i = 0; i < prizeArray.length; i++) {
-                    if (prizeArray[i].getText().equals("$" + gameData.getCurrentCase().getPrize())) {
-                        prizeArray[i].setText("");
+        if (gameData.getRound() != -1) {
+            title.setText(gameData.getCasesToPick() + " Cases To Pick");
+            if (gameData.getCurrentCase() != null) {
+                if (gameData.getPlayerCase() != gameData.getCurrentCase()) {
+                    int caseNum = gameData.getCurrentCase().getNumber();
+                    JOptionPane.showMessageDialog(this, "Case " + caseNum + " contained: $" + gameData.getCurrentCase().getPrize());
+                    for (int i = 0; i < prizeArray.length; i++) {
+                        if (prizeArray[i].getText().equals("$" + gameData.getCurrentCase().getPrize())) {
+                            prizeArray[i].setText("");
+                        }
                     }
                 }
             }
+        } else {
+            title.setText("Time to open your case!");
+            JOptionPane.showMessageDialog(this, "Time to Open Your Case");
+            JOptionPane.showMessageDialog(this, "Your Case contained: $" + gameData.getPlayerCase().getPrize());
+
         }
     }
 }

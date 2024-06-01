@@ -4,6 +4,8 @@
  */
 package com.mycompany.dealornodeal;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author hidan
@@ -17,6 +19,7 @@ public class GameInfo {
     private Case currentCase;
     private Case playerCase;
     private boolean dealAccepted;
+    private ArrayList<Integer> pastOffers;
 
     public GameInfo(int casesToPick) {
         this.round = 1;
@@ -91,6 +94,9 @@ public class GameInfo {
     public void setDealAccepted(boolean dealAccepted) {
         this.dealAccepted = dealAccepted;
     }
-    
-    
+
+    public void setPastOffers(ArrayList<Integer> pastOffers) {
+        this.pastOffers = pastOffers;
+    }
+   
 }

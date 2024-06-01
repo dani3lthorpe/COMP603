@@ -99,28 +99,45 @@ public class GameModeController implements ActionListener {
                     }
                     break;
                 case "No Deal!":
-                    this.model.newRound();
-                    if (model.getGameMode().getGameData().getRound() != -1) {
-                        this.bankOffer.setVisible(false);
-                        if (normal != null) {
-                            this.model.notifyView();
-                            this.normal.setVisible(true);
-                        } else if (quickplay != null) {
-                            this.model.notifyView();
-                            this.quickplay.setVisible(true);
-                        } else if (tutorial != null) {
-                            this.model.notifyView();
-                            this.tutorial.setVisible(true);
+                    this.bankOffer.setVisible(false);
+                    if (normal != null) {
+                        this.normal.setVisible(true);
+                        this.model.newRound();
+                        if (model.getGameMode().getGameData().getRound() == -1) {
+                            this.normal.setVisible(false);
+                            this.endGame.setVisible(true);
+                            this.model.deleteObserver(normal);
                         }
-                    } else {
-                        this.model.endGame();
-                        this.endGame.setVisible(true);
+                    } else if (quickplay != null) {
+                        this.quickplay.setVisible(true);
+                        this.model.newRound();
+                        if (model.getGameMode().getGameData().getRound() == -1) {
+                            this.quickplay.setVisible(false);
+                            this.endGame.setVisible(true);
+                            this.model.deleteObserver(quickplay);
+                        }
+                    } else if (tutorial != null) {
+                        this.tutorial.setVisible(true);
+                        this.model.newRound();
+                        if (model.getGameMode().getGameData().getRound() == -1) {
+                            this.tutorial.setVisible(false);
+                            this.endGame.setVisible(true);
+                            this.model.deleteObserver(tutorial);
+                        }
                     }
                     break;
                 case "Deal!":
                     this.model.getGameMode().acceptOffer();
+                    this.model.notifyView();
                     this.bankOffer.setVisible(false);
                     this.endGame.setVisible(true);
+                    if (normal != null) {
+                        this.model.deleteObserver(normal);
+                    } else if (quickplay != null) {
+                        this.model.deleteObserver(quickplay);
+                    } else if (tutorial != null) {
+                        this.model.deleteObserver(tutorial);
+                    }
                     break;
                 default:
                     break;
