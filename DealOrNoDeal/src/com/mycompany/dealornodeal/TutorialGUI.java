@@ -48,6 +48,7 @@ public class TutorialGUI extends javax.swing.JFrame implements Observer {
         case5 = new javax.swing.JButton();
         case6 = new javax.swing.JButton();
         title = new javax.swing.JLabel();
+        backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -126,6 +127,13 @@ public class TutorialGUI extends javax.swing.JFrame implements Observer {
 
         title.setText("Pick Your Case");
 
+        backButton.setText("Main Menu");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -166,6 +174,9 @@ public class TutorialGUI extends javax.swing.JFrame implements Observer {
                 .addGap(129, 129, 129)
                 .addComponent(case5, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,7 +207,8 @@ public class TutorialGUI extends javax.swing.JFrame implements Observer {
                     .addComponent(case5, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(case6, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 97, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -229,6 +241,10 @@ public class TutorialGUI extends javax.swing.JFrame implements Observer {
     private void case6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_case6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_case6ActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_backButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -266,6 +282,7 @@ public class TutorialGUI extends javax.swing.JFrame implements Observer {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
     private javax.swing.JButton case1;
     private javax.swing.JButton case2;
     private javax.swing.JButton case3;
@@ -289,6 +306,7 @@ public class TutorialGUI extends javax.swing.JFrame implements Observer {
         this.case5.addActionListener(listener);
         this.case6.addActionListener(listener);
         this.exitButton.addActionListener(listener);
+        this.backButton.addActionListener(listener);
     }
 
     public void setPrizes(int[] prizes) {
@@ -309,6 +327,13 @@ public class TutorialGUI extends javax.swing.JFrame implements Observer {
         if (JOptionPane.showConfirmDialog(this, "Do you want to quit?", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
+    }
+
+    public boolean goBack() {
+        if (JOptionPane.showConfirmDialog(this, "Are you sure you want to go back to the main menu (You will lose all your current progress)", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            return true;
+        }
+        return false;
     }
 
     public void caseOpened(javax.swing.JButton source, GameInfo gameData) {

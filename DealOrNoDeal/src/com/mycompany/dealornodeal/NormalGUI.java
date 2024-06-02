@@ -26,7 +26,6 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
         initComponents();
     }
 
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -69,6 +68,7 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
         prize11 = new javax.swing.JLabel();
         prize12 = new javax.swing.JLabel();
         prize13 = new javax.swing.JLabel();
+        backButton = new javax.swing.JButton();
         case11 = new javax.swing.JButton();
         case12 = new javax.swing.JButton();
         case17 = new javax.swing.JButton();
@@ -279,6 +279,13 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
         prize13.setText("prize13");
         prize13.setOpaque(true);
 
+        backButton.setText("Main Menu");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -297,13 +304,15 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
                     .addComponent(prize10, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(prize11, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(prize12, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(prize13, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(prize13, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 10, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(prize1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(prize2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -557,6 +566,10 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
         // TODO add your handling code here:
     }//GEN-LAST:event_exitButtonActionPerformed
 
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_backButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -593,6 +606,7 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
     private javax.swing.JButton case1;
     private javax.swing.JButton case10;
     private javax.swing.JButton case11;
@@ -678,6 +692,7 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
         this.case25.addActionListener(listener);
         this.case26.addActionListener(listener);
         this.exitButton.addActionListener(listener);
+        this.backButton.addActionListener(listener);
     }
 
     public void setPrizes(int[] prizes) {
@@ -730,6 +745,13 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
         if (JOptionPane.showConfirmDialog(this, "Do you want to quit?", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
+    }
+
+    public boolean goBack() {
+        if (JOptionPane.showConfirmDialog(this, "Are you sure you want to go back to the main menu (You will lose all your current progress)", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            return true;
+        }
+        return false;
     }
 
     @Override

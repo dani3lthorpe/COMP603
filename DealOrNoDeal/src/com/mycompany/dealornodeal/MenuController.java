@@ -18,14 +18,14 @@ class MenuController implements ActionListener {
     private GameModeSelect gameMode;
     private ScoresGUI scores;
     private Model model;
-    private endGameGUI endGame;
+    private EndGameGUI endGame;
 
     public MenuController(LoginView view, Model model) {
         this.login = view;
         this.mode = new ModeSelect();
         this.gameMode = new GameModeSelect();
         this.scores = new ScoresGUI();
-        this.endGame = new endGameGUI();
+        this.endGame = new EndGameGUI();
         this.model = model;
         this.login.addActionListener(this);
         this.mode.addActionListener(this);
@@ -78,8 +78,19 @@ class MenuController implements ActionListener {
                 endGame.exit();
                 break;
             case "Go Back":
-                scores.setVisible(false);
+                if (scores.isVisible()) {
+                    scores.setVisible(false);
+                } else if (gameMode.isVisible()) {
+                    gameMode.setVisible(false);
+                }
                 mode.setVisible(true);
+                break;
+            case "Log Out":
+                boolean logout = mode.logOut();
+                if (logout) {
+                    mode.setVisible(false);
+                    login.setVisible(true);
+                }
                 break;
             default:
                 break;
@@ -87,7 +98,7 @@ class MenuController implements ActionListener {
         if (command.equals("Normal") || command.equals("Tutorial") || command.equals("QuickPlay") || command.equals("Random Mode")) {
             gameMode.setVisible(false);
             model.selectGameMode(command);
-            GameModeController gameModeController = new GameModeController(command, model, endGame);
+            GameModeController gameModeController = new GameModeController(command, model, endGame, mode);
         }
 
     }

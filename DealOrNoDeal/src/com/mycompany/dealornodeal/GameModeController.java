@@ -19,9 +19,10 @@ public class GameModeController implements ActionListener {
     private TutorialGUI tutorial;
     private Model model;
     private BankOfferGUI bankOffer;
-    private endGameGUI endGame;
+    private EndGameGUI endGame;
+    private ModeSelect mode;
 
-    GameModeController(String command, Model model, endGameGUI endGame) {
+    GameModeController(String command, Model model, EndGameGUI endGame, ModeSelect mode) {
         this.model = model;
         this.bankOffer = new BankOfferGUI();
         this.model.addObserver(bankOffer);
@@ -46,6 +47,7 @@ public class GameModeController implements ActionListener {
             tutorial.setVisible(true);
             tutorial.start();
         }
+        this.mode = mode;
         this.endGame = endGame;
     }
 
@@ -150,6 +152,45 @@ public class GameModeController implements ActionListener {
                     } else if (tutorial != null) {
                         this.model.deleteObserver(tutorial);
                         this.tutorial = null;
+                    }
+                    break;
+                case "Main Menu":
+                    if (bankOffer.isVisible()) {
+                        if (bankOffer.goBack()) {
+                            bankOffer.setVisible(false);
+                            mode.setVisible(true);
+                            if (normal != null) {
+                                this.model.deleteObserver(normal);
+                                this.normal = null;
+                            } else if (quickplay != null) {
+                                this.model.deleteObserver(quickplay);
+                                this.quickplay = null;
+                            } else if (tutorial != null) {
+                                this.model.deleteObserver(tutorial);
+                                this.tutorial = null;
+                            }
+                        }
+                    } else if (normal != null) {
+                        if (normal.goBack()) {
+                            normal.setVisible(false);
+                            mode.setVisible(true);
+                            this.model.deleteObserver(normal);
+                            this.normal = null;
+                        }
+                    } else if (quickplay != null) {
+                        if (quickplay.goBack()) {
+                            quickplay.setVisible(false);
+                            mode.setVisible(true);
+                            this.model.deleteObserver(quickplay);
+                            this.quickplay = null;
+                        }
+                    } else if (tutorial != null) {
+                        if (tutorial.goBack()) {
+                            tutorial.setVisible(false);
+                            mode.setVisible(true);
+                            this.model.deleteObserver(tutorial);
+                            this.tutorial = null;
+                        }
                     }
                     break;
                 default:
