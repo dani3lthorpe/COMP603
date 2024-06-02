@@ -147,7 +147,7 @@ public class ModeSelect extends javax.swing.JFrame {
     private javax.swing.JLabel title;
     private javax.swing.JLabel welcome;
     // End of variables declaration//GEN-END:variables
-    public void setText(String username) {
+    public void setUsername(String username) {
         welcome.setText("Welcome " + username + "!");
     }
 

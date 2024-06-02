@@ -7,6 +7,7 @@ package com.mycompany.dealornodeal;
 import static com.mycompany.dealornodeal.Model.quittingCheck;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
 import java.util.Scanner;
 
 /**
@@ -14,13 +15,14 @@ import java.util.Scanner;
  *
  * @author group69
  */
-public class ScoreController {
+public class ScoreController extends Observable {
 
     private HashMap<String, int[]> recentPrizes;
     private HashMap<String, int[]> highestPrizes;
     private HashMap<String, Integer> globalTotalPrizes;
     private HashMap<String, Integer> globalHighPrizes;
     private int[] totalStats;
+    private Scores scores;
 
     //ScoreController constructor takeing file controller as a parameter
     public ScoreController(DBManager dataBase) {
@@ -29,6 +31,7 @@ public class ScoreController {
         this.globalTotalPrizes = dataBase.loadGlobalTotalPrizes();
         this.globalHighPrizes = dataBase.loadGlobalHighPrizes();
         this.totalStats = dataBase.loadTotalStats();
+        
     }
 
     //refreshs the scores saved in the score controller
@@ -161,6 +164,8 @@ public class ScoreController {
     public void checkRecentPrizes(Player player) {
         if (recentPrizes.containsKey(player.getName())) {
             player.setRecentPrizes(recentPrizes.get(player.getName()));
+        } else {
+            recentPrizes.put(player.getName(), player.getRecentPrizes());
         }
     }
 
@@ -173,6 +178,8 @@ public class ScoreController {
             for (int i = 0; i < highestPrizesValues.length; i++) {
                 player.addHighPrizes(highestPrizesValues[i], i);
             }
+        } else {
+            highestPrizes.put(player.getName(), player.getHighPrizes());
         }
     }
 
@@ -199,6 +206,13 @@ public class ScoreController {
     //returns globalhighprizes
     public HashMap<String, Integer> getGlobalHighPrizes() {
         return globalHighPrizes;
+    }
+
+    public void setScores(Player player) {
+        this.scores = new Scores(recentPrizes, highestPrizes, globalTotalPrizes, globalHighPrizes, totalStats);
+        this.scores.setPlayerInfo(player.getName(), player.getTotalPrizes());
+        this.setChanged();
+        this.notifyObservers(this.scores);
     }
 
 }

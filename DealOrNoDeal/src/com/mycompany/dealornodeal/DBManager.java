@@ -33,9 +33,7 @@ public class DBManager {
         conn = getConnection();
         if (conn != null) {
             createTables();
-        } 
-        else
-        {
+        } else {
             System.err.println("Failed to connect to database");
         }
     }
@@ -204,7 +202,6 @@ public class DBManager {
 
     public HashMap<String, int[]> loadRecentPrizes() {
         HashMap<String, int[]> recentPrizes = new HashMap<>();
-
         try {
             Statement statement = conn.createStatement();
             String query = "SELECT NAME, RECENTPRIZE_ONE, RECENTPRIZE_TWO, "
@@ -266,9 +263,12 @@ public class DBManager {
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 globalTotalPrizes.put(resultSet.getString("NAME"), resultSet.getInt("TOTALSCORE"));
+                String name = resultSet.getString("NAME") + resultSet.getInt("TOTALSCORE");
+                System.out.println(name);
             }
             resultSet.close();
             statement.close();
+            return globalTotalPrizes;
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -418,8 +418,8 @@ public class DBManager {
     //updates the total stats files with the new totals games played and total prizes from the GameMode
     //takes totalStats int array and gamemode object as parameters 
     public void updateTotalStats(int[] totalStats, GameMode game) {
-        totalStats[0] = game.getTotalGames();
-        totalStats[1] = game.getTotalPrizes();
+        totalStats[0] += game.getTotalGames();
+        totalStats[1] += game.getTotalPrizes();
 
         try {
             Statement statement = conn.createStatement();

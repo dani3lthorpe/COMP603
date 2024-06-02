@@ -44,7 +44,6 @@ public class Model extends Observable {
             scores.showScoresMenu(player);
             gameMode.setTotalGames(scores.getTotals()[0]);
             gameMode.setTotalPrizes(scores.getTotals()[1]);
-            saveGameData(gameMode, player);
             playAgainPrompt(player);
         }
     }
@@ -52,21 +51,11 @@ public class Model extends Observable {
     //checks if user is in the players hashmap and creates a new player object with their stats
     //if user is not in the hashmap creates a new player and saves them to the hashmap
     //returns player and takes the users name as a parameter
-    public Player checkPlayers(String name) {
-        Player player;
+    public void checkPlayers(String name) {
         if (players.containsKey(name)) {
-            player = players.get(name);
-            String capitalizedName = player.getName().substring(0, 1).toUpperCase() + player.getName().substring(1);
-
-            System.out.println("-----------------------------------------------------------------------");
-            System.out.println("Welcome back " + capitalizedName);
-            System.out.println("your Total score is " + player.getTotalPrizes());
-            System.out.println("your Highest prize is $" + player.getHighestPrize());
-
-            scores.checkRecentPrizes(player);
-            scores.checkHighestPrizes(player);
+            this.player = players.get(name);
         } else {
-            player = new Player(name, 0, 0);
+            this.player = new Player(name, 0, 0);
             for (int i = 0; i <= 5; i++) {
                 player.addNewRecentPrizes(0);
             }
@@ -75,7 +64,8 @@ public class Model extends Observable {
             }
             players.put(name, player);
         }
-        return player;
+        scores.checkRecentPrizes(player);
+        scores.checkHighestPrizes(player);
     }
 
     //Prompts user to select a gameMode and gets user input
@@ -121,8 +111,7 @@ public class Model extends Observable {
     }
 
     //Saves all of the data to the files
-    public void saveGameData(GameMode gameMode, Player player) {
-        gameMode.addTotalGame();
+    public void saveGameData() {
         dataBase.getConnection();
         dataBase.updateTotalStats(scores.getTotals(), gameMode);
         dataBase.updateScore(players, player);
@@ -130,6 +119,7 @@ public class Model extends Observable {
         dataBase.updateHighPrizes(scores.getHighestPrizes(), player);
         scores.refreshScores(dataBase);
         dataBase.closeConnection();
+        scores.setScores(player);
     }
 
     //checks if the user has input x to quit
@@ -185,10 +175,6 @@ public class Model extends Observable {
         return input;
     }
 
-    public void setPlayer(String username) {
-        player = checkPlayers(username);
-    }
-
     public String getGlobalTotalPrizes() {
         String score = scores.showGlobalTotalPrizes();
         return score;
@@ -223,10 +209,13 @@ public class Model extends Observable {
         this.setChanged();
         this.notifyObservers(this.gameMode.getGameData());
     }
+    
+    public ScoreController getScores() {
+        return scores;
+    }
 
-    public void endGame() {
-        saveGameData(gameMode, player);
-        this.notifyView();
+    public Player getPlayer() {
+        return player;
     }
 
 }

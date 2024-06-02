@@ -104,25 +104,34 @@ public class GameModeController implements ActionListener {
                         this.normal.setVisible(true);
                         this.model.newRound();
                         if (model.getGameMode().getGameData().getRound() == -1) {
+                            this.model.getGameMode().openYourCase();
                             this.normal.setVisible(false);
+                            this.model.saveGameData();
                             this.endGame.setVisible(true);
                             this.model.deleteObserver(normal);
+                            this.normal = null;
                         }
                     } else if (quickplay != null) {
                         this.quickplay.setVisible(true);
                         this.model.newRound();
                         if (model.getGameMode().getGameData().getRound() == -1) {
+                            this.model.getGameMode().openYourCase();
                             this.quickplay.setVisible(false);
+                            this.model.saveGameData();
                             this.endGame.setVisible(true);
                             this.model.deleteObserver(quickplay);
+                            this.quickplay = null;
                         }
                     } else if (tutorial != null) {
                         this.tutorial.setVisible(true);
                         this.model.newRound();
                         if (model.getGameMode().getGameData().getRound() == -1) {
+                            this.model.getGameMode().openYourCase();
                             this.tutorial.setVisible(false);
+                            this.model.saveGameData();
                             this.endGame.setVisible(true);
                             this.model.deleteObserver(tutorial);
+                            this.tutorial = null;
                         }
                     }
                     break;
@@ -130,13 +139,17 @@ public class GameModeController implements ActionListener {
                     this.model.getGameMode().acceptOffer();
                     this.model.notifyView();
                     this.bankOffer.setVisible(false);
+                    this.model.saveGameData();
                     this.endGame.setVisible(true);
                     if (normal != null) {
                         this.model.deleteObserver(normal);
+                        this.normal = null;
                     } else if (quickplay != null) {
                         this.model.deleteObserver(quickplay);
+                        this.quickplay = null;
                     } else if (tutorial != null) {
                         this.model.deleteObserver(tutorial);
+                        this.tutorial = null;
                     }
                     break;
                 default:

@@ -4,13 +4,18 @@
  */
 package com.mycompany.dealornodeal;
 
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author droun
  */
-public class ScoresGUI extends javax.swing.JFrame{
+public class ScoresGUI extends javax.swing.JFrame implements Observer {
 
     /**
      * Creates new form Scores
@@ -46,7 +51,7 @@ public class ScoresGUI extends javax.swing.JFrame{
         yourRecentPrize5 = new javax.swing.JLabel();
         yourTotalPrizes = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        GlobalScores = new javax.swing.JLabel();
+        globalScores = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
         globalTotalPrizes = new javax.swing.JLabel();
         globalTotalPrize1 = new javax.swing.JLabel();
@@ -64,7 +69,7 @@ public class ScoresGUI extends javax.swing.JFrame{
         globalLabel4 = new javax.swing.JLabel();
         games = new javax.swing.JLabel();
         totalPrizesWon = new javax.swing.JLabel();
-        Prizes = new javax.swing.JLabel();
+        prizes = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -197,9 +202,9 @@ public class ScoresGUI extends javax.swing.JFrame{
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        GlobalScores.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        GlobalScores.setText("Global Scores");
-        GlobalScores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        globalScores.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        globalScores.setText("Global Scores");
+        globalScores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         backButton.setText("Go Back");
         backButton.addActionListener(new java.awt.event.ActionListener() {
@@ -254,7 +259,7 @@ public class ScoresGUI extends javax.swing.JFrame{
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(70, 70, 70)
-                        .addComponent(GlobalScores))
+                        .addComponent(globalScores))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -288,7 +293,7 @@ public class ScoresGUI extends javax.swing.JFrame{
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(GlobalScores)
+                .addComponent(globalScores)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(globalTotalPrizes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -333,8 +338,8 @@ public class ScoresGUI extends javax.swing.JFrame{
         totalPrizesWon.setText("Total Prizes Won");
         totalPrizesWon.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        Prizes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        Prizes.setText("Prizes");
+        prizes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        prizes.setText("Prizes");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -361,7 +366,7 @@ public class ScoresGUI extends javax.swing.JFrame{
                         .addComponent(totalPrizesWon))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(100, 100, 100)
-                        .addComponent(Prizes)))
+                        .addComponent(prizes)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -380,7 +385,7 @@ public class ScoresGUI extends javax.swing.JFrame{
                         .addGap(37, 37, 37)
                         .addComponent(totalPrizesWon)
                         .addGap(44, 44, 44)
-                        .addComponent(Prizes)
+                        .addComponent(prizes)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -435,8 +440,6 @@ public class ScoresGUI extends javax.swing.JFrame{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel GlobalScores;
-    private javax.swing.JLabel Prizes;
     private javax.swing.JButton backButton;
     private javax.swing.JButton exitButton;
     private javax.swing.JLabel gameStats;
@@ -448,6 +451,7 @@ public class ScoresGUI extends javax.swing.JFrame{
     private javax.swing.JLabel globalHighestPrize5;
     private javax.swing.JLabel globalHighestPrizes;
     private javax.swing.JLabel globalLabel4;
+    private javax.swing.JLabel globalScores;
     private javax.swing.JLabel globalTotalPrize1;
     private javax.swing.JLabel globalTotalPrize2;
     private javax.swing.JLabel globalTotalPrize3;
@@ -457,6 +461,7 @@ public class ScoresGUI extends javax.swing.JFrame{
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel personalLabel;
+    private javax.swing.JLabel prizes;
     private javax.swing.JLabel title;
     private javax.swing.JLabel totalPrizesWon;
     private javax.swing.JLabel yourHighestPrize1;
@@ -474,12 +479,101 @@ public class ScoresGUI extends javax.swing.JFrame{
     private javax.swing.JLabel yourTotalPrizes;
     // End of variables declaration//GEN-END:variables
 
-    public void setScores(String scores) {
+    public void addActionListener(ActionListener listener) {
+        this.exitButton.addActionListener(listener);
+        this.backButton.addActionListener(listener);
+    }
+
+    public void setGlobalTotalPrizes(HashMap<String, Integer> globalTotalPrizes) {
+        int count = 1;
+        for (Map.Entry<String, Integer> entry : globalTotalPrizes.entrySet()) {
+            String text = entry.getKey().substring(0, 1).toUpperCase() + entry.getKey().substring(1) + ": $" + entry.getValue();
+            switch (count) {
+                case 1:
+                    globalTotalPrize1.setText("1. " + text);
+                    break;
+                case 2:
+                    globalTotalPrize2.setText("1. " + text);
+                    break;
+                case 3:
+                    globalTotalPrize3.setText("3. " + text);
+                    break;
+                case 4:
+                    globalTotalPrize4.setText("4. " + text);
+                    break;
+                case 5:
+                    globalTotalPrize5.setText("5. " + text);
+                    break;
+            }
+            count++;
+        }
+    }
+
+    public void setGlobalHighPrizes(HashMap<String, Integer> globalHighPrizes) {
+        int count = 1;
+        for (Map.Entry<String, Integer> entry : globalHighPrizes.entrySet()) {
+            String text = entry.getKey().substring(0, 1).toUpperCase() + entry.getKey().substring(1) + ": $" + entry.getValue();
+            switch (count) {
+                case 1:
+                    globalHighestPrize1.setText("1. " + text);
+                    break;
+                case 2:
+                    globalHighestPrize2.setText("1. " + text);
+                    break;
+                case 3:
+                    globalHighestPrize3.setText("3. " + text);
+                    break;
+                case 4:
+                    globalHighestPrize4.setText("4. " + text);
+                    break;
+                case 5:
+                    globalHighestPrize5.setText("5. " + text);
+                    break;
+            }
+            count++;
+        }
+    }
+
+    public void setTotalStats(int[] totalStats) {
+        games.setText(totalStats[0] + " games played");
+        prizes.setText("$" + totalStats[1] + "  won");
+    }
+
+    public void setYourTotalPrizes(int totalPrizes) {
+        yourTotalPrizes.setText("$" + totalPrizes);
+    }
+
+    public void setYourHighestPrizes(int[] highestPrizes) {
+        yourHighestPrize1.setText("1. $" + highestPrizes[0]);
+        yourHighestPrize2.setText("2. $" + highestPrizes[1]);
+        yourHighestPrize3.setText("3. $" + highestPrizes[2]);
+        yourHighestPrize4.setText("4. $" + highestPrizes[3]);
+        yourHighestPrize5.setText("5. $" + highestPrizes[4]);
+    }
+
+    public void setYourRecentPrizes(int[] recentPrizes) {
+        yourRecentPrize1.setText("1. $" + recentPrizes[0]);
+        yourRecentPrize2.setText("2. $" + recentPrizes[1]);
+        yourRecentPrize3.setText("3. $" + recentPrizes[2]);
+        yourRecentPrize4.setText("4. $" + recentPrizes[3]);
+        yourRecentPrize5.setText("5. $" + recentPrizes[4]);
     }
 
     public void exit() {
         if (JOptionPane.showConfirmDialog(this, "Do you want to quit?", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        Scores scores = (Scores) arg;
+        String playerName = scores.getPlayerName();
+        setGlobalTotalPrizes(scores.getGlobalTotalPrizes());
+        setGlobalHighPrizes(scores.getGlobalHighPrizes());
+        setTotalStats(scores.getTotalStats());
+        setYourRecentPrizes(scores.getRecentPrizes().get(playerName));
+        setYourHighestPrizes(scores.getHighestPrizes().get(playerName));
+        setYourTotalPrizes(scores.getTotalPlayerPrizes());
     }
 }

@@ -77,10 +77,9 @@ public abstract class GameMode implements Game {
         }
         return caseNum;
     }
-    
-    public void removePrize(int caseNum)
-    {
-     this.prizes.removeIf(prize -> prize.equals(cases.get(caseNum).getPrize()));
+
+    public void removePrize(int caseNum) {
+        this.prizes.removeIf(prize -> prize.equals(cases.get(caseNum).getPrize()));
     }
 
     //displays the casePicking screen, getting the user to select a case to open
@@ -110,7 +109,6 @@ public abstract class GameMode implements Game {
 
     public void acceptOffer() {
         int offer = gameData.getCurrentOffer();
-        this.player.addTotalPrizes(offer);
         this.totalPrizes += offer;
         if (offer > this.player.getHighestPrize()) {
             this.player.setHighestPrize(offer);
@@ -120,6 +118,19 @@ public abstract class GameMode implements Game {
         this.player.addNewHighPrizes(offer);
         this.gameData.setDealAccepted(true);
         this.player.setCurrentPrize(offer);
+        this.totalGames++;
+    }
+
+    public void openYourCase() {
+        Case yourCase = gameData.getPlayerCase();
+        if (yourCase.getPrize() > getPlayer().getHighestPrize()) {
+            getPlayer().setHighestPrize(yourCase.getPrize());
+        }
+        addTotalPrizes(yourCase.getPrize());
+        getPlayer().addTotalPrizes(yourCase.getPrize());
+        getPlayer().addNewRecentPrizes(yourCase.getPrize());
+        getPlayer().addNewHighPrizes(yourCase.getPrize());
+        this.totalGames++;
     }
 
     //displays the past offers
@@ -211,7 +222,6 @@ public abstract class GameMode implements Game {
             if (currentScore > player.getHighestPrize()) {
                 player.setHighestPrize(currentScore);
             }
-            addTotalPrizes(currentScore);
             player.addTotalPrizes(currentScore);
             player.addNewRecentPrizes(currentScore);
             player.addNewHighPrizes(currentScore);

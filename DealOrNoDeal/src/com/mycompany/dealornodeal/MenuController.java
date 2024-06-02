@@ -31,7 +31,9 @@ class MenuController implements ActionListener {
         this.mode.addActionListener(this);
         this.gameMode.addActionListener(this);
         this.endGame.addActionListener(this);
+        this.scores.addActionListener(this);
         this.model.addObserver(endGame);
+        this.model.getScores().addObserver(scores);
     }
 
     @Override
@@ -40,10 +42,10 @@ class MenuController implements ActionListener {
         switch (command) {
             case "Confirm":
                 String username = this.login.getUsernameField().getText();
-                this.model.setPlayer(username);
+                this.model.checkPlayers(username);
                 login.setVisible(false);
                 mode.setVisible(true);
-                mode.setText(username);
+                mode.setUsername(username);
                 break;
             case "Exit":
                 if (login.isVisible()) {
@@ -54,6 +56,8 @@ class MenuController implements ActionListener {
                     scores.exit();
                 } else if (gameMode.isVisible()) {
                     gameMode.exit();
+                } else if (scores.isVisible()) {
+                    scores.exit();
                 }
                 break;
             case "Play Deal Or No Deal":
@@ -62,7 +66,7 @@ class MenuController implements ActionListener {
                 break;
             case "See Scores":
                 mode.setVisible(false);
-                scores.setScores(model.getGlobalTotalPrizes());
+                model.getScores().setScores(model.getPlayer());
                 scores.setVisible(true);
                 break;
             case "Yes":
@@ -72,6 +76,10 @@ class MenuController implements ActionListener {
                 break;
             case "No":
                 endGame.exit();
+                break;
+            case "Go Back":
+                scores.setVisible(false);
+                mode.setVisible(true);
                 break;
             default:
                 break;
