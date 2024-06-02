@@ -493,7 +493,7 @@ public class ScoresGUI extends javax.swing.JFrame implements Observer {
                     globalTotalPrize1.setText("1. " + text);
                     break;
                 case 2:
-                    globalTotalPrize2.setText("1. " + text);
+                    globalTotalPrize2.setText("2. " + text);
                     break;
                 case 3:
                     globalTotalPrize3.setText("3. " + text);
@@ -518,7 +518,7 @@ public class ScoresGUI extends javax.swing.JFrame implements Observer {
                     globalHighestPrize1.setText("1. " + text);
                     break;
                 case 2:
-                    globalHighestPrize2.setText("1. " + text);
+                    globalHighestPrize2.setText("2. " + text);
                     break;
                 case 3:
                     globalHighestPrize3.setText("3. " + text);

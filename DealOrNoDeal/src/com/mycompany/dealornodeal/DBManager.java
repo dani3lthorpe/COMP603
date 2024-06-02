@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -253,8 +254,8 @@ public class DBManager {
         return highPrizes;
     }
 
-    public HashMap<String, Integer> loadGlobalTotalPrizes() {
-        HashMap<String, Integer> globalTotalPrizes = new HashMap<>();
+    public LinkedHashMap<String, Integer> loadGlobalTotalPrizes() {
+        LinkedHashMap<String, Integer> globalTotalPrizes = new LinkedHashMap<>();
 
         try {
             Statement statement = conn.createStatement();
@@ -275,8 +276,8 @@ public class DBManager {
         return globalTotalPrizes;
     }
 
-    public HashMap<String, Integer> loadGlobalHighPrizes() {
-        HashMap<String, Integer> globalHighPrizes = new HashMap<>();
+    public LinkedHashMap<String, Integer> loadGlobalHighPrizes() {
+        LinkedHashMap<String, Integer> globalHighPrizes = new LinkedHashMap<>();
 
         try {
             Statement statement = conn.createStatement();
