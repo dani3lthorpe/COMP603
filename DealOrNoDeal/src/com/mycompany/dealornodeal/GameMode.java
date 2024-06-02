@@ -19,17 +19,21 @@ public abstract class GameMode implements Game {
     private ArrayList<Integer> prizes;
     private Player player;
     private ArrayList<Case> cases;
-    private boolean dealAccepted;
     private int totalGames;
     private int totalPrizes;
+    private GameInfo gameData;
+    private int[] prize;
+    private Banker banker;
 
     //GameMode constructor creates the prizes and cases arraylist
     // adds the value from the prizes array to the prizes arraylist and sets the player to the player parameter
-    public GameMode(Player player, int[] prizes) {
+    public GameMode(Player player, int[] prizes, GameInfo gameData) {
         this.player = player;
         this.prizes = new ArrayList<>();
         this.cases = new ArrayList<>();
-        this.dealAccepted = false;
+        this.prize = prizes;
+        this.gameData = gameData;
+        this.banker = new Banker(gameData.getRound());
         for (int m : prizes) {
             this.prizes.add(m);
         }
@@ -74,87 +78,71 @@ public abstract class GameMode implements Game {
         return caseNum;
     }
 
+    public void removePrize(int caseNum) {
+        this.prizes.removeIf(prize -> prize.equals(cases.get(caseNum).getPrize()));
+    }
+
     //displays the casePicking screen, getting the user to select a case to open
     //takes a scanner, the number of cases to pick and the total cases as a parameter
-    public void displayCasePicking(Scanner scan, int casesToPick, int total) {
-        int caseNum;
-        
-        System.out.println("Pick " +casesToPick + " cases to open");
-        displayCases();
-        displayPrizes();
-
-        while (casesToPick != 0) {
-            boolean isValid = false;
-            System.out.println("Please Pick a Case to open (" + casesToPick + " left to pick)");
-            while (!isValid) {
-                caseNum = checkCaseInput(scan, total);
-
-                for (Case c : cases) {
-                    if (c.getNumber() == caseNum) {
-                        if (c.isOpen() == true) {
-                            System.out.println("-----------------------------------------------------------------------");
-                            System.out.println("Please select a case that has not been opened");
-                        } else if (c.isPlayerCase() == true) {
-                            System.out.println("-----------------------------------------------------------------------");
-                            System.out.println("Please select a case that is not your own");
-                        } else {
-                            c.open();
-                            displayCases();
-                            this.prizes.removeIf(prize -> prize.equals(c.getPrize()));
-                            displayPrizes();
-                            System.out.println("-----------------------------------------------------------------------");
-                            casesToPick--;
-                            isValid = true;
-                        }
-                    }
+    public Case displayCasePicking(int caseNum) {
+        for (Case c : cases) {
+            if (c.getNumber() == caseNum) {
+                if (c.isOpen() == true) {
+                    return c;
+                } else if (c.isPlayerCase() == true) {
+                    return c;
+                } else {
+                    this.prizes.removeIf(prize -> prize.equals(c.getPrize()));
+                    return c;
                 }
             }
         }
+        return null;
     }
 
     //displays an offer from a banker for the user to choose to accept or decline
     //takes a banker and scanner as parameter
-    public void displayOffer(Banker banker, Scanner scan) {
-        System.out.println("The banker has a new offer for you");
-        displayPastOffers(banker);
-        int offer = banker.makeOffer(prizes);
+    public void displayOffer() {
+        gameData.setCurrentOffer(banker.makeOffer(prizes));
+        gameData.setPastOffers(banker.getPastOffers());
+    }
 
-        System.out.println("The banker has given you an offer of: $" + offer);
-        System.out.println("(1) Deal");
-        System.out.println("(2) No Deal");
-        int answer = checkOfferInput(scan);
-
-        if (answer == 1) {
-            System.out.println("-----------------------------------------------------------------------");
-            System.out.println("You have accepted the offer");
-            System.out.println("Well done you won: $" + offer);
-            this.player.addTotalPrizes(offer);
-            this.totalPrizes += offer;
-            if (offer > this.player.getHighestPrize()) {
-                this.player.setHighestPrize(offer);
-            }
-            this.player.addTotalPrizes(offer);
-            this.player.addNewRecentPrizes(offer);
-            this.player.addNewHighPrizes(offer);
-            this.dealAccepted = true;
-        } else {
-            System.out.println("-----------------------------------------------------------------------");
-            System.out.println("No Deal, the game shall continue");
+    public void acceptOffer() {
+        int offer = gameData.getCurrentOffer();
+        this.totalPrizes += offer;
+        if (offer > this.player.getHighestPrize()) {
+            this.player.setHighestPrize(offer);
         }
-        System.out.println("-----------------------------------------------------------------------");
+        this.player.addTotalPrizes(offer);
+        this.player.addNewRecentPrizes(offer);
+        this.player.addNewHighPrizes(offer);
+        this.gameData.setDealAccepted(true);
+        this.player.setCurrentPrize(offer);
+        this.totalGames++;
+    }
+
+    public void openYourCase() {
+        Case yourCase = gameData.getPlayerCase();
+        if (yourCase.getPrize() > getPlayer().getHighestPrize()) {
+            getPlayer().setHighestPrize(yourCase.getPrize());
+        }
+        addTotalPrizes(yourCase.getPrize());
+        getPlayer().addTotalPrizes(yourCase.getPrize());
+        getPlayer().addNewRecentPrizes(yourCase.getPrize());
+        getPlayer().addNewHighPrizes(yourCase.getPrize());
+        this.totalGames++;
     }
 
     //displays the past offers
     //takes a banker as a parameter
-    public void displayPastOffers(Banker banker) {
+    /*public void displayPastOffers(Banker banker) {
         if (!banker.getPastOffers().isEmpty()) {
             System.out.println("Past Offers:");
             for (int p : banker.getPastOffers()) {
                 System.out.println("$" + p);
             }
         }
-    }
-
+    }*/
     //checks if the case input is valid
     //takes a scanner and the total number of cases as a parameter
     public int checkCaseInput(Scanner scan, int total) {
@@ -226,34 +214,25 @@ public abstract class GameMode implements Game {
     }
 
     //confirms the user wants to quit before stopping the game
-    @Override
     public void stopMode() {
-        Scanner scan = new Scanner(System.in);
-
-        System.out.println("Are you sure you would like to quit the game?");
-        System.out.println("(1) Yes");
-        System.out.println("(2) No");
-
-        boolean inputIsValid = false;
-        while (!inputIsValid) {
-            String answer = scan.nextLine().trim().toLowerCase();
-            if (answer.equals("1") || answer.equals("yes") || answer.equals("y") || answer.equals("x") || answer.equals("ye") || answer.equals("one")) {
-                System.out.println("-----------------------------------------------------------------------");
-                System.out.println("Thanks for playing");
-                System.out.println("Game Exiting");
-                System.exit(0);
-            } else if (answer.equals("2") || answer.equals("no") || answer.equals("n") || answer.equals("two")) {
-                inputIsValid = true;
-            } else {
-                System.out.println("-----------------------------------------------------------------------");
-                System.out.println("Invalid Answer, please select either: ");
-                System.out.println("(1) Yes");
-                System.out.println("(2) No");
+        Case c = gameData.getPlayerCase();
+        if (!gameData.isDealAccepted()) {
+            System.out.println("Now to open your case: ");
+            int currentScore = c.getPrize();
+            if (currentScore > player.getHighestPrize()) {
+                player.setHighestPrize(currentScore);
             }
+            player.addTotalPrizes(currentScore);
+            player.addNewRecentPrizes(currentScore);
+            player.addNewHighPrizes(currentScore);
+            c.open();
+        } else {
+            System.out.println("Now to see what was in your case: ");
+            c.open();
         }
     }
-
     //returns the player
+
     public Player getPlayer() {
         return player;
     }
@@ -278,11 +257,6 @@ public abstract class GameMode implements Game {
         return prizes;
     }
 
-    //returns the dealAccepted value
-    public boolean isDealAccepted() {
-        return dealAccepted;
-    }
-
     //adds a prize to the totalprizes
     //takes a prize parameter
     public void addTotalPrizes(int prize) {
@@ -304,10 +278,20 @@ public abstract class GameMode implements Game {
         this.totalGames++;
     }
 
+    public GameInfo getGameData() {
+        return gameData;
+    }
+
+    public int[] getPrize() {
+        return prize;
+    }
+
     //abstract methods for subclasses to override
     @Override
     public abstract void startMode();
 
     public abstract void displayCases();
+
+    public abstract void newRound();
 
 }

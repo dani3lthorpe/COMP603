@@ -19,6 +19,7 @@ public class Player {
     private int highestPrize = 0;
     private int[] recentPrizes;
     private int[] highPrizes;
+    private int currentPrize;
 
     //player constructer creates a recentPrizes and HighPrizes int array
     //sets name, totalPrizes and highestPrizes to the input parameters
@@ -109,6 +110,14 @@ public class Player {
     //sets the highestPrize to the input amount
     public void setHighestPrize(int highestPrize) {
         this.highestPrize = highestPrize;
+    }
+
+    public void setCurrentPrize(int offer) {
+        this.currentPrize = offer;
+    }
+
+    public int getCurrentPrize() {
+        return currentPrize;
     }
 
 }

@@ -4,9 +4,10 @@
  */
 package com.mycompany.dealornodeal;
 
-import static com.mycompany.dealornodeal.GameController.quittingCheck;
+import static com.mycompany.dealornodeal.Model.quittingCheck;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
 import java.util.Scanner;
 
 /**
@@ -14,13 +15,14 @@ import java.util.Scanner;
  *
  * @author group69
  */
-public class ScoreController {
+public class ScoreController extends Observable {
 
     private HashMap<String, int[]> recentPrizes;
     private HashMap<String, int[]> highestPrizes;
     private HashMap<String, Integer> globalTotalPrizes;
     private HashMap<String, Integer> globalHighPrizes;
     private int[] totalStats;
+    private Scores scores;
 
     //ScoreController constructor takeing file controller as a parameter
     public ScoreController(DBManager dataBase) {
@@ -29,15 +31,18 @@ public class ScoreController {
         this.globalTotalPrizes = dataBase.loadGlobalTotalPrizes();
         this.globalHighPrizes = dataBase.loadGlobalHighPrizes();
         this.totalStats = dataBase.loadTotalStats();
+        
     }
 
     //refreshs the scores saved in the score controller
     public void refreshScores(DBManager dataBase) {
+        dataBase.getConnection();
         this.recentPrizes = dataBase.loadRecentPrizes();
         this.highestPrizes = dataBase.loadHighPrizes();
         this.globalTotalPrizes = dataBase.loadGlobalTotalPrizes();
         this.globalHighPrizes = dataBase.loadGlobalHighPrizes();
         this.totalStats = dataBase.loadTotalStats();
+        dataBase.closeConnection();
     }
 
     //displays a score menu and displays which score a player wants to see based on two inputs,
@@ -73,7 +78,6 @@ public class ScoreController {
                     if (scoreInput.equals("x")) {
                         quittingCheck();
                     } else if (scoreInput.equals("1") || scoreInput.equals("global total prizes") || scoreInput.equals("global total")) {
-                        showGlobalTotalPrizes();
                         validScoreTypeInput = true;
                     } else if (scoreInput.equals("2") || scoreInput.equals("global highest prizes") || scoreInput.equals("global highest") || scoreInput.equals("global high")) {
                         showGlobalHighestPrizes();
@@ -105,16 +109,17 @@ public class ScoreController {
     }
 
     //displays the global total prizes
-    public void showGlobalTotalPrizes() {
+    public String showGlobalTotalPrizes() {
         int place = 1;
-
+        String scores = "";
         System.out.println("-----------------------------------------------------------------------");
         System.out.println("Global Total Scores: ");
 
         for (Map.Entry<String, Integer> entry : globalTotalPrizes.entrySet()) {
-            System.out.println(place + ". " + entry.getKey().substring(0, 1).toUpperCase() + entry.getKey().substring(1) + ": " + entry.getValue());
+            scores += place + ". " + entry.getKey().substring(0, 1).toUpperCase() + entry.getKey().substring(1) + ": " + entry.getValue() + "\n";
             place++;
         }
+        return scores;
     }
 
     //displays the global highest prizes
@@ -159,6 +164,8 @@ public class ScoreController {
     public void checkRecentPrizes(Player player) {
         if (recentPrizes.containsKey(player.getName())) {
             player.setRecentPrizes(recentPrizes.get(player.getName()));
+        } else {
+            recentPrizes.put(player.getName(), player.getRecentPrizes());
         }
     }
 
@@ -171,6 +178,8 @@ public class ScoreController {
             for (int i = 0; i < highestPrizesValues.length; i++) {
                 player.addHighPrizes(highestPrizesValues[i], i);
             }
+        } else {
+            highestPrizes.put(player.getName(), player.getHighPrizes());
         }
     }
 
@@ -197,6 +206,13 @@ public class ScoreController {
     //returns globalhighprizes
     public HashMap<String, Integer> getGlobalHighPrizes() {
         return globalHighPrizes;
+    }
+
+    public void setScores(Player player) {
+        this.scores = new Scores(recentPrizes, highestPrizes, globalTotalPrizes, globalHighPrizes, totalStats);
+        this.scores.setPlayerInfo(player.getName(), player.getTotalPrizes());
+        this.setChanged();
+        this.notifyObservers(this.scores);
     }
 
 }
