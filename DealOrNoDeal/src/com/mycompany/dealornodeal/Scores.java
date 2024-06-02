@@ -26,7 +26,6 @@ public class Scores {
         this.globalTotalPrizes = globalTotalPrizes;
         this.globalHighPrizes = globalHighPrizes;
         this.totalStats = totalStats;
-        this.totalPlayerPrizes = totalPlayerPrizes;
     }
     public void setPlayerInfo(String playerName, int totalPlayerPrizes) {
         this.playerName = playerName;

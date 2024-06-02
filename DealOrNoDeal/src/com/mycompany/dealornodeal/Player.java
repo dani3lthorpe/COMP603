@@ -19,7 +19,6 @@ public class Player {
     private int highestPrize = 0;
     private int[] recentPrizes;
     private int[] highPrizes;
-    private int currentPrize;
 
     //player constructer creates a recentPrizes and HighPrizes int array
     //sets name, totalPrizes and highestPrizes to the input parameters
@@ -41,7 +40,7 @@ public class Player {
     public void addNewRecentPrizes(int prize) {
         Deque<Integer> tempScores = new ArrayDeque<>(5);
 
-        for (int i : recentPrizes) {
+        for (int i : this.recentPrizes) {
             tempScores.addLast(i);
         }
         tempScores.removeLast();
@@ -49,7 +48,7 @@ public class Player {
 
         int index = 0;
         for (int num : tempScores) {
-            recentPrizes[index] = num;
+            this.recentPrizes[index] = num;
             index++;
         }
     }
@@ -112,12 +111,5 @@ public class Player {
         this.highestPrize = highestPrize;
     }
 
-    public void setCurrentPrize(int offer) {
-        this.currentPrize = offer;
-    }
-
-    public int getCurrentPrize() {
-        return currentPrize;
-    }
 
 }

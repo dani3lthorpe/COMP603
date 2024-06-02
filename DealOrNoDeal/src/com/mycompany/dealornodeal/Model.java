@@ -34,20 +34,6 @@ public class Model extends Observable {
         dataBase.closeConnection();
     }
 
-    //controlls main game by displaying main menu, starting the gamemode and saving the scores
-    //then asks if player would like to play again
-    public void displayMainMenu() {
-        System.out.println("Welcome to Deal or no Deal (Input x at any time to quit)");
-
-        boolean playing = true;
-        while (playing == true) {
-            scores.showScoresMenu(player);
-            gameMode.setTotalGames(scores.getTotals()[0]);
-            gameMode.setTotalPrizes(scores.getTotals()[1]);
-            playAgainPrompt(player);
-        }
-    }
-
     //checks if user is in the players hashmap and creates a new player object with their stats
     //if user is not in the hashmap creates a new player and saves them to the hashmap
     //returns player and takes the users name as a parameter
@@ -82,34 +68,6 @@ public class Model extends Observable {
         }
     }
 
-    //prompts user to see if they would like to play again
-    public void playAgainPrompt(Player player) {
-        boolean answerIsValid = false;
-        while (!answerIsValid) {
-            System.out.println("-----------------------------------------------------------------------");
-            System.out.println("Would you like to play again?");
-            System.out.println("(1) Yes");
-            System.out.println("(2) No");
-
-            String playAgainAnswer = scan.nextLine().trim().toLowerCase();
-
-            if (playAgainAnswer.equals("x")) {
-                quittingCheck();
-            } else if (playAgainAnswer.equals("2") || playAgainAnswer.equals("two") || playAgainAnswer.equals("x") || playAgainAnswer.equals("no") || playAgainAnswer.equals("n")) {
-                scores.showScoresMenu(player);
-                System.out.println("-----------------------------------------------------------------------");
-                System.out.println("Thanks for playing");
-                System.out.println("Scores saved, Game Exiting");
-                System.exit(0);
-            } else if (playAgainAnswer.equals("1") || playAgainAnswer.equals("one") || playAgainAnswer.equals("yes") || playAgainAnswer.equals("y") || playAgainAnswer.equals("ye")) {
-                answerIsValid = true;
-            } else {
-                System.out.println("-----------------------------------------------------------------------");
-                System.out.println("Invalid Input");
-            }
-        }
-    }
-
     //Saves all of the data to the files
     public void saveGameData() {
         dataBase.getConnection();
@@ -122,63 +80,7 @@ public class Model extends Observable {
         scores.setScores(player);
     }
 
-    //checks if the user has input x to quit
-    public static void quittingCheck() {
-        System.out.println("-----------------------------------------------------------------------");
-        System.out.println("Are you sure you would like to quit the game?");
-        System.out.println("(1) Yes");
-        System.out.println("(2) No");
-
-        boolean inputIsValid = false;
-
-        while (!inputIsValid) {
-            String answer = scan.nextLine().trim().toLowerCase();
-            if (answer.equals("1") || answer.equals("one") || answer.equals("x") || answer.equals("yes") || answer.equals("y") || answer.equals("ye")) {
-                System.out.println("-----------------------------------------------------------------------");
-                System.out.println("Thanks for playing");
-                System.out.println("Game Exiting");
-                System.exit(0);
-            } else if (answer.equals("2") || answer.equals("two") || answer.equals("no") || answer.equals("n")) {
-                inputIsValid = true;
-            } else {
-                System.out.println("-----------------------------------------------------------------------");
-                System.out.println("Invalid Answer, please select either:");
-                System.out.println("(1) Yes");
-                System.out.println("(2) No");
-
-            }
-        }
-    }
-
-    //checks if the name input is valid before returning the input
-    public String checkNameInput() {
-        boolean isValid = false;
-        String input = "";
-        while (!isValid) {
-            System.out.println("-----------------------------------------------------------------------");
-            System.out.println("Please input your name:");
-
-            input = scan.nextLine().trim().toLowerCase();
-
-            if (input.equals("x")) {
-                quittingCheck();
-            } else if (input.contains("/")) {
-                System.out.println("-----------------------------------------------------------------------");
-                System.out.println("Invalid character (/) in name");
-            } else if (input.equals("")) {
-                System.out.println("-----------------------------------------------------------------------");
-                System.out.println("Invalid Name");
-            } else {
-                return input;
-            }
-        }
-        return input;
-    }
-
-    public String getGlobalTotalPrizes() {
-        String score = scores.showGlobalTotalPrizes();
-        return score;
-    }
+   
 
     public GameMode getGameMode() {
         return gameMode;

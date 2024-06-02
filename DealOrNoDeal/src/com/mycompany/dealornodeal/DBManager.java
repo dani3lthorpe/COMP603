@@ -4,9 +4,6 @@
  */
 package com.mycompany.dealornodeal;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -264,12 +261,9 @@ public class DBManager {
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 globalTotalPrizes.put(resultSet.getString("NAME"), resultSet.getInt("TOTALSCORE"));
-                String name = resultSet.getString("NAME") + resultSet.getInt("TOTALSCORE");
-                System.out.println(name);
             }
             resultSet.close();
             statement.close();
-            return globalTotalPrizes;
         } catch (SQLException ex) {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }

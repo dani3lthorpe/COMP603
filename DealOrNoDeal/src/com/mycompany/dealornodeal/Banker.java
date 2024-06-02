@@ -33,7 +33,7 @@ public class Banker {
         for (int p : prizes) {
             value += p;
         }
-        int offer = (value / prizes.size()) * this.prizeMultiplier/5;
+        int offer = (value / prizes.size()) * this.prizeMultiplier/3;
         
         this.prizeMultiplier++;
         this.pastOffers[totalOffers] = offer;

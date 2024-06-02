@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  * @author hidan
  */
-public class GameInfo {
+public class GameData {
 
     private int casesToPick;
     private int round;
@@ -21,7 +21,7 @@ public class GameInfo {
     private boolean dealAccepted;
     private int[] pastOffers;
 
-    public GameInfo(int casesToPick) {
+    public GameData(int casesToPick) {
         this.round = 1;
         this.casesToPick = casesToPick;
         this.userCasePicked = false;

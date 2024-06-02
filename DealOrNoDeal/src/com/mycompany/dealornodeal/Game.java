@@ -9,7 +9,6 @@ package com.mycompany.dealornodeal;
  * @author group69
  */
 public interface Game {
-    public void startMode();
-    public void stopMode();
+    public void newRound();
 
 }

@@ -336,7 +336,7 @@ public class TutorialGUI extends javax.swing.JFrame implements Observer {
         return false;
     }
 
-    public void caseOpened(javax.swing.JButton source, GameInfo gameData) {
+    public void caseOpened(javax.swing.JButton source, GameData gameData) {
         if (gameData.getPlayerCase() != gameData.getCurrentCase()) {
             source.setEnabled(false);
             source.setText("");
@@ -369,7 +369,7 @@ public class TutorialGUI extends javax.swing.JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        GameInfo gameData = (GameInfo) arg;
+        GameData gameData = (GameData) arg;
         title.setText(gameData.getCasesToPick() + " Cases To Pick");
         if (gameData.getCurrentCase() != null) {
             if (gameData.getPlayerCase() != gameData.getCurrentCase()) {

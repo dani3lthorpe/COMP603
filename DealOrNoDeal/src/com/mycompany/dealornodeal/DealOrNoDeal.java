@@ -16,7 +16,6 @@ public class DealOrNoDeal {
         LoginView login = new LoginView();
         MenuController controller = new MenuController(login, game);
         login.setVisible(true);
-        game.displayMainMenu();
     }
 }
 

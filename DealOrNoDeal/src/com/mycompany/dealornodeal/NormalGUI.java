@@ -697,39 +697,39 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
 
     public void setPrizes(int[] prizes) {
         this.prizeArray = new javax.swing.JLabel[26];
-        prizeArray[0] = this.prize1;
-        prizeArray[1] = this.prize2;
-        prizeArray[2] = this.prize3;
-        prizeArray[3] = this.prize4;
-        prizeArray[4] = this.prize5;
-        prizeArray[5] = this.prize6;
-        prizeArray[6] = this.prize7;
-        prizeArray[7] = this.prize8;
-        prizeArray[8] = this.prize9;
-        prizeArray[9] = this.prize10;
-        prizeArray[10] = this.prize11;
-        prizeArray[11] = this.prize12;
-        prizeArray[12] = this.prize13;
-        prizeArray[13] = this.prize14;
-        prizeArray[14] = this.prize15;
-        prizeArray[15] = this.prize16;
-        prizeArray[16] = this.prize17;
-        prizeArray[17] = this.prize18;
-        prizeArray[18] = this.prize19;
-        prizeArray[19] = this.prize20;
-        prizeArray[20] = this.prize21;
-        prizeArray[21] = this.prize22;
-        prizeArray[22] = this.prize23;
-        prizeArray[23] = this.prize24;
-        prizeArray[24] = this.prize25;
-        prizeArray[25] = this.prize26;
+        this.prizeArray[0] = this.prize1;
+        this.prizeArray[1] = this.prize2;
+        this.prizeArray[2] = this.prize3;
+        this.prizeArray[3] = this.prize4;
+        this.prizeArray[4] = this.prize5;
+        this.prizeArray[5] = this.prize6;
+        this.prizeArray[6] = this.prize7;
+        this.prizeArray[7] = this.prize8;
+        this.prizeArray[8] = this.prize9;
+        this.prizeArray[9] = this.prize10;
+        this.prizeArray[10] = this.prize11;
+        this.prizeArray[11] = this.prize12;
+        this.prizeArray[12] = this.prize13;
+        this.prizeArray[13] = this.prize14;
+        this.prizeArray[14] = this.prize15;
+        this.prizeArray[15] = this.prize16;
+        this.prizeArray[16] = this.prize17;
+        this.prizeArray[17] = this.prize18;
+        this.prizeArray[18] = this.prize19;
+        this.prizeArray[19] = this.prize20;
+        this.prizeArray[20] = this.prize21;
+        this.prizeArray[21] = this.prize22;
+        this.prizeArray[22] = this.prize23;
+        this.prizeArray[23] = this.prize24;
+        this.prizeArray[24] = this.prize25;
+        this.prizeArray[25] = this.prize26;
 
-        for (int i = 0; i < prizes.length && i < prizeArray.length; i++) {
-            prizeArray[i].setText("$" + prizes[i]);
+        for (int i = 0; i < prizes.length && i < this.prizeArray.length; i++) {
+            this.prizeArray[i].setText("$" + prizes[i]);
         }
     }
 
-    public void caseOpened(javax.swing.JButton source, GameInfo gameData) {
+    public void caseOpened(javax.swing.JButton source, GameData gameData) {
         if (gameData.getPlayerCase() != gameData.getCurrentCase()) {
             source.setEnabled(false);
             source.setText("");
@@ -756,7 +756,7 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        GameInfo gameData = (GameInfo) arg;
+        GameData gameData = (GameData) arg;
         caseToPickLabel.setText(gameData.getCasesToPick() + " Cases To Pick");
         if (gameData.getCurrentCase() != null) {
             if (gameData.getPlayerCase() != gameData.getCurrentCase()) {
