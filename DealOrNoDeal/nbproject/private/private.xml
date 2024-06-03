@@ -3,29 +3,32 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/hidan/OneDrive/Documents/GitHub/Assingment2/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/LoginView.java</file>
-            <file>file:/C:/Users/hidan/OneDrive/Documents/GitHub/Assingment2/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/DBManager.java</file>
-            <file>file:/C:/Users/hidan/OneDrive/Documents/GitHub/Assingment2/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/QuickplayGUI.java</file>
-            <file>file:/C:/Users/hidan/OneDrive/Documents/GitHub/Assingment2/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/Banker.java</file>
-            <file>file:/C:/Users/hidan/OneDrive/Documents/GitHub/Assingment2/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/BankOfferGUI.java</file>
-            <file>file:/C:/Users/hidan/OneDrive/Documents/GitHub/Assingment2/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/GameModeController.java</file>
-            <file>file:/C:/Users/hidan/OneDrive/Documents/GitHub/Assingment2/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/Case.java</file>
-            <file>file:/C:/Users/hidan/OneDrive/Documents/GitHub/Assingment2/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/RandomMode.java</file>
-            <file>file:/C:/Users/hidan/OneDrive/Documents/GitHub/Assingment2/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/Player.java</file>
-            <file>file:/C:/Users/hidan/OneDrive/Documents/GitHub/Assingment2/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/ScoreController.java</file>
-            <file>file:/C:/Users/hidan/OneDrive/Documents/GitHub/Assingment2/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/NormalGUI.java</file>
-            <file>file:/C:/Users/hidan/OneDrive/Documents/GitHub/Assingment2/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/GameMode.java</file>
-            <file>file:/C:/Users/hidan/OneDrive/Documents/GitHub/Assingment2/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/NormalMode.java</file>
-            <file>file:/C:/Users/hidan/OneDrive/Documents/GitHub/Assingment2/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/GameModeSelect.java</file>
-            <file>file:/C:/Users/hidan/OneDrive/Documents/GitHub/Assingment2/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/Game.java</file>
-            <file>file:/C:/Users/hidan/OneDrive/Documents/GitHub/Assingment2/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/GameController.java</file>
-            <file>file:/C:/Users/hidan/OneDrive/Documents/GitHub/Assingment2/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/DealOrNoDeal.java</file>
-            <file>file:/C:/Users/hidan/OneDrive/Documents/GitHub/Assingment2/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/GameInfo.java</file>
-            <file>file:/C:/Users/hidan/OneDrive/Documents/GitHub/Assingment2/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/ModeSelect.java</file>
-            <file>file:/C:/Users/hidan/OneDrive/Documents/GitHub/Assingment2/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/MenuController.java</file>
-            <file>file:/C:/Users/hidan/OneDrive/Documents/GitHub/Assingment2/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/Tutorial.java</file>
-            <file>file:/C:/Users/hidan/OneDrive/Documents/GitHub/Assingment2/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/ScoresGUI.java</file>
-            <file>file:/C:/Users/hidan/OneDrive/Documents/GitHub/Assingment2/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/QuickPlay.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/NormalMode.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/QuickPlay.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/Model.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/DealOrNoDeal.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/GameOverGUI.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/GameModeSelect.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/test/com/mycompany/dealornodeal/DBManagerTest.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/Tutorial.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/Player.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/ScoreManager.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/test/com/mycompany/dealornodeal/GameModeTest.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/RandomMode.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/DBManager.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/GameMode.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/ScoresGUI.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/MenuController.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/Game.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/TutorialGUI.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/GameModeFactory.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/QuickplayGUI.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/GameModeController.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/BankOfferGUI.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/Banker.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/Scores.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/NormalGUI.java</file>
+            <file>file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/src/com/mycompany/dealornodeal/Case.java</file>
         </group>
     </open-files>
 </project-private>
