@@ -22,7 +22,7 @@ public class ScoreManager extends Observable {
     private int[] totalStats;
     private Scores scores;
 
-    //ScoreController constructor takeing file controller as a parameter
+    //ScoreManager constructor takeing database manager as a parameter, loading all the scores from the database
     public ScoreManager(DBManager dataBase) {
         this.recentPrizes = dataBase.loadRecentPrizes();
         this.highestPrizes = dataBase.loadHighPrizes();
@@ -32,7 +32,7 @@ public class ScoreManager extends Observable {
         
     }
 
-    //refreshs the scores saved in the score controller
+    //refreshs the scores saved in the score manager from the database using the input database manager
     public void refreshScores(DBManager dataBase) {
         dataBase.getConnection();
         this.recentPrizes = dataBase.loadRecentPrizes();
@@ -42,6 +42,7 @@ public class ScoreManager extends Observable {
         this.totalStats = dataBase.loadTotalStats();
         dataBase.closeConnection();
     }
+    
     //Checks to see if a player has any recent prizes saved before saving them in the player class
     //takes a player as a parameter
     public void checkRecentPrizes(Player player) {
@@ -91,6 +92,7 @@ public class ScoreManager extends Observable {
         return globalHighPrizes;
     }
 
+    //creates a score object and inputs scores and sets player info before notifying observers
     public void setScores(Player player) {
         this.scores = new Scores(recentPrizes, highestPrizes, globalTotalPrizes, globalHighPrizes, totalStats);
         this.scores.setPlayerInfo(player.getName(), player.getTotalPrizes());

@@ -23,8 +23,8 @@ public class Model extends Observable {
     private GameMode gameMode;
     private GameModeFactory gameModeFactory;
 
-    //Gamecontroller constructer creates a new scanner, filecontroller, scorecontroller.
-    //Also gets the players hash map from the files using the fileController
+    //Model constructer creates a database manager, score manager.
+    //Also gets the players hash map from the database using the database manager
     public Model() {
         this.dataBaseManager = new DBManager();
         this.scoreManager = new ScoreManager(dataBaseManager);
@@ -34,7 +34,7 @@ public class Model extends Observable {
 
     //checks if user is in the players hashmap and creates a new player object with their stats
     //if user is not in the hashmap creates a new player and saves them to the hashmap
-    //returns player and takes the users name as a parameter
+    //takes the users name as a parameter
     public void checkPlayers(String name) {
         if (this.playersList.containsKey(name)) {
             this.player = this.playersList.get(name);
@@ -52,13 +52,13 @@ public class Model extends Observable {
         this.scoreManager.checkHighestPrizes(player);
     }
 
-    //Prompts user to select a gameMode and gets user input
-    //returns GameMode and take player as a parameter
+   //creates gameMode using gameMode factory inputting the modeName and the player
+   //takes the modes name as an input parameter
     public void selectGameMode(String modeName) {
         this.gameMode = gameModeFactory.getGameMode(modeName, player);
     }
 
-    //Saves all of the data to the files
+   //Saves all of the data to the database before refreshing scores
     public void saveGameData() {
         this.dataBaseManager.getConnection();
         this.dataBaseManager.updateTotalStats(scoreManager.getTotals(), gameMode);
@@ -70,17 +70,13 @@ public class Model extends Observable {
         this.scoreManager.setScores(player);
     }
 
-   
-
-    public GameMode getGameMode() {
-        return gameMode;
-    }
-
-    public void getOffer() {
+    //updates the offer in gameMode and notifies the observors that the offer has been updated
+    public void updateOffer() {
         this.gameMode.displayOffer();
         this.notifyView();
     }
 
+    //opens case change all the revelant game Data before notifying the view and removing the prize
     public void openCase(int caseNum) {
         ArrayList<Case> cases = gameMode.getCases();
         if (this.gameMode.getGameData().getPlayerCase() != null) {
@@ -92,24 +88,31 @@ public class Model extends Observable {
         this.gameMode.removePrize(caseNum - 1);
     }
 
+    //uses gameMode to start a newRound before notifying view
     public void newRound() {
         this.gameMode.newRound();
         this.notifyView();
     }
 
+    //notfies all observers that gameData has been changed
     public void notifyView() {
         this.setChanged();
         this.notifyObservers(this.gameMode.getGameData());
     }
     
-    public ScoreManager getScores() {
+    //returns the scoreManager
+    public ScoreManager getScoreManager() {
         return scoreManager;
     }
 
+    //returns player
     public Player getPlayer() {
         return player;
     }
     
-  
+    //returns gameMode object
+    public GameMode getGameMode() {
+        return gameMode;
+    }
 
 }

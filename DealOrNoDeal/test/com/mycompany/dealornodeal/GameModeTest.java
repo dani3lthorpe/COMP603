@@ -83,9 +83,7 @@ public class GameModeTest {
         System.out.println("acceptSmallerOffer");
         gameModeTest.getGameData().setCurrentOffer(-10);
         gameModeTest.acceptOffer();
-        for (int highPrize : gameModeTest.getPlayer().getHighPrizes()) {
-            assertNotEquals(highPrize, -10);
-        }
+        assertNotEquals(gameModeTest.getPlayer().getHighestPrize(), -10);
     }
 
     /**
@@ -98,10 +96,8 @@ public class GameModeTest {
         gameModeTest.getGameData().setCurrentOffer(5000000);
         gameModeTest.acceptOffer();
         boolean found = false;
-        for (int highPrize : gameModeTest.getPlayer().getHighPrizes()) {
-            if (highPrize == 5000000) {
-                found = true;
-            }
+        if (gameModeTest.getPlayer().getHighestPrize() == 5000000) {
+            found = true;
         }
         assertTrue(found);
     }
@@ -138,6 +134,5 @@ public class GameModeTest {
             assertNotEquals(highPrize, -10);
         }
     }
-
 
 }

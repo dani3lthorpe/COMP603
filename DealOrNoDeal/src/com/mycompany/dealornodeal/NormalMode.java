@@ -15,11 +15,13 @@ public class NormalMode extends GameMode {
 
     private static final int[] prizes = {1, 2, 5, 10, 20, 50, 100, 150, 200, 250, 500, 750, 1000, 2000, 3000, 4000, 5000, 10000, 15000, 20000, 30000, 50000, 75000, 100000, 200000, 500000};
 
-    //normal constructor supers the prizes int array as well as the inputed player parameter
+    //normal constructor supers the prizes int array, a new GameData object with 6 as its number of cases parameter
+    //as well as the inputed player parameter
     public NormalMode(Player player) {
         super(player, prizes, new GameData(6));
     }
     
+    //overrides newRound so that sets the gameData to the correct amount of casesToPick for each round
     @Override
     public void newRound() {
         GameData gameData = getGameData();

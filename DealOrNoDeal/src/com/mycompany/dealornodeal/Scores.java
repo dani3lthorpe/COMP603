@@ -20,6 +20,7 @@ public class Scores {
     private int totalPlayerPrizes = 0;
     private String playerName;
 
+    //Scores constructor, sets scores hashmaps to input hashmaps, also sets totalstats to input int array
     public Scores(HashMap recentPrizes, HashMap highestPrizes, HashMap globalTotalPrizes, HashMap globalHighPrizes, int[] totalStats) {
         this.recentPrizes = recentPrizes;
         this.highestPrizes = highestPrizes;
@@ -27,35 +28,44 @@ public class Scores {
         this.globalHighPrizes = globalHighPrizes;
         this.totalStats = totalStats;
     }
+    
+    //sets the playerName and totalprizes to the input playername and total prizes
     public void setPlayerInfo(String playerName, int totalPlayerPrizes) {
         this.playerName = playerName;
         this.totalPlayerPrizes = totalPlayerPrizes;
     }
 
+    //returns the recentprizes hashmap
     public HashMap<String, int[]> getRecentPrizes() {
         return recentPrizes;
     }
 
+    //returns the highest prizes hashmap
     public HashMap<String, int[]> getHighestPrizes() {
         return highestPrizes;
     }
 
+    //returns the global total prizes hashmap
     public HashMap getGlobalTotalPrizes() {
         return globalTotalPrizes;
     }
 
+    //returns the global high prizes hashmap
     public HashMap getGlobalHighPrizes() {
         return globalHighPrizes;
     }
 
+    //returns the total stats int array
     public int[] getTotalStats() {
         return totalStats;
     }
 
+    //returns the total player prizes
     public int getTotalPlayerPrizes() {
         return totalPlayerPrizes;
     }
 
+    //returns the player name
     public String getPlayerName() {
         return playerName;
     }

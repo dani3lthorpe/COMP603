@@ -664,6 +664,7 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
     private javax.swing.JLabel prize8;
     private javax.swing.JLabel prize9;
     // End of variables declaration//GEN-END:variables
+    //adds actionlisteners to buttons
     public void addActionListener(ActionListener listener) {
         this.case1.addActionListener(listener);
         this.case2.addActionListener(listener);
@@ -695,6 +696,7 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
         this.backButton.addActionListener(listener);
     }
 
+    //adds prize labels to prize array before setting the prizes text to the input prize arrayList integers
     public void setPrizes(ArrayList<Integer> prizes) {
         this.prizeArray = new javax.swing.JLabel[26];
         this.prizeArray[0] = this.prize1;
@@ -729,7 +731,9 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
         }
     }
 
-    public void caseOpened(javax.swing.JButton source, GameData gameData) {
+    //if the current case selected is the players case sets it to show as the player case, otherwise if it is 
+    //any other case disables the button and sets text to empty
+    public void caseSelected(javax.swing.JButton source, GameData gameData) {
         if (gameData.getPlayerCase() != gameData.getCurrentCase()) {
             source.setEnabled(false);
             source.setText("");
@@ -741,12 +745,14 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
         }
     }
 
+    // Displays a yes or no menu asking if the user wants to quit, if they click yes it closes the game.
     public void exit() {
         if (JOptionPane.showConfirmDialog(this, "Do you want to quit?", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
     }
 
+    //Displays a yes or no menu asking if the user wants to goBack, if they click yes it returns true.
     public boolean goBack() {
         if (JOptionPane.showConfirmDialog(this, "Are you sure you want to go back to the main menu (You will lose all your current progress)", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             return true;
@@ -754,10 +760,9 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
         return false;
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        GameData gameData = (GameData) arg;
-        caseToPickLabel.setText(gameData.getNumCasesToPick() + " Cases To Pick");
+    //if there is a current case selected in gameData that is not the player's case display the contents and stop displaying 
+    //the prizes label. Takes gameData as an input
+    public void displayCaseOpening(GameData gameData) {
         if (gameData.getCurrentCase() != null) {
             if (gameData.getPlayerCase() != gameData.getCurrentCase()) {
                 int caseNum = gameData.getCurrentCase().getNumber();
@@ -768,6 +773,22 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
                     }
                 }
             }
+        }
+    }
+
+    //ovverrides the update method, so that when notified that the gameData has been changed, sets the cases to pick text
+    //and displays the case opening if not last round otherwise opens your case
+    @Override
+    public void update(Observable o, Object arg) {
+        GameData gameData = (GameData) arg;
+        caseToPickLabel.setText(gameData.getNumCasesToPick() + " Cases To Pick");
+        if (gameData.getRound() != -1) {
+            displayCaseOpening(gameData);
+        } else {
+            caseToPickLabel.setText("Time to open your case!");
+            JOptionPane.showMessageDialog(this, "Time to Open Your Case");
+            JOptionPane.showMessageDialog(this, "Your Case contained: $" + gameData.getPlayerCase().getPrize());
+
         }
     }
 

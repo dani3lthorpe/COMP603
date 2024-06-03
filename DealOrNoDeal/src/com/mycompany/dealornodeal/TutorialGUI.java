@@ -299,7 +299,8 @@ public class TutorialGUI extends javax.swing.JFrame implements Observer {
     private javax.swing.JLabel prize6;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
-  public void addActionListener(ActionListener listener) {
+    //adds actionlisteners to buttons
+    public void addActionListener(ActionListener listener) {
         this.case1.addActionListener(listener);
         this.case2.addActionListener(listener);
         this.case3.addActionListener(listener);
@@ -310,6 +311,7 @@ public class TutorialGUI extends javax.swing.JFrame implements Observer {
         this.backButton.addActionListener(listener);
     }
 
+    //adds prize labels to prize array before setting the prizes text to the input prize arrayList integers
     public void setPrizes(ArrayList<Integer> prizes) {
         this.prizeArray = new javax.swing.JLabel[6];
         this.prizeArray[0] = this.prize1;
@@ -324,12 +326,14 @@ public class TutorialGUI extends javax.swing.JFrame implements Observer {
         }
     }
 
+    // Displays a yes or no menu asking if the user wants to quit, if they click yes it closes the game.
     public void exit() {
         if (JOptionPane.showConfirmDialog(this, "Do you want to quit?", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
     }
 
+    // Displays a yes or no menu asking if the user wants to goBack, if they click yes it returns true.
     public boolean goBack() {
         if (JOptionPane.showConfirmDialog(this, "Are you sure you want to go back to the main menu (You will lose all your current progress)", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             return true;
@@ -337,7 +341,9 @@ public class TutorialGUI extends javax.swing.JFrame implements Observer {
         return false;
     }
 
-    public void caseOpened(javax.swing.JButton source, GameData gameData) {
+    //if the current case selected is the players case sets it to show as the player case before giving explanation, otherwise if it is 
+    //any other case disables the button and sets text to empty
+    public void caseSelected(javax.swing.JButton source, GameData gameData) {
         if (gameData.getPlayerCase() != gameData.getCurrentCase()) {
             source.setEnabled(false);
             source.setText("");
@@ -346,32 +352,39 @@ public class TutorialGUI extends javax.swing.JFrame implements Observer {
             Font font = new Font("Segoe UI", 0, 10);
             source.setFont(font);
             source.setBackground(new java.awt.Color(204, 255, 204));
-            JOptionPane.showMessageDialog(this, "Each round you will have a set number of cases to open");
-            JOptionPane.showMessageDialog(this, "Once you pick a case to open you will see how much money that case contained and it will be removed from the pool, therefore, this amount is not in your selected case");
-            JOptionPane.showMessageDialog(this, "Your aim is to select the cases with the smallest amount as you want to keep as much money as you can until the end");
+            roundExplanation();
         }
     }
 
-    public void start() {
+    //gives explanation on how rounds work
+    public void roundExplanation() {
+        JOptionPane.showMessageDialog(this, "Each round you will have a set number of cases to open");
+        JOptionPane.showMessageDialog(this, "Once you pick a case to open you will see how much money that case contained and it will be removed from the pool, therefore, this amount is not in your selected case");
+        JOptionPane.showMessageDialog(this, "Your aim is to select the cases with the smallest amount as you want to keep as much money as you can until the end");
+    }
+
+    //gives explanation on how deal or no deal works as a whole
+    public void startExplanation() {
         JOptionPane.showMessageDialog(this, "Welcome to the tutorial for Deal or No Deal");
         JOptionPane.showMessageDialog(this, "Deal or no deal is a gameshow where players try and win as much money as possible");
         JOptionPane.showMessageDialog(this, "The first step of deal or no deal is to select a case to keep until the end");
     }
 
+    //gives explanation on how bank offers work
     public void bankOfferExplanation() {
         JOptionPane.showMessageDialog(this, "Once all the cases have been picked for the round the banker will offer you a amount of money depending on the money that could still be in the case you kept");
         JOptionPane.showMessageDialog(this, "You can choose to either accept the money and leave with the offered amount as your prize (deal)");
         JOptionPane.showMessageDialog(this, "Or you can continue playing if you believe your case has more money in it than the offer (no deal)");
     }
 
+    //gives an explanation on the final game offer
     public void finalOfferExplanation() {
         JOptionPane.showMessageDialog(this, "This is the final offer as once there is only one case left on the board it will be time to open your case and see how much you won");
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        GameData gameData = (GameData) arg;
-        title.setText(gameData.getNumCasesToPick() + " Cases To Pick");
+    //if there is a current case selected in gameData that is not the player's case display the contents and stop displaying 
+    //the prizes label. Takes gameData as an input
+    public void displayCaseOpening(GameData gameData) {
         if (gameData.getCurrentCase() != null) {
             if (gameData.getPlayerCase() != gameData.getCurrentCase()) {
                 int caseNum = gameData.getCurrentCase().getNumber();
@@ -382,6 +395,21 @@ public class TutorialGUI extends javax.swing.JFrame implements Observer {
                     }
                 }
             }
+        }
+    }
+
+    //ovverrides the update method, so that when notified that the gameData has been changed, sets the cases to pick text
+    //and displays the case opening if not last round otherwise opens your case
+    @Override
+    public void update(Observable o, Object arg) {
+        GameData gameData = (GameData) arg;
+        title.setText(gameData.getNumCasesToPick() + " Cases To Pick");
+        if (gameData.getRound() != -1) {
+            displayCaseOpening(gameData);
+        } else {
+            title.setText("Time to open your case!");
+            JOptionPane.showMessageDialog(this, "Time to Open Your Case");
+            JOptionPane.showMessageDialog(this, "Your Case contained: $" + gameData.getPlayerCase().getPrize());
         }
     }
 }

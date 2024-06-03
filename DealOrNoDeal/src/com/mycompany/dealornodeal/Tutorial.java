@@ -17,11 +17,13 @@ public class Tutorial extends GameMode {
 
     private static final int[] prizes = {1, 5, 10, 50, 100, 200};
 
-    //tutorial constructor supers the prizes int array as well as the inputed player parameter
+    //tutorial constructor supers the prizes int array, a new GameData object with 3 as its number of cases to pick parameter
+    //as well as the inputed player parameter
     public Tutorial(Player player) {
         super(player, prizes, new GameData(3));
     }
 
+    //overrides newRound so that sets the gameData to the correct amount of casesToPick for each round
     @Override
     public void newRound() {
         GameData gameData = getGameData();

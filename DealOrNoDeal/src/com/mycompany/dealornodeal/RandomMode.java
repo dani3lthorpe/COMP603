@@ -16,8 +16,8 @@ import java.util.Random;
  */
 public class RandomMode extends GameMode {
 
-    //Random constructor supers the prizes int array created by the create prizes method
-    //as well as the inputed player parameter
+    //Random constructor supers the prizes int array created by the create prizes method,
+    //a new GameData object with 6 as its number of cases to pick parameter as well as the inputed player parameter
 
     public RandomMode(Player player) {
         super(player, createPrizes(), new GameData(6));
@@ -36,6 +36,7 @@ public class RandomMode extends GameMode {
         return prizes;
     }
 
+    //overrides newRound so that sets the gameData to the correct amount of casesToPick for each round
     @Override
     public void newRound() {
         GameData gameData = getGameData();

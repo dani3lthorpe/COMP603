@@ -29,7 +29,7 @@ class MenuController implements ActionListener {
         this.model = model;
         addActionListeners();
         this.model.addObserver(gameOver);
-        this.model.getScores().addObserver(scores);
+        this.model.getScoreManager().addObserver(scores);
     }
 
     @Override
@@ -62,7 +62,7 @@ class MenuController implements ActionListener {
                 break;
             case "See Scores":
                 this.mode.setVisible(false);
-                this.model.getScores().setScores(this.model.getPlayer());
+                this.model.getScoreManager().setScores(this.model.getPlayer());
                 this.scores.setVisible(true);
                 break;
             case "Yes":

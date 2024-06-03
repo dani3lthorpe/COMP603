@@ -9,6 +9,8 @@ package com.mycompany.dealornodeal;
  * @author hidan
  */
 public class GameModeFactory {
+    
+    //creates a gameMode object baseed on the input gamemodeName, returns gameMode object
     public static GameMode getGameMode(String gameModeName, Player player) {
         GameMode gameMode = null;
         if ("normal".equalsIgnoreCase(gameModeName)) {

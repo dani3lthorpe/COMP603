@@ -52,7 +52,7 @@ public class GameModeController implements ActionListener {
             this.model.addObserver(this.tutorial);
             this.tutorial.addActionListener(this);
             this.tutorial.setVisible(true);
-            this.tutorial.start();
+            this.tutorial.startExplanation();
         }
     }
 
@@ -86,11 +86,11 @@ public class GameModeController implements ActionListener {
         if (caseNumber > 0 && caseNumber < 27) {
             this.model.openCase(caseNumber);
             if (normal != null) {
-                normal.caseOpened((JButton) e.getSource(), gameMode.getGameData());
+                normal.caseSelected((JButton) e.getSource(), gameMode.getGameData());
             } else if (quickPlay != null) {
-                quickPlay.caseOpened((JButton) e.getSource(), gameMode.getGameData());
+                quickPlay.caseSelected((JButton) e.getSource(), gameMode.getGameData());
             } else if (tutorial != null) {
-                tutorial.caseOpened((JButton) e.getSource(), gameMode.getGameData());
+                tutorial.caseSelected((JButton) e.getSource(), gameMode.getGameData());
             }
             gameMode.getGameData().openedCase();
             casePickedCheck();
@@ -112,7 +112,7 @@ public class GameModeController implements ActionListener {
                 }
                 this.tutorial.setVisible(false);
             }
-            this.model.getOffer();
+            this.model.updateOffer();
             this.bankOffer.setVisible(true);
         }
 

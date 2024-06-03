@@ -37,7 +37,7 @@ public class DBManager {
         }
     }
 
-    
+    //uses singleton design pattern to create a connection to database if conn is null. Returns conn
     public static Connection getConnection() {
         try {
             if (conn == null) {
@@ -50,6 +50,7 @@ public class DBManager {
         return conn;
     }
 
+    //closes connenction to database if not null and open
     public static void closeConnection() {
         if (conn != null) {
             try {
@@ -62,6 +63,7 @@ public class DBManager {
         }
     }
 
+    //creates tables in databasse if not already created
     public void createTables() {
         try {
             boolean players = false;
@@ -109,6 +111,7 @@ public class DBManager {
         }
     }
 
+    //creates player table in database
     public void createPlayerTable() {
         try ( Statement statement = conn.createStatement()) {
             String createPlayer = "create table PLAYER ("
@@ -127,6 +130,7 @@ public class DBManager {
 
     }
 
+    //creates recentPrizes table in database
     public void createRecentPrizeTable() {
         try ( Statement statement = conn.createStatement()) {
             String createRecentPrize = "create table RECENTPRIZE ("
@@ -146,6 +150,7 @@ public class DBManager {
 
     }
 
+    //creates highprize table in database
     public void createHighPrizeTable() {
         try ( Statement statement = conn.createStatement()) {
             String createHighPrize = "create table HIGHPRIZE ("
@@ -164,6 +169,7 @@ public class DBManager {
         }
     }
 
+    //creates totalstat table in database
     public void createTotalStatTable() {
         try ( Statement statement = conn.createStatement()) {
             String createTotalStat = "create table TOTALSTAT ("
@@ -178,9 +184,10 @@ public class DBManager {
         }
     }
 
+    //loads players from database into a hashmap, returns players hashmap
     public HashMap<String, Player> loadPlayers() {
         HashMap<String, Player> players = new HashMap<>();
-
+        
         try {
             Statement statement = conn.createStatement();
             String query = "SELECT NAME, TOTALSCORE, HIGHSCORE FROM PLAYER";
@@ -192,6 +199,7 @@ public class DBManager {
                 int highPrize = resultSet.getInt("HIGHSCORE");
                 players.put(name, new Player(name, totalPrize, highPrize));
             }
+            
             resultSet.close();
             statement.close();
         } catch (SQLException ex) {
@@ -200,6 +208,7 @@ public class DBManager {
         return players;
     }
 
+    //loads recent prizes from database into a hashmap, returns recent prizes hashmap
     public HashMap<String, int[]> loadRecentPrizes() {
         HashMap<String, int[]> recentPrizes = new HashMap<>();
         try {
@@ -225,7 +234,8 @@ public class DBManager {
         }
         return recentPrizes;
     }
-
+    
+    //loads recent prizes from database into a hashmap, returns recent prizes hashmap
     public HashMap<String, int[]> loadHighPrizes() {
         HashMap<String, int[]> highPrizes = new HashMap<>();
 
@@ -253,6 +263,7 @@ public class DBManager {
         return highPrizes;
     }
 
+    //loads global total prizes from database into linked hashmap, returns hashmap
     public LinkedHashMap<String, Integer> loadGlobalTotalPrizes() {
         LinkedHashMap<String, Integer> globalTotalPrizes = new LinkedHashMap<>();
 
@@ -271,7 +282,8 @@ public class DBManager {
         }
         return globalTotalPrizes;
     }
-
+    
+    //loads global high prizes from database into linked hashmap, returns hashmap
     public LinkedHashMap<String, Integer> loadGlobalHighPrizes() {
         LinkedHashMap<String, Integer> globalHighPrizes = new LinkedHashMap<>();
 
@@ -291,6 +303,7 @@ public class DBManager {
         return globalHighPrizes;
     }
 
+    //loads total stats from database and returns it as int array
     public int[] loadTotalStats() {
         int[] totalStats = new int[2];
 
@@ -313,6 +326,8 @@ public class DBManager {
         return totalStats;
     }
 
+    //updates player highscore and totalscore in hashmap before updating the database from hashmap, 
+    //takes players hashmap player object as parameter
     public void updateScore(HashMap<String, Player> players, Player player) {
         players.put(player.getName(), player);
         try {
@@ -338,6 +353,8 @@ public class DBManager {
         }
     }
 
+    //updates recent prizes in hashmap before updating database from hashmap, 
+    //takes recentPrizes hashmap and player object as input
     public void updateRecentPrizes(HashMap<String, int[]> recentPrizes, Player player) {
         recentPrizes.put(player.getName(), player.getRecentPrizes());
         try {
@@ -373,9 +390,9 @@ public class DBManager {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    //adds the players highest prizes to the highprizes hashmap before updating the highPrizes file
-    //seperates name and scores with /, takes highPrizes hashmap and player as parameters
-
+    
+    //updates high prizes in hashmap before updating the database from hashmap, 
+    //takes highPrizes hashmap and player object as input
     public void updateHighPrizes(HashMap<String, int[]> highPrizes, Player player) {
         highPrizes.put(player.getName(), player.getHighPrizes());
         try {
@@ -412,8 +429,8 @@ public class DBManager {
         }
     }
 
-    //updates the total stats files with the new totals games played and total prizes from the GameMode
-    //takes totalStats int array and gamemode object as parameters 
+    //updates totalStats in int array before updating the database from int array, 
+    //takes totalStats int array and gamemode object as input
     public void updateTotalStats(int[] totalStats, GameMode game) {
         totalStats[0] += game.getTotalGames();
         totalStats[1] += game.getTotalPrizes();
