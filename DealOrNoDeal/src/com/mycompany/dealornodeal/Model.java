@@ -10,7 +10,7 @@ import java.util.Observable;
 
 /**
  * Model controls all the core game logic such as the main menu and creating the
- * DBManager, ScoreManager and player objects
+ * DBManager, ScoreManager, GameModeFactory and player objects
  *
  * @author group69
  */

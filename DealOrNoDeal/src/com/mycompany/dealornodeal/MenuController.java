@@ -57,8 +57,8 @@ class MenuController implements ActionListener {
                     this.scores.exit();
                 } else if (this.gameMode.isVisible()) {
                     this.gameMode.exit();
-                } else if (this.scores.isVisible()) {
-                    this.scores.exit();
+                } else if (this.gameOver.isVisible()) {
+                    this.gameOver.exit();
                 }
                 break;
             case "Play Deal Or No Deal":

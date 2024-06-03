@@ -142,8 +142,6 @@ public class GameModeController implements ActionListener {
             tutorial.exit();
         } else if (bankOffer.isVisible()) {
             bankOffer.exit();
-        } else if (gameOver.isVisible()) {
-            gameOver.exit();
         }
     }
 
