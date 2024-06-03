@@ -47,6 +47,7 @@ public class GameModeTest {
      */
     @Test
     public void testSetCases() {
+        System.out.println("setCases");
         assertEquals(gameModeTest.getCases().size(), gameModeTest.getPrizes().size());
         for (int prize : gameModeTest.getPrizes()) {
             boolean found = false;
