@@ -86,7 +86,7 @@ public class DBManagerTest {
     public void testLoadPlayers() {
         System.out.println("loadPlayers");
         HashMap<String, Player> result = dataBaseTest.loadPlayers();
-        assertNotNull(result);
+        assertNotNull(result.get("User Name"));
     }
 
     /**
@@ -96,7 +96,7 @@ public class DBManagerTest {
     public void testLoadRecentPrizes() {
         System.out.println("loadRecentPrizes");
         HashMap<String, int[]> result = dataBaseTest.loadRecentPrizes();
-        assertNotNull(result);
+        assertNotNull(result.get("User Name"));
     }
 
     /**
@@ -106,7 +106,7 @@ public class DBManagerTest {
     public void testLoadHighPrizes() {
         System.out.println("loadHighPrizes");
         HashMap result = dataBaseTest.loadHighPrizes();
-        assertNotNull(result);
+        assertNotNull(result.get("User Name"));
     }
 
     /**
@@ -116,7 +116,7 @@ public class DBManagerTest {
     public void testLoadGlobalTotalPrizes() {
         System.out.println("loadGlobalTotalPrizes");
         HashMap result = dataBaseTest.loadGlobalTotalPrizes();
-        assertNotNull(result);
+        assertNotNull(result.get("User Name"));
     }
 
     /**
@@ -126,7 +126,7 @@ public class DBManagerTest {
     public void testLoadGlobalHighPrizes() {
         System.out.println("loadGlobalHighPrizes");
         HashMap result = dataBaseTest.loadGlobalHighPrizes();
-        assertNotNull(result);
+        assertNotNull(result.get("User Name"));
     }
 
     /**
@@ -136,6 +136,6 @@ public class DBManagerTest {
     public void testLoadTotalStats() {
         System.out.println("loadTotalStats");
         int[] result = dataBaseTest.loadTotalStats();
-        assertNotNull(result);
+        assertNotNull(result[0]);
     }
 }

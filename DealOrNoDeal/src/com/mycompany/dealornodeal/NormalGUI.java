@@ -695,7 +695,7 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
         this.backButton.addActionListener(listener);
     }
 
-    public void setPrizes(int[] prizes) {
+    public void setPrizes(ArrayList<Integer> prizes) {
         this.prizeArray = new javax.swing.JLabel[26];
         this.prizeArray[0] = this.prize1;
         this.prizeArray[1] = this.prize2;
@@ -724,8 +724,8 @@ public class NormalGUI extends javax.swing.JFrame implements Observer {
         this.prizeArray[24] = this.prize25;
         this.prizeArray[25] = this.prize26;
 
-        for (int i = 0; i < prizes.length && i < this.prizeArray.length; i++) {
-            this.prizeArray[i].setText("$" + prizes[i]);
+        for (int i = 0; i < prizes.size() && i < this.prizeArray.length; i++) {
+            this.prizeArray[i].setText("$" + prizes.get(i));
         }
     }
 

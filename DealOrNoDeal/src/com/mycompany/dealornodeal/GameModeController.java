@@ -12,7 +12,7 @@ import javax.swing.JButton;
  *
  * @author hidan
  */
-public class GameController implements ActionListener {
+public class GameModeController implements ActionListener {
 
     private NormalGUI normal;
     private QuickPlayGUI quickPlay;
@@ -23,7 +23,7 @@ public class GameController implements ActionListener {
     private MainMenu mainMenu;
     private GameMode gameMode;
 
-    GameController(Model model, GameOverGUI endGame, MainMenu mainMenu) {
+    GameModeController(Model model, GameOverGUI endGame, MainMenu mainMenu) {
         this.model = model;
         this.bankOffer = new BankOfferGUI();
         this.model.addObserver(bankOffer);
@@ -36,19 +36,19 @@ public class GameController implements ActionListener {
     public void selectGameMode(String gameModeName) {
         if (gameModeName.equals("Normal") || gameModeName.equals("Random Mode")) {
             this.normal = new NormalGUI();
-            this.normal.setPrizes(this.gameMode.getPrize());
+            this.normal.setPrizes(this.gameMode.getPrizes());
             this.model.addObserver(this.normal);
             this.normal.addActionListener(this);
             this.normal.setVisible(true);
         } else if (gameModeName.equals("QuickPlay")) {
             this.quickPlay = new QuickPlayGUI();
-            this.quickPlay.setPrizes(this.gameMode.getPrize());
+            this.quickPlay.setPrizes(this.gameMode.getPrizes());
             this.model.addObserver(this.quickPlay);
             this.quickPlay.addActionListener(this);
             this.quickPlay.setVisible(true);
         } else if (gameModeName.equals("Tutorial")) {
             this.tutorial = new TutorialGUI();
-            this.tutorial.setPrizes(this.gameMode.getPrize());
+            this.tutorial.setPrizes(this.gameMode.getPrizes());
             this.model.addObserver(this.tutorial);
             this.tutorial.addActionListener(this);
             this.tutorial.setVisible(true);

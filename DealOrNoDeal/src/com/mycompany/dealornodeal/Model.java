@@ -109,5 +109,7 @@ public class Model extends Observable {
     public Player getPlayer() {
         return player;
     }
+    
+  
 
 }

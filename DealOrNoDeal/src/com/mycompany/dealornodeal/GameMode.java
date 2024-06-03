@@ -21,7 +21,6 @@ public abstract class GameMode implements Game{
     private int totalGames;
     private int totalPrizes;
     private GameData gameData;
-    private int[] prize;
     private Banker banker;
 
     //GameMode constructor creates the prizes and cases arraylist
@@ -30,7 +29,6 @@ public abstract class GameMode implements Game{
         this.player = player;
         this.prizes = new ArrayList<>();
         this.cases = new ArrayList<>();
-        this.prize = prizes;
         this.gameData = gameData;
         this.banker = new Banker(gameData.getRound());
         for (int m : prizes) {
@@ -121,9 +119,10 @@ public abstract class GameMode implements Game{
         return gameData;
     }
 
-    public int[] getPrize() {
-        return prize;
+    public ArrayList<Integer> getPrizes() {
+        return prizes;
     }
+    
 
     //abstract methods for subclasses to override
     @Override

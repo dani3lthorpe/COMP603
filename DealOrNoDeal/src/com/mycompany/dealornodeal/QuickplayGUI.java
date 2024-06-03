@@ -6,6 +6,7 @@ package com.mycompany.dealornodeal;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JOptionPane;
@@ -503,8 +504,8 @@ public class QuickPlayGUI extends javax.swing.JFrame implements Observer {
         this.backButton.addActionListener(listener);
     }
 
-    public void setPrizes(int[] prizes) {
-        this.prizeArray = new javax.swing.JLabel[26];
+    public void setPrizes(ArrayList<Integer> prizes) {
+        this.prizeArray = new javax.swing.JLabel[13];
         this.prizeArray[0] = this.prize1;
         this.prizeArray[1] = this.prize2;
         this.prizeArray[2] = this.prize3;
@@ -519,8 +520,8 @@ public class QuickPlayGUI extends javax.swing.JFrame implements Observer {
         this.prizeArray[11] = this.prize12;
         this.prizeArray[12] = this.prize13;
 
-        for (int i = 0; i < prizes.length && i < this.prizeArray.length; i++) {
-            this.prizeArray[i].setText("$" + prizes[i]);
+        for (int i = 0; i < prizes.size() && i < this.prizeArray.length; i++) {
+            this.prizeArray[i].setText("$" + prizes.get(i));
         }
     }
 
