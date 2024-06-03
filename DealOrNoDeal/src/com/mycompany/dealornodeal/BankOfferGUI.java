@@ -10,8 +10,9 @@ import javax.swing.JOptionPane;
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 /**
+ * BankOfferGUI JForm that displays the bank offer screen
  *
- * @author droun
+ * @author group69
  */
 public class BankOfferGUI extends javax.swing.JFrame implements Observer {
 

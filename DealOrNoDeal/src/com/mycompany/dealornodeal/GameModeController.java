@@ -9,8 +9,10 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 /**
+ * GameModeController class connects the gameMode views with the model and
+ * gameModes controls all interactions between the views and model
  *
- * @author hidan
+ * @author group69
  */
 public class GameModeController implements ActionListener {
 

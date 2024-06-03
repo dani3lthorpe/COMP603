@@ -12,8 +12,9 @@ import java.util.Observer;
 import javax.swing.JOptionPane;
 
 /**
+ * NormalGUI JForm that displays the Normal gameMode screen
  *
- * @author droun
+ * @author group69
  */
 public class NormalGUI extends javax.swing.JFrame implements Observer {
 

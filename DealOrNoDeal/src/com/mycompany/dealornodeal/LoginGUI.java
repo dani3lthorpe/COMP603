@@ -8,8 +8,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 /**
+ * LoginGUI JForm that displays the login screen
  *
- * @author droun
+ * @author group69
  */
 public class LoginGUI extends javax.swing.JFrame {
 

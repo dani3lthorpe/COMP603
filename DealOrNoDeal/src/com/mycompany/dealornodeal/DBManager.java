@@ -16,8 +16,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * DBManager class controls all the interactions with the database
  *
- * @author hidan
+ * @author group691
  */
 public class DBManager {
 
@@ -113,7 +114,7 @@ public class DBManager {
 
     //creates player table in database
     public void createPlayerTable() {
-        try ( Statement statement = conn.createStatement()) {
+        try (Statement statement = conn.createStatement()) {
             String createPlayer = "create table PLAYER ("
                     + "NAME VARCHAR(20), "
                     + "TOTALSCORE INT, "
@@ -132,7 +133,7 @@ public class DBManager {
 
     //creates recentPrizes table in database
     public void createRecentPrizeTable() {
-        try ( Statement statement = conn.createStatement()) {
+        try (Statement statement = conn.createStatement()) {
             String createRecentPrize = "create table RECENTPRIZE ("
                     + "NAME VARCHAR(20), "
                     + "RECENTPRIZE_ONE INT, "
@@ -152,7 +153,7 @@ public class DBManager {
 
     //creates highprize table in database
     public void createHighPrizeTable() {
-        try ( Statement statement = conn.createStatement()) {
+        try (Statement statement = conn.createStatement()) {
             String createHighPrize = "create table HIGHPRIZE ("
                     + "NAME VARCHAR(20), "
                     + "HIGHPRIZE_ONE INT, "
@@ -171,7 +172,7 @@ public class DBManager {
 
     //creates totalstat table in database
     public void createTotalStatTable() {
-        try ( Statement statement = conn.createStatement()) {
+        try (Statement statement = conn.createStatement()) {
             String createTotalStat = "create table TOTALSTAT ("
                     + "GAME_NAME VARCHAR(20),"
                     + "TOTAL_GAMES INT, "
@@ -187,7 +188,7 @@ public class DBManager {
     //loads players from database into a hashmap, returns players hashmap
     public HashMap<String, Player> loadPlayers() {
         HashMap<String, Player> players = new HashMap<>();
-        
+
         try {
             Statement statement = conn.createStatement();
             String query = "SELECT NAME, TOTALSCORE, HIGHSCORE FROM PLAYER";
@@ -199,7 +200,7 @@ public class DBManager {
                 int highPrize = resultSet.getInt("HIGHSCORE");
                 players.put(name, new Player(name, totalPrize, highPrize));
             }
-            
+
             resultSet.close();
             statement.close();
         } catch (SQLException ex) {
@@ -234,7 +235,7 @@ public class DBManager {
         }
         return recentPrizes;
     }
-    
+
     //loads recent prizes from database into a hashmap, returns recent prizes hashmap
     public HashMap<String, int[]> loadHighPrizes() {
         HashMap<String, int[]> highPrizes = new HashMap<>();
@@ -282,7 +283,7 @@ public class DBManager {
         }
         return globalTotalPrizes;
     }
-    
+
     //loads global high prizes from database into linked hashmap, returns hashmap
     public LinkedHashMap<String, Integer> loadGlobalHighPrizes() {
         LinkedHashMap<String, Integer> globalHighPrizes = new LinkedHashMap<>();
@@ -390,7 +391,7 @@ public class DBManager {
             Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     //updates high prizes in hashmap before updating the database from hashmap, 
     //takes highPrizes hashmap and player object as input
     public void updateHighPrizes(HashMap<String, int[]> highPrizes, Player player) {

@@ -5,7 +5,7 @@
 package com.mycompany.dealornodeal;
 
 /**
- * Game interface houses the core methods for a game
+ * Game interface houses the core method for the game
  *
  * @author group69
  */

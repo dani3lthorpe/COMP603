@@ -7,8 +7,9 @@ package com.mycompany.dealornodeal;
 import java.util.ArrayList;
 
 /**
+ * GameData class stores all the core gameData to be sent to the views
  *
- * @author hidan
+ * @author group69
  */
 public class GameData {
 

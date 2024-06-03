@@ -8,8 +8,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 /**
+ * MainMenuGUI JForm that displays the main menu screen
  *
- * @author droun
+ * @author group69
  */
 public class MainMenuGUI extends javax.swing.JFrame {
 

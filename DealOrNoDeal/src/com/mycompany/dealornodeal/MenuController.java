@@ -8,8 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
+ * MenuController class controls interactions between the menu views and the model
  *
- * @author rny5546
+ * @author group69
  */
 class MenuController implements ActionListener {
 

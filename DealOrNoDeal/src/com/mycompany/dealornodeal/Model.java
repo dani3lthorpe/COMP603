@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.Observable;
 
 /**
- * Game controller class controls all the core game logic such as the main menu
- * and creating the fileController, scoreController and player objects
+ * Model controls all the core game logic such as the main menu and creating the
+ * DBManager, ScoreManager and player objects
  *
  * @author group69
  */
@@ -52,13 +52,13 @@ public class Model extends Observable {
         this.scoreManager.checkHighestPrizes(player);
     }
 
-   //creates gameMode using gameMode factory inputting the modeName and the player
-   //takes the modes name as an input parameter
+    //creates gameMode using gameMode factory inputting the modeName and the player
+    //takes the modes name as an input parameter
     public void selectGameMode(String modeName) {
         this.gameMode = gameModeFactory.getGameMode(modeName, player);
     }
 
-   //Saves all of the data to the database before refreshing scores
+    //Saves all of the data to the database before refreshing scores
     public void saveGameData() {
         this.dataBaseManager.getConnection();
         this.dataBaseManager.updateTotalStats(scoreManager.getTotals(), gameMode);
@@ -99,7 +99,7 @@ public class Model extends Observable {
         this.setChanged();
         this.notifyObservers(this.gameMode.getGameData());
     }
-    
+
     //returns the scoreManager
     public ScoreManager getScoreManager() {
         return scoreManager;
@@ -109,7 +109,7 @@ public class Model extends Observable {
     public Player getPlayer() {
         return player;
     }
-    
+
     //returns gameMode object
     public GameMode getGameMode() {
         return gameMode;

@@ -5,6 +5,7 @@
 package com.mycompany.dealornodeal;
 
 /**
+ * Main class
  *
  * @author group69
  */
@@ -18,4 +19,3 @@ public class DealOrNoDeal {
         login.setVisible(true);
     }
 }
-

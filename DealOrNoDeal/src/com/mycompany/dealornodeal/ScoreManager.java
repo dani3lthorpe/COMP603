@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Observable;
 
 /**
- * Score controller class controls the logic for the score display This involves
+ * Score manager class controls the logic for the scores
  *
  * @author group69
  */

@@ -10,8 +10,9 @@ import java.util.Observer;
 import javax.swing.JOptionPane;
 
 /**
+ * GameOverGUI JForm that displays the end screen
  *
- * @author droun
+ * @author group69
  */
 public class GameOverGUI extends javax.swing.JFrame implements Observer {
 
@@ -292,7 +293,7 @@ public class GameOverGUI extends javax.swing.JFrame implements Observer {
         this.exit2.addActionListener(listener);
         this.playButton.addActionListener(listener);
     }
-    
+
     // Displays a yes or no menu asking if the user wants to quit, if they click yes it closes the game.
     public void exit() {
         if (JOptionPane.showConfirmDialog(this, "Are you sure you want to quit?", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {

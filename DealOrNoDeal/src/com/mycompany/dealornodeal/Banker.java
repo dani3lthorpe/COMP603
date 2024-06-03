@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 /**
  * Banker class creates and saves offers
+ *
  * @author group69
  */
 public class Banker {
@@ -24,17 +25,17 @@ public class Banker {
         this.totalOffers = 0;
 
     }
-    
+
     //creates an offer by finding the average of the total prizes in the pool and multiplying it by the prize multiplier
     //takes prizes arraylist as a parameter and returns the offer
     public int makeOffer(ArrayList<Integer> prizes) {
         int value = 0;
-        
+
         for (int p : prizes) {
             value += p;
         }
-        int offer = (value / prizes.size()) * this.prizeMultiplier/3;
-        
+        int offer = (value / prizes.size()) * this.prizeMultiplier / 3;
+
         this.prizeMultiplier++;
         this.pastOffers[totalOffers] = offer;
         this.totalOffers++;
@@ -42,10 +43,8 @@ public class Banker {
     }
 
     //returns the list of past offers
-    public  int[] getPastOffers() {
+    public int[] getPastOffers() {
         return pastOffers;
     }
-    
-    
 
 }

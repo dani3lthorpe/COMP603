@@ -12,8 +12,9 @@ import java.util.Observer;
 import javax.swing.JOptionPane;
 
 /**
+ * ScoresGUI JForm that displays the scores screen
  *
- * @author droun
+ * @author group69
  */
 public class ScoresGUI extends javax.swing.JFrame implements Observer {
 

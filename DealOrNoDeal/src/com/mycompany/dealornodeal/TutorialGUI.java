@@ -12,8 +12,9 @@ import java.util.Observer;
 import javax.swing.JOptionPane;
 
 /**
+ * TutorialGUI JForm that displays the tutorial gameMode screen
  *
- * @author droun
+ * @author group69
  */
 public class TutorialGUI extends javax.swing.JFrame implements Observer {
 

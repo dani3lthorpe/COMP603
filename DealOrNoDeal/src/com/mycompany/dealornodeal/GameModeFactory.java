@@ -5,11 +5,13 @@
 package com.mycompany.dealornodeal;
 
 /**
+ * GameModeFactory class for creating GameMode subclasses Follows factory design
+ * pattern
  *
- * @author hidan
+ * @author group69
  */
 public class GameModeFactory {
-    
+
     //creates a gameMode object baseed on the input gamemodeName, returns gameMode object
     public static GameMode getGameMode(String gameModeName, Player player) {
         GameMode gameMode = null;

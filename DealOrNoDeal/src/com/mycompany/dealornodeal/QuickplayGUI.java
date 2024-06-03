@@ -12,8 +12,9 @@ import java.util.Observer;
 import javax.swing.JOptionPane;
 
 /**
+ * QuickPlayGUI JForm that displays the quick play gameMode screen
  *
- * @author droun
+ * @author group69
  */
 public class QuickPlayGUI extends javax.swing.JFrame implements Observer {
 

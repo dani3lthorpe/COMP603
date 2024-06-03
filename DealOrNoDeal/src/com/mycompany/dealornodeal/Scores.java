@@ -7,8 +7,9 @@ package com.mycompany.dealornodeal;
 import java.util.HashMap;
 
 /**
+ * Scores class stores all the core scores to be sent to the  scores view
  *
- * @author hidan
+ * @author group69
  */
 public class Scores {
 

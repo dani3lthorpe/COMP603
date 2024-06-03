@@ -8,8 +8,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 /**
+ * GameModeSelectGUI JForm that displays the gameMode select screen
  *
- * @author droun
+ * @author group69
  */
 public class GameModeSelectGUI extends javax.swing.JFrame {
 
