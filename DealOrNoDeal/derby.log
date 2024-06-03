@@ -1,12 +1,12 @@
 ----------------------------------------------------------------
-Sun Jun 02 19:36:03 NZST 2024:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-018f-d7e0-77f2-00000ee069c8 
-on database directory C:\Users\hidan\OneDrive\Documents\GitHub\Assingment2\COMP603\DealOrNoDeal\DealOrNoDealDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@18ef96 
-Loaded from file:/C:/Users/hidan/OneDrive/Documents/GitHub/Assingment2/COMP603/DealOrNoDeal/lib/derby.jar
+Mon Jun 03 17:10:26 NZST 2024:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-018f-dc81-8506-00001f783d48 
+on database directory C:\Users\hidan\Documents\GitHub\COMP603\DealOrNoDeal\DealOrNoDealDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@5caf905d 
+Loaded from file:/C:/Users/hidan/Documents/GitHub/COMP603/DealOrNoDeal/lib/derby.jar
 java.vendor=Oracle Corporation
-java.runtime.version=11.0.21+9-LTS-193
-user.dir=C:\Users\hidan\OneDrive\Documents\GitHub\Assingment2\COMP603\DealOrNoDeal
-os.name=Windows 11
+java.runtime.version=18.0.2.1+1-1
+user.dir=C:\Users\hidan\Documents\GitHub\COMP603\DealOrNoDeal
+os.name=Windows 10
 os.arch=amd64
 os.version=10.0
 derby.system.home=null
