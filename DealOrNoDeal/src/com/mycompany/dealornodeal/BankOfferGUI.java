@@ -253,7 +253,7 @@ public class BankOfferGUI extends javax.swing.JFrame implements Observer {
         return false;
     }
 
-    // Checks if there are previous offers (if they are null or not) and displays them if there is a valid number
+    // Checks if there are previous offers in gameData (if they are null or not) and displays them if there is a valid number
     @Override
     public void update(Observable o, Object arg) {
         GameData gameData = (GameData) arg;
