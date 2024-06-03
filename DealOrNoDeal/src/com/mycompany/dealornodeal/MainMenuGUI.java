@@ -11,12 +11,12 @@ import javax.swing.JOptionPane;
  *
  * @author droun
  */
-public class MainMenu extends javax.swing.JFrame {
+public class MainMenuGUI extends javax.swing.JFrame {
 
     /**
      * Creates new form ModeSelect
      */
-    public MainMenu() {
+    public MainMenuGUI() {
         initComponents();
     }
 
@@ -138,21 +138,23 @@ public class MainMenu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainMenuGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainMenuGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainMenuGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainMenuGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainMenu().setVisible(true);
+                new MainMenuGUI().setVisible(true);
             }
         });
     }
@@ -165,10 +167,13 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel title;
     private javax.swing.JLabel welcome;
     // End of variables declaration//GEN-END:variables
+    
+    // Takes username as a parameter, sets the players username
     public void setUsername(String username) {
         welcome.setText("Welcome " + username + "!");
     }
 
+    // Adds action listeners to the exit, play, scores and logout buttons
     public void addActionListener(ActionListener listener) {
         this.exitButton.addActionListener(listener);
         this.playbutton.addActionListener(listener);
@@ -176,12 +181,13 @@ public class MainMenu extends javax.swing.JFrame {
         this.logout.addActionListener(listener);
     }
 
+    // Displays a yes or no menu asking if the user wants to quit, if they click yes it closes the game.
     public void exit() {
         if (JOptionPane.showConfirmDialog(this, "Do you want to quit?", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
     }
-
+    // Displays a yes or no menu asking if the user wants to quit, if they click yes it returns true, if they don't it returns false.
     public boolean logOut() {
         if (JOptionPane.showConfirmDialog(this, "Do you want to log out?", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             return true;

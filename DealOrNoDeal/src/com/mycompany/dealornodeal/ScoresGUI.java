@@ -479,11 +479,13 @@ public class ScoresGUI extends javax.swing.JFrame implements Observer {
     private javax.swing.JLabel yourTotalPrizes;
     // End of variables declaration//GEN-END:variables
 
+    // Adds action listeners to the exit and back buttons
     public void addActionListener(ActionListener listener) {
         this.exitButton.addActionListener(listener);
         this.backButton.addActionListener(listener);
     }
 
+    // Sets the global total prizes
     public void setGlobalTotalPrizes(HashMap<String, Integer> globalTotalPrizes) {
         int count = 1;
         for (Map.Entry<String, Integer> entry : globalTotalPrizes.entrySet()) {
@@ -509,6 +511,7 @@ public class ScoresGUI extends javax.swing.JFrame implements Observer {
         }
     }
 
+    // Sets global high prizes
     public void setGlobalHighPrizes(HashMap<String, Integer> globalHighPrizes) {
         int count = 1;
         for (Map.Entry<String, Integer> entry : globalHighPrizes.entrySet()) {
@@ -534,15 +537,19 @@ public class ScoresGUI extends javax.swing.JFrame implements Observer {
         }
     }
 
+    // Sets total game stats
     public void setTotalStats(int[] totalStats) {
         games.setText(totalStats[0] + " games played");
         prizes.setText("$" + totalStats[1] + "  won");
     }
 
+    // Sets players total prizes
     public void setYourTotalPrizes(int totalPrizes) {
         yourTotalPrizes.setText("$" + totalPrizes);
     }
 
+    
+    // Sets players top 5 highest prizes
     public void setYourHighestPrizes(int[] highestPrizes) {
         yourHighestPrize1.setText("1. $" + highestPrizes[0]);
         yourHighestPrize2.setText("2. $" + highestPrizes[1]);
@@ -551,6 +558,7 @@ public class ScoresGUI extends javax.swing.JFrame implements Observer {
         yourHighestPrize5.setText("5. $" + highestPrizes[4]);
     }
 
+    // Sets players top 5 recent prizes
     public void setYourRecentPrizes(int[] recentPrizes) {
         yourRecentPrize1.setText("1. $" + recentPrizes[0]);
         yourRecentPrize2.setText("2. $" + recentPrizes[1]);
@@ -559,12 +567,15 @@ public class ScoresGUI extends javax.swing.JFrame implements Observer {
         yourRecentPrize5.setText("5. $" + recentPrizes[4]);
     }
 
+    // Displays a yes or no menu asking if the user wants to quit, if they click yes it closes the game.
     public void exit() {
         if (JOptionPane.showConfirmDialog(this, "Do you want to quit?", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
     }
 
+    // Overrides the update method
+    // When notified scores has been updated, calls method to set all the score labels as their values from the scores object
     @Override
     public void update(Observable o, Object arg) {
         Scores scores = (Scores) arg;

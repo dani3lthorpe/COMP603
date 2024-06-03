@@ -72,7 +72,7 @@ public class Model extends Observable {
 
     //updates the offer in gameMode and notifies the observors that the offer has been updated
     public void updateOffer() {
-        this.gameMode.displayOffer();
+        this.gameMode.setOffer();
         this.notifyView();
     }
 

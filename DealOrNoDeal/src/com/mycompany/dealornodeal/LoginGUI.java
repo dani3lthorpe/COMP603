@@ -147,15 +147,18 @@ public class LoginGUI extends javax.swing.JFrame {
     private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
 
+    // Adds action listeners to the login exit and confirm buttons
     public void addActionListener(ActionListener listener) {
         this.loginExitButton.addActionListener(listener);
         this.confirmButton.addActionListener(listener);
     }
 
+    // Gets the username field
     public javax.swing.JTextField getUsernameField() {
         return usernameField;
     }
 
+    // Displays a yes or no menu asking if the user wants to quit, if they click yes it closes the game.
     public void exit() {
         if (JOptionPane.showConfirmDialog(this, "Do you want to quit?", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             System.exit(0);

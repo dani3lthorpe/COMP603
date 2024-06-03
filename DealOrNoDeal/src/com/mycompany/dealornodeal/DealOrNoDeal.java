@@ -10,7 +10,7 @@ package com.mycompany.dealornodeal;
  */
 public class DealOrNoDeal {
 
-    //main method creates a menu controller, model object, login gui and makes the login gui visisble
+    //main method creates a menu controller, model object, login gui and makes the login gui visible
     public static void main(String[] args) {
         Model game = new Model();
         LoginGUI login = new LoginGUI();

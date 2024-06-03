@@ -19,7 +19,7 @@ public abstract class GameMode implements Game{
     private Player player;
     private ArrayList<Case> cases;
     private int totalGames;
-    private int totalPrizes;
+    private int globalTotalPrizes;
     private GameData gameData;
     private Banker banker;
 
@@ -53,16 +53,18 @@ public abstract class GameMode implements Game{
         this.prizes.removeIf(prize -> prize.equals(cases.get(index).getPrize()));
     }
 
-    //displays an offer from a banker for the user to choose to accept or decline
+    //Sets the offer in the game data
     //takes a banker and scanner as parameter
-    public void displayOffer() {
+    public void setOffer() {
         this.gameData.setCurrentOffer(banker.makeOffer(prizes));
         this.gameData.setPastOffers(banker.getPastOffers());
     }
 
+    // Instantiates offer with the current offer from gameData, adds offer to global total prizes, if the offer is higher than the players highest prize in the database it their highest prize to the current offer
+    // Adds offer to the players total prizes, calls add new high prizes with the parameter offer, sets deal accepted to true and adds 1 to total games.
     public void acceptOffer() {
         int offer = gameData.getCurrentOffer();
-        this.totalPrizes += offer;
+        this.globalTotalPrizes += offer;
         if (offer > this.player.getHighestPrize()) {
             this.player.setHighestPrize(offer);
         }
@@ -73,15 +75,18 @@ public abstract class GameMode implements Game{
         this.totalGames++;
     }
 
+    // Initialises yourCase with the player case from gameData, if the amount in the case is higher than the players highest prize it sets the players highest prize to the case amount
+    // Adds the case prize to the global total prizes, adds the case prize to the players total prizes, adds the case prize to the players recent prizes, calls add new high prize with case prize as a parameter
+    // Increases total games by 1
     public void openYourCase() {
         Case yourCase = gameData.getPlayerCase();
-        if (yourCase.getPrize() > getPlayer().getHighestPrize()) {
-            getPlayer().setHighestPrize(yourCase.getPrize());
+        if (yourCase.getPrize() > this.player.getHighestPrize()) {
+            this.player.setHighestPrize(yourCase.getPrize());
         }
-        this.totalPrizes += yourCase.getPrize();
-        getPlayer().addTotalPrizes(yourCase.getPrize());
-        getPlayer().addNewRecentPrizes(yourCase.getPrize());
-        getPlayer().addNewHighPrizes(yourCase.getPrize());
+        this.globalTotalPrizes += yourCase.getPrize();
+        this.player.addTotalPrizes(yourCase.getPrize());
+        this.player.addNewRecentPrizes(yourCase.getPrize());
+        this.player.addNewHighPrizes(yourCase.getPrize());
         this.totalGames++;
     }
 
@@ -102,7 +107,7 @@ public abstract class GameMode implements Game{
 
     //returns the totalPrizes
     public int getTotalPrizes() {
-        return totalPrizes;
+        return globalTotalPrizes;
     }
 
     //sets total games to a total games parameter
@@ -112,13 +117,15 @@ public abstract class GameMode implements Game{
 
     //sets total prizes to a total prizes parameter
     public void setTotalPrizes(int totalPrizes) {
-        this.totalPrizes = totalPrizes;
+        this.globalTotalPrizes = totalPrizes;
     }
     
+    // Returns game data
     public GameData getGameData() {
         return gameData;
     }
 
+    // Returns prizes
     public ArrayList<Integer> getPrizes() {
         return prizes;
     }

@@ -11,12 +11,12 @@ import javax.swing.JOptionPane;
  *
  * @author droun
  */
-public class GameModeSelect extends javax.swing.JFrame {
+public class GameModeSelectGUI extends javax.swing.JFrame {
 
     /**
      * Creates new form GameModeSelect
      */
-    public GameModeSelect() {
+    public GameModeSelectGUI() {
         initComponents();
     }
 
@@ -139,20 +139,21 @@ public class GameModeSelect extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GameModeSelect.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GameModeSelectGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GameModeSelect.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GameModeSelectGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GameModeSelect.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GameModeSelectGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GameModeSelect.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GameModeSelectGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GameModeSelect().setVisible(true);
+                new GameModeSelectGUI().setVisible(true);
             }
         });
     }
@@ -167,6 +168,7 @@ public class GameModeSelect extends javax.swing.JFrame {
     private javax.swing.JButton tutorial;
     // End of variables declaration//GEN-END:variables
 
+    // Adds action listeners to teh normal, quickplay, random, tutorial, exit and back buttons
     void addActionListener(ActionListener listener) {
         this.normal.addActionListener(listener);
         this.quickPlay.addActionListener(listener);
@@ -177,6 +179,7 @@ public class GameModeSelect extends javax.swing.JFrame {
 
     }
 
+    // Displays a yes or no menu asking if the user wants to quit, if they click yes it closes the game.
     public void exit() {
         if (JOptionPane.showConfirmDialog(this, "Do you want to quit?", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             System.exit(0);

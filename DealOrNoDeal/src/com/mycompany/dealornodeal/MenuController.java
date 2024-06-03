@@ -14,16 +14,18 @@ import java.awt.event.ActionListener;
 class MenuController implements ActionListener {
 
     private LoginGUI login;
-    private MainMenu mode;
-    private GameModeSelect gameMode;
+    private MainMenuGUI mode;
+    private GameModeSelectGUI gameMode;
     private ScoresGUI scores;
     private Model model;
     private GameOverGUI gameOver;
 
+    // Constructor for menu controller, Takes login and model as parameters
+    // Sets model and login to the input parameters, adds an ovserver to model with the parameter game over, adds an observer to getSores with the parameters scores
     public MenuController(LoginGUI login, Model model) {
         this.login = login;
-        this.mode = new MainMenu();
-        this.gameMode = new GameModeSelect();
+        this.mode = new MainMenuGUI();
+        this.gameMode = new GameModeSelectGUI();
         this.scores = new ScoresGUI();
         this.gameOver = new GameOverGUI();
         this.model = model;
@@ -32,6 +34,8 @@ class MenuController implements ActionListener {
         this.model.getScoreManager().addObserver(scores);
     }
 
+    // Overrides the action performed method
+    // Checks what button was pressed by the user and performs the appropriate action depending on the button
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
@@ -100,6 +104,7 @@ class MenuController implements ActionListener {
         }
     }
 
+    // Adds action listeners to the login, mode, gmaemode, over and scores GUIs
     public final void addActionListeners() {
         this.login.addActionListener(this);
         this.mode.addActionListener(this);

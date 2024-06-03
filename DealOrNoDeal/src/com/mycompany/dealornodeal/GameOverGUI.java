@@ -286,18 +286,23 @@ public class GameOverGUI extends javax.swing.JFrame implements Observer {
     private javax.swing.JLabel yourCase;
     // End of variables declaration//GEN-END:variables
 
-     public void addActionListener(ActionListener listener) {
+    // Adds action listeners to the exit, exit2 and play buttons 
+    public void addActionListener(ActionListener listener) {
         this.exit.addActionListener(listener);
         this.exit2.addActionListener(listener);
         this.playButton.addActionListener(listener);
     }
     
+    // Displays a yes or no menu asking if the user wants to quit, if they click yes it closes the game.
     public void exit() {
         if (JOptionPane.showConfirmDialog(this, "Are you sure you want to quit?", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
     }
 
+    // Overrides the update method
+    // When notified game data is changed, if the deal has been accepted sets the winnings label to the deal amount, if the deal was not accepted sets the winnings label to the playesr case prize
+    // Sets the side labels to the players case prize
     @Override
     public void update(Observable o, Object arg) {
         GameData gameData = (GameData) arg;
