@@ -48,12 +48,12 @@ public class GameModeTest {
     @Test
     public void testSetCases() {
         ArrayList<Integer> casePrizes = new ArrayList<>();
-        for (int prize : gameModeTest.getPrize()) {
+        for (int prize : gameModeTest.getPrizes()) {
             casePrizes.add(prize);
         }
 
         assertEquals(gameModeTest.getCases().size(), casePrizes.size());
-        for (int prize : gameModeTest.getPrize()) {
+        for (int prize : gameModeTest.getPrizes()) {
             boolean found = false;
             for (Case c : gameModeTest.getCases()) {
                 if (c.getPrize() == prize) {
@@ -219,8 +219,8 @@ public class GameModeTest {
     public void testGetPrize() {
         System.out.println("getPrize");
         GameMode instance = null;
-        int[] expResult = null;
-        int[] result = instance.getPrize();
+        ArrayList expResult = null;
+        ArrayList result = instance.getPrizes();
         assertArrayEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
