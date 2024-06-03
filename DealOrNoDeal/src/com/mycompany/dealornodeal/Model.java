@@ -7,7 +7,6 @@ package com.mycompany.dealornodeal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
-import java.util.Scanner;
 
 /**
  * Game controller class controls all the core game logic such as the main menu
@@ -17,67 +16,58 @@ import java.util.Scanner;
  */
 public class Model extends Observable {
 
-    private HashMap<String, Player> players;
-    private static Scanner scan;
-    private DBManager dataBase;
-    private ScoreController scores;
+    private HashMap<String, Player> playersList;
+    private DBManager dataBaseManager;
+    private ScoreManager scoreManager;
     private Player player;
     private GameMode gameMode;
+    private GameModeFactory gameModeFactory;
 
     //Gamecontroller constructer creates a new scanner, filecontroller, scorecontroller.
     //Also gets the players hash map from the files using the fileController
     public Model() {
-        scan = new Scanner(System.in);
-        dataBase = new DBManager();
-        scores = new ScoreController(dataBase);
-        players = dataBase.loadPlayers();
-        dataBase.closeConnection();
+        this.dataBaseManager = new DBManager();
+        this.scoreManager = new ScoreManager(dataBaseManager);
+        this.playersList = dataBaseManager.loadPlayers();
+        this.dataBaseManager.closeConnection();
     }
 
     //checks if user is in the players hashmap and creates a new player object with their stats
     //if user is not in the hashmap creates a new player and saves them to the hashmap
     //returns player and takes the users name as a parameter
     public void checkPlayers(String name) {
-        if (players.containsKey(name)) {
-            this.player = players.get(name);
+        if (this.playersList.containsKey(name)) {
+            this.player = this.playersList.get(name);
         } else {
             this.player = new Player(name, 0, 0);
             for (int i = 0; i <= 5; i++) {
-                player.addNewRecentPrizes(0);
+                this.player.addNewRecentPrizes(0);
             }
             for (int i = 0; i <= 5; i++) {
-                player.addNewHighPrizes(0);
+                this.player.addNewHighPrizes(0);
             }
-            players.put(name, player);
+            this.playersList.put(name, player);
         }
-        scores.checkRecentPrizes(player);
-        scores.checkHighestPrizes(player);
+        this.scoreManager.checkRecentPrizes(player);
+        this.scoreManager.checkHighestPrizes(player);
     }
 
     //Prompts user to select a gameMode and gets user input
     //returns GameMode and take player as a parameter
     public void selectGameMode(String modeName) {
-        if (modeName.equals("Tutorial")) {
-            gameMode = new Tutorial(player);
-        } else if (modeName.equals("Normal")) {
-            gameMode = new NormalMode(player);
-        } else if (modeName.equals("QuickPlay")) {
-            gameMode = new QuickPlay(player);
-        } else if (modeName.equals("Random Mode")) {
-            gameMode = new RandomMode(player);
-        }
+        this.gameMode = gameModeFactory.getGameMode(modeName, player);
     }
 
     //Saves all of the data to the files
     public void saveGameData() {
-        dataBase.getConnection();
-        dataBase.updateTotalStats(scores.getTotals(), gameMode);
-        dataBase.updateScore(players, player);
-        dataBase.updateRecentPrizes(scores.getRecentPrizes(), player);
-        dataBase.updateHighPrizes(scores.getHighestPrizes(), player);
-        scores.refreshScores(dataBase);
-        dataBase.closeConnection();
-        scores.setScores(player);
+        this.dataBaseManager.getConnection();
+        this.dataBaseManager.updateTotalStats(scoreManager.getTotals(), gameMode);
+        this.dataBaseManager.updateScore(playersList, player);
+        this.dataBaseManager.updateRecentPrizes(scoreManager.getRecentPrizes(), player);
+        this.dataBaseManager.updateHighPrizes(scoreManager.getHighestPrizes(), player);
+        this.scoreManager.refreshScores(dataBaseManager);
+        this.dataBaseManager.closeConnection();
+        this.scoreManager.setScores(player);
     }
 
    
@@ -87,7 +77,7 @@ public class Model extends Observable {
     }
 
     public void getOffer() {
-        gameMode.displayOffer();
+        this.gameMode.displayOffer();
         this.notifyView();
     }
 
@@ -103,7 +93,7 @@ public class Model extends Observable {
     }
 
     public void newRound() {
-        gameMode.newRound();
+        this.gameMode.newRound();
         this.notifyView();
     }
 
@@ -112,8 +102,8 @@ public class Model extends Observable {
         this.notifyObservers(this.gameMode.getGameData());
     }
     
-    public ScoreController getScores() {
-        return scores;
+    public ScoreManager getScores() {
+        return scoreManager;
     }
 
     public Player getPlayer() {

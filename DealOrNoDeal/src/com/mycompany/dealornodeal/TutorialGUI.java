@@ -311,15 +311,15 @@ public class TutorialGUI extends javax.swing.JFrame implements Observer {
 
     public void setPrizes(int[] prizes) {
         this.prizeArray = new javax.swing.JLabel[6];
-        prizeArray[0] = this.prize1;
-        prizeArray[1] = this.prize2;
-        prizeArray[2] = this.prize3;
-        prizeArray[3] = this.prize4;
-        prizeArray[4] = this.prize5;
-        prizeArray[5] = this.prize6;
+        this.prizeArray[0] = this.prize1;
+        this.prizeArray[1] = this.prize2;
+        this.prizeArray[2] = this.prize3;
+        this.prizeArray[3] = this.prize4;
+        this.prizeArray[4] = this.prize5;
+        this.prizeArray[5] = this.prize6;
 
-        for (int i = 0; i < prizes.length && i < prizeArray.length; i++) {
-            prizeArray[i].setText("$" + prizes[i]);
+        for (int i = 0; i < prizes.length && i < this.prizeArray.length; i++) {
+            this.prizeArray[i].setText("$" + prizes[i]);
         }
     }
 

@@ -12,24 +12,24 @@ import javax.swing.JButton;
  *
  * @author hidan
  */
-public class GameModeController implements ActionListener {
+public class GameController implements ActionListener {
 
     private NormalGUI normal;
-    private QuickplayGUI quickplay;
+    private QuickPlayGUI quickPlay;
     private TutorialGUI tutorial;
     private Model model;
     private BankOfferGUI bankOffer;
-    private EndGameGUI endGame;
-    private ModeSelect mode;
+    private GameOverGUI gameOver;
+    private MainMenu mainMenu;
     private GameMode gameMode;
 
-    GameModeController(Model model, EndGameGUI endGame, ModeSelect mode) {
+    GameController(Model model, GameOverGUI endGame, MainMenu mainMenu) {
         this.model = model;
         this.bankOffer = new BankOfferGUI();
         this.model.addObserver(bankOffer);
         this.bankOffer.addActionListener(this);
-        this.mode = mode;
-        this.endGame = endGame;
+        this.mainMenu = mainMenu;
+        this.gameOver = endGame;
         this.gameMode = model.getGameMode();
     }
 
@@ -41,11 +41,11 @@ public class GameModeController implements ActionListener {
             this.normal.addActionListener(this);
             this.normal.setVisible(true);
         } else if (gameModeName.equals("QuickPlay")) {
-            this.quickplay = new QuickplayGUI();
-            this.quickplay.setPrizes(this.gameMode.getPrize());
-            this.model.addObserver(this.quickplay);
-            this.quickplay.addActionListener(this);
-            this.quickplay.setVisible(true);
+            this.quickPlay = new QuickPlayGUI();
+            this.quickPlay.setPrizes(this.gameMode.getPrize());
+            this.model.addObserver(this.quickPlay);
+            this.quickPlay.addActionListener(this);
+            this.quickPlay.setVisible(true);
         } else if (gameModeName.equals("Tutorial")) {
             this.tutorial = new TutorialGUI();
             this.tutorial.setPrizes(this.gameMode.getPrize());
@@ -87,8 +87,8 @@ public class GameModeController implements ActionListener {
             this.model.openCase(caseNumber);
             if (normal != null) {
                 normal.caseOpened((JButton) e.getSource(), gameMode.getGameData());
-            } else if (quickplay != null) {
-                quickplay.caseOpened((JButton) e.getSource(), gameMode.getGameData());
+            } else if (quickPlay != null) {
+                quickPlay.caseOpened((JButton) e.getSource(), gameMode.getGameData());
             } else if (tutorial != null) {
                 tutorial.caseOpened((JButton) e.getSource(), gameMode.getGameData());
             }
@@ -101,8 +101,8 @@ public class GameModeController implements ActionListener {
         if (this.gameMode.getGameData().getCasesToPick() == 0) {
             if (normal != null) {
                 this.normal.setVisible(false);
-            } else if (quickplay != null) {
-                this.quickplay.setVisible(false);
+            } else if (quickPlay != null) {
+                this.quickPlay.setVisible(false);
             } else if (tutorial != null) {
                 if (this.gameMode.getGameData().getRound() == 1) {
                     this.tutorial.bankOfferExplanation();
@@ -121,14 +121,14 @@ public class GameModeController implements ActionListener {
     public void exitCheck() {
         if (normal != null && normal.isVisible()) {
             normal.exit();
-        } else if (quickplay != null && quickplay.isVisible()) {
-            quickplay.exit();
+        } else if (quickPlay != null && quickPlay.isVisible()) {
+            quickPlay.exit();
         } else if (tutorial != null && tutorial.isVisible()) {
             tutorial.exit();
         } else if (bankOffer.isVisible()) {
             bankOffer.exit();
-        } else if (endGame.isVisible()) {
-            endGame.exit();
+        } else if (gameOver.isVisible()) {
+            gameOver.exit();
         }
     }
 
@@ -136,13 +136,13 @@ public class GameModeController implements ActionListener {
         if (bankOffer.isVisible()) {
             if (bankOffer.goBack()) {
                 bankOffer.setVisible(false);
-                mode.setVisible(true);
+                mainMenu.setVisible(true);
                 if (normal != null) {
                     this.model.deleteObserver(normal);
                     this.normal = null;
-                } else if (quickplay != null) {
-                    this.model.deleteObserver(quickplay);
-                    this.quickplay = null;
+                } else if (quickPlay != null) {
+                    this.model.deleteObserver(quickPlay);
+                    this.quickPlay = null;
                 } else if (tutorial != null) {
                     this.model.deleteObserver(tutorial);
                     this.tutorial = null;
@@ -151,21 +151,21 @@ public class GameModeController implements ActionListener {
         } else if (normal != null) {
             if (normal.goBack()) {
                 normal.setVisible(false);
-                mode.setVisible(true);
+                mainMenu.setVisible(true);
                 this.model.deleteObserver(normal);
                 this.normal = null;
             }
-        } else if (quickplay != null) {
-            if (quickplay.goBack()) {
-                quickplay.setVisible(false);
-                mode.setVisible(true);
-                this.model.deleteObserver(quickplay);
-                this.quickplay = null;
+        } else if (quickPlay != null) {
+            if (quickPlay.goBack()) {
+                quickPlay.setVisible(false);
+                mainMenu.setVisible(true);
+                this.model.deleteObserver(quickPlay);
+                this.quickPlay = null;
             }
         } else if (tutorial != null) {
             if (tutorial.goBack()) {
                 tutorial.setVisible(false);
-                mode.setVisible(true);
+                mainMenu.setVisible(true);
                 this.model.deleteObserver(tutorial);
                 this.tutorial = null;
             }
@@ -177,13 +177,13 @@ public class GameModeController implements ActionListener {
         this.model.notifyView();
         this.bankOffer.setVisible(false);
         this.model.saveGameData();
-        this.endGame.setVisible(true);
+        this.gameOver.setVisible(true);
         if (normal != null) {
             this.model.deleteObserver(normal);
             this.normal = null;
-        } else if (quickplay != null) {
-            this.model.deleteObserver(quickplay);
-            this.quickplay = null;
+        } else if (quickPlay != null) {
+            this.model.deleteObserver(quickPlay);
+            this.quickPlay = null;
         } else if (tutorial != null) {
             this.model.deleteObserver(tutorial);
             this.tutorial = null;
@@ -199,20 +199,20 @@ public class GameModeController implements ActionListener {
                 this.gameMode.openYourCase();
                 this.normal.setVisible(false);
                 this.model.saveGameData();
-                this.endGame.setVisible(true);
+                this.gameOver.setVisible(true);
                 this.model.deleteObserver(normal);
                 this.normal = null;
             }
-        } else if (quickplay != null) {
-            this.quickplay.setVisible(true);
+        } else if (quickPlay != null) {
+            this.quickPlay.setVisible(true);
             this.model.newRound();
             if (gameMode.getGameData().getRound() == -1) {
                 this.gameMode.openYourCase();
-                this.quickplay.setVisible(false);
+                this.quickPlay.setVisible(false);
                 this.model.saveGameData();
-                this.endGame.setVisible(true);
-                this.model.deleteObserver(quickplay);
-                this.quickplay = null;
+                this.gameOver.setVisible(true);
+                this.model.deleteObserver(quickPlay);
+                this.quickPlay = null;
             }
         } else if (tutorial != null) {
             this.tutorial.setVisible(true);
@@ -221,7 +221,7 @@ public class GameModeController implements ActionListener {
                 this.gameMode.openYourCase();
                 this.tutorial.setVisible(false);
                 this.model.saveGameData();
-                this.endGame.setVisible(true);
+                this.gameOver.setVisible(true);
                 this.model.deleteObserver(tutorial);
                 this.tutorial = null;
             }

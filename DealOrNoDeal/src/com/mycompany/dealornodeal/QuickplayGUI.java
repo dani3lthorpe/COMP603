@@ -14,14 +14,14 @@ import javax.swing.JOptionPane;
  *
  * @author droun
  */
-public class QuickplayGUI extends javax.swing.JFrame implements Observer {
+public class QuickPlayGUI extends javax.swing.JFrame implements Observer {
 
     javax.swing.JLabel[] prizeArray;
 
     /**
      * Creates new form QuickplayGUI
      */
-    public QuickplayGUI() {
+    public QuickPlayGUI() {
         initComponents();
     }
 
@@ -435,20 +435,21 @@ public class QuickplayGUI extends javax.swing.JFrame implements Observer {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(QuickplayGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuickPlayGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(QuickplayGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuickPlayGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(QuickplayGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuickPlayGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(QuickplayGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(QuickPlayGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new QuickplayGUI().setVisible(true);
+                new QuickPlayGUI().setVisible(true);
             }
         });
     }
@@ -503,23 +504,23 @@ public class QuickplayGUI extends javax.swing.JFrame implements Observer {
     }
 
     public void setPrizes(int[] prizes) {
-        this.prizeArray = new javax.swing.JLabel[13];
-        prizeArray[0] = this.prize1;
-        prizeArray[1] = this.prize2;
-        prizeArray[2] = this.prize3;
-        prizeArray[3] = this.prize4;
-        prizeArray[4] = this.prize5;
-        prizeArray[5] = this.prize6;
-        prizeArray[6] = this.prize7;
-        prizeArray[7] = this.prize8;
-        prizeArray[8] = this.prize9;
-        prizeArray[9] = this.prize10;
-        prizeArray[10] = this.prize11;
-        prizeArray[11] = this.prize12;
-        prizeArray[12] = this.prize13;
+        this.prizeArray = new javax.swing.JLabel[26];
+        this.prizeArray[0] = this.prize1;
+        this.prizeArray[1] = this.prize2;
+        this.prizeArray[2] = this.prize3;
+        this.prizeArray[3] = this.prize4;
+        this.prizeArray[4] = this.prize5;
+        this.prizeArray[5] = this.prize6;
+        this.prizeArray[6] = this.prize7;
+        this.prizeArray[7] = this.prize8;
+        this.prizeArray[8] = this.prize9;
+        this.prizeArray[9] = this.prize10;
+        this.prizeArray[10] = this.prize11;
+        this.prizeArray[11] = this.prize12;
+        this.prizeArray[12] = this.prize13;
 
-        for (int i = 0; i < prizes.length && i < prizeArray.length; i++) {
-            prizeArray[i].setText("$" + prizes[i]);
+        for (int i = 0; i < prizes.length && i < this.prizeArray.length; i++) {
+            this.prizeArray[i].setText("$" + prizes[i]);
         }
     }
 

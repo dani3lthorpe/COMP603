@@ -13,7 +13,7 @@ public class DealOrNoDeal {
     //main method creates a game controller and starts the game
     public static void main(String[] args) {
         Model game = new Model();
-        LoginView login = new LoginView();
+        LoginGUI login = new LoginGUI();
         MenuController controller = new MenuController(login, game);
         login.setVisible(true);
     }

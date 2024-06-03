@@ -13,22 +13,22 @@ import java.awt.event.ActionListener;
  */
 class MenuController implements ActionListener {
 
-    private LoginView login;
-    private ModeSelect mode;
+    private LoginGUI login;
+    private MainMenu mode;
     private GameModeSelect gameMode;
     private ScoresGUI scores;
     private Model model;
-    private EndGameGUI endGame;
+    private GameOverGUI gameOver;
 
-    public MenuController(LoginView view, Model model) {
-        this.login = view;
-        this.mode = new ModeSelect();
+    public MenuController(LoginGUI login, Model model) {
+        this.login = login;
+        this.mode = new MainMenu();
         this.gameMode = new GameModeSelect();
         this.scores = new ScoresGUI();
-        this.endGame = new EndGameGUI();
+        this.gameOver = new GameOverGUI();
         this.model = model;
         addActionListeners();
-        this.model.addObserver(endGame);
+        this.model.addObserver(gameOver);
         this.model.getScores().addObserver(scores);
     }
 
@@ -66,12 +66,12 @@ class MenuController implements ActionListener {
                 this.scores.setVisible(true);
                 break;
             case "Yes":
-                this.endGame.setVisible(false);
+                this.gameOver.setVisible(false);
                 this.mode.setVisible(true);
                 this.model.getGameMode().getGameData().setDealAccepted(false);
                 break;
             case "No":
-                this.endGame.exit();
+                this.gameOver.exit();
                 break;
             case "Go Back":
                 if (this.scores.isVisible()) {
@@ -94,7 +94,7 @@ class MenuController implements ActionListener {
         if (command.equals("Normal") || command.equals("Tutorial") || command.equals("QuickPlay") || command.equals("Random Mode")) {
             this.gameMode.setVisible(false);
             this.model.selectGameMode(command);
-            GameModeController gameModeController = new GameModeController(this.model, this.endGame, this.mode);
+            GameController gameModeController = new GameController(this.model, this.gameOver, this.mode);
             gameModeController.selectGameMode(command);
 
         }
@@ -104,7 +104,7 @@ class MenuController implements ActionListener {
         this.login.addActionListener(this);
         this.mode.addActionListener(this);
         this.gameMode.addActionListener(this);
-        this.endGame.addActionListener(this);
+        this.gameOver.addActionListener(this);
         this.scores.addActionListener(this);
     }
 }
