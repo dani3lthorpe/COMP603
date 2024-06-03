@@ -16,7 +16,7 @@ public class Banker {
     private int[] pastOffers;
     private int totalOffers;
 
-    //Banker constructor sets the prizeMultiplier to the roundNum and creates an pastOffers arraylist
+    //Banker constructor sets the prizeMultiplier to the roundNum, creates a pastOffers arraylist and creates a totalOffers variable
     //takes a roundnum as a parameter
     public Banker(int roundNum) {
         this.prizeMultiplier = roundNum;

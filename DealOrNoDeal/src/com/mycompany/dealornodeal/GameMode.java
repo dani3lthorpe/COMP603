@@ -49,8 +49,8 @@ public abstract class GameMode implements Game{
     }
 
    
-    public void removePrize(int caseNum) {
-        this.prizes.removeIf(prize -> prize.equals(cases.get(caseNum).getPrize()));
+    public void removePrize(int index) {
+        this.prizes.removeIf(prize -> prize.equals(cases.get(index).getPrize()));
     }
 
     //displays an offer from a banker for the user to choose to accept or decline

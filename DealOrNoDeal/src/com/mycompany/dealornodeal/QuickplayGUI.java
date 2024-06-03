@@ -554,7 +554,7 @@ public class QuickPlayGUI extends javax.swing.JFrame implements Observer {
     public void update(Observable o, Object arg) {
         GameData gameData = (GameData) arg;
         if (gameData.getRound() != -1) {
-            title.setText(gameData.getCasesToPick() + " Cases To Pick");
+            title.setText(gameData.getNumCasesToPick() + " Cases To Pick");
             if (gameData.getCurrentCase() != null) {
                 if (gameData.getPlayerCase() != gameData.getCurrentCase()) {
                     int caseNum = gameData.getCurrentCase().getNumber();

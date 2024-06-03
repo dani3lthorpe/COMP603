@@ -27,6 +27,7 @@ public class DBManager {
 
     private static Connection conn = null;
 
+    // Constructor for DBManager, gets connection to databse, if the connection is not null (successfully connected) it creates tables. If the connection was null it prints an error message
     public DBManager() {
         conn = getConnection();
         if (conn != null) {
@@ -36,6 +37,7 @@ public class DBManager {
         }
     }
 
+    
     public static Connection getConnection() {
         try {
             if (conn == null) {

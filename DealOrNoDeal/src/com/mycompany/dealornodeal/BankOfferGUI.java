@@ -236,13 +236,16 @@ public class BankOfferGUI extends javax.swing.JFrame implements Observer {
     private javax.swing.JLabel offerAmount;
     private javax.swing.JLabel previousOfferLabel;
     // End of variables declaration//GEN-END:variables
- public void addActionListener(ActionListener listener) {
+    
+    // Adds action listeners to buttons
+    public void addActionListener(ActionListener listener) {
         this.dealButton.addActionListener(listener);
         this.exitButton.addActionListener(listener);
         this.noDealButton.addActionListener(listener);
         this.backButton.addActionListener(listener);
     }
 
+    // Displays a yes or no menu which checks if the user wants to return and returns true if they click yes and false if they click no
     public boolean goBack() {
         if (JOptionPane.showConfirmDialog(this, "Are you sure you want to go back to the main menu (You will lose all your current progress)", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             return true;
@@ -250,6 +253,7 @@ public class BankOfferGUI extends javax.swing.JFrame implements Observer {
         return false;
     }
 
+    // Checks if there are previous offers (if they are null or not) and displays them if there is a valid number
     @Override
     public void update(Observable o, Object arg) {
         GameData gameData = (GameData) arg;
@@ -274,6 +278,7 @@ public class BankOfferGUI extends javax.swing.JFrame implements Observer {
         }
     }
 
+    // Displays a yes or no menu asking if the user wants to quit, if they click yes it closes the game.
     public void exit() {
         if (JOptionPane.showConfirmDialog(this, "Do you want to quit?", "Deal Or No Deal", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             System.exit(0);

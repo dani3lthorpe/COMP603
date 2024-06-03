@@ -371,7 +371,7 @@ public class TutorialGUI extends javax.swing.JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         GameData gameData = (GameData) arg;
-        title.setText(gameData.getCasesToPick() + " Cases To Pick");
+        title.setText(gameData.getNumCasesToPick() + " Cases To Pick");
         if (gameData.getCurrentCase() != null) {
             if (gameData.getPlayerCase() != gameData.getCurrentCase()) {
                 int caseNum = gameData.getCurrentCase().getNumber();

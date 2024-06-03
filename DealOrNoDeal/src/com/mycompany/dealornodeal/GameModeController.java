@@ -98,7 +98,7 @@ public class GameModeController implements ActionListener {
     }
 
     public void casePickedCheck() {
-        if (this.gameMode.getGameData().getCasesToPick() == 0) {
+        if (this.gameMode.getGameData().getNumCasesToPick() == 0) {
             if (normal != null) {
                 this.normal.setVisible(false);
             } else if (quickPlay != null) {

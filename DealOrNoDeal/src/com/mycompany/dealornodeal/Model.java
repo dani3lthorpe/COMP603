@@ -84,7 +84,7 @@ public class Model extends Observable {
     public void openCase(int caseNum) {
         ArrayList<Case> cases = gameMode.getCases();
         if (this.gameMode.getGameData().getPlayerCase() != null) {
-            this.gameMode.getGameData().casePicked(cases.get(caseNum - 1));
+            this.gameMode.getGameData().caseOpened(cases.get(caseNum - 1));
         } else {
             this.gameMode.getGameData().setPlayerCase(cases.get(caseNum - 1));
         }

@@ -28,10 +28,10 @@ public class QuickPlay extends GameMode {
         gameData.increaseRound();
         switch (gameData.getRound()) {
             case 2:
-                gameData.setCasesToPick(4);
+                gameData.setNumCasesToPick(4);
                 break;
             case 3:
-                gameData.setCasesToPick(2);
+                gameData.setNumCasesToPick(2);
                 break;
             default:
                 gameData.setRound(-1);

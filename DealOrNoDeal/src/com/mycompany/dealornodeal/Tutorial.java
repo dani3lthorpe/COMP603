@@ -28,7 +28,7 @@ public class Tutorial extends GameMode {
         gameData.increaseRound();
         switch (gameData.getRound()) {
             case 2:
-                gameData.setCasesToPick(1);
+                gameData.setNumCasesToPick(1);
                 break;
             default:
                 gameData.setRound(-1);

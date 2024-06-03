@@ -221,7 +221,6 @@ public class GameModeTest {
         GameMode instance = null;
         ArrayList expResult = null;
         ArrayList result = instance.getPrizes();
-        assertArrayEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

@@ -26,19 +26,19 @@ public class NormalMode extends GameMode {
         gameData.increaseRound();
         switch (gameData.getRound()) {
             case 2:
-                gameData.setCasesToPick(6);
+                gameData.setNumCasesToPick(6);
                 break;
             case 3:
-                gameData.setCasesToPick(5);
+                gameData.setNumCasesToPick(5);
                 break;
             case 4:
-                gameData.setCasesToPick(4);
+                gameData.setNumCasesToPick(4);
                 break;
             case 5:
-                gameData.setCasesToPick(2);
+                gameData.setNumCasesToPick(2);
                 break;
             case 6:
-                gameData.setCasesToPick(1);
+                gameData.setNumCasesToPick(1);
                 break;  
             default:
                 gameData.setRound(-1);
